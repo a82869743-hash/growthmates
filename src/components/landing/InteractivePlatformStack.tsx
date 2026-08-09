@@ -1,323 +1,393 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Brain, Layers, ShieldCheck, Cpu, ArrowRight, Zap, RefreshCw, Database } from "lucide-react";
+import { Sparkles, ArrowRight, Zap, CheckCircle2 } from "lucide-react";
 
-interface StackLayer {
-  id: number;
-  name: string;
-  badge: string;
-  color: string;
-  borderColor: string;
-  textColor: string;
-  items: string[];
-  description: string;
-}
-
-const STACK_LAYERS: StackLayer[] = [
-  {
-    id: 0,
-    name: "Layer 1: Action & Execution Output",
-    badge: "Autonomous Execution",
-    color: "bg-accent",
-    borderColor: "border-accent",
-    textColor: "text-white",
-    items: ["Autonomous Route Dispatch", "Freight Rate Quoting", "Automated RMA Refund", "Exception Alerts"],
-    description: "Real-time decision execution across your logistics and retail operations without manual delays.",
-  },
-  {
-    id: 1,
-    name: "Layer 2: Specialized Agent Mesh",
-    badge: "Multi-Agent Mesh",
-    color: "bg-accent-dim",
-    borderColor: "border-accent/40",
-    textColor: "text-accent",
-    items: ["Fleet Mgmt Agent", "Route Optimizer", "Freight Tracker", "Demand Forecaster", "Inventory AI"],
-    description: "Domain-tuned AI agents operating collaboratively to solve complex operational challenges.",
-  },
-  {
-    id: 2,
-    name: "Layer 3: Decision Engine & Reasoning Core",
-    badge: "LLM Reasoning Core",
-    color: "bg-bg-surface",
-    borderColor: "border-border-subtle",
-    textColor: "text-fg-default",
-    items: ["Multi-Model Orchestration", "Step-Based Reasoning", "Hybrid Rules Engine", "Audit Trail Log"],
-    description: "Evaluates constraints, SLA requirements, and live signals to make optimal operational decisions.",
-  },
-  {
-    id: 3,
-    name: "Layer 4: MCP Gateway & API Integration",
-    badge: "Model Context Protocol",
-    color: "bg-bg-surface",
-    borderColor: "border-border-subtle",
-    textColor: "text-fg-default",
-    items: ["MCP 1.0 Server", "Open API 3.0 Schema", "Real-Time Webhooks", "GPS & Telematics Feeds"],
-    description: "Standardized tool & data interface connecting LLMs directly to your internal microservices.",
-  },
-  {
-    id: 4,
-    name: "Layer 5: Enterprise Systems & Infrastructure",
-    badge: "Zero Rip-and-Replace",
-    color: "bg-bg-muted",
-    borderColor: "border-border-subtle",
-    textColor: "text-fg-dim",
-    items: ["SAP ERP", "Oracle TMS", "Xero / QuickBooks", "PostgreSQL / Snowflake", "Cloud Agnostic"],
-    description: "Hooks seamlessly into your legacy databases and core infrastructure with zero downtime.",
-  },
-];
-
-interface CalloutHotspot {
+interface HotspotPoint {
   id: string;
   title: string;
-  badge: string;
-  targetLayer: number;
+  subtitle: string;
   description: string;
-  position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  bullets: string[];
+  layerName: string;
+  // Position percentage for hotspot dot relative to central illustration canvas
+  dotPos: { x: number; y: number };
+  // Text alignment & position around diagram
+  layoutPosition: "top-center" | "top-right" | "bottom-left" | "bottom-right";
 }
 
-const CALLOUTS: CalloutHotspot[] = [
+const HOTSPOTS: HotspotPoint[] = [
   {
     id: "relentless-innovation",
-    title: "Autonomous Decision Intelligence",
-    badge: "Real-Time Reasoning",
-    targetLayer: 1,
+    title: "Relentless Innovation",
+    subtitle: "AI-Powered Decision Engine",
     description:
-      "GrowthMates AI adapts to high-velocity operational changes. Agents reason over live signals instead of rigid rules, continuously optimizing fleet routes, freight quotes, and inventory reorders.",
-    position: "top-left",
+      "GrowthMates AI adapts to exponential operational velocity. Enable concurrent agentic experimentations targeted to test new logistics and retail workflows without development blackouts.",
+    bullets: ["Multi-Agent Execution", "Step-Based Reasoning", "Predictive Analytics", "Real-Time RAG Memory"],
+    layerName: "Layer 1: Applications & Agent Mesh",
+    dotPos: { x: 50, y: 16 },
+    layoutPosition: "top-center",
   },
   {
     id: "maximize-investments",
     title: "Maximize Existing Investments",
-    badge: "Zero Rip-and-Replace",
-    targetLayer: 4,
+    subtitle: "Zero Rip-and-Replace Integration",
     description:
-      "Eliminate the need for expensive system overhauls. Our Model Context Protocol (MCP) server hooks directly into your existing SAP, Oracle, Xero, and TMS infrastructure within days.",
-    position: "top-right",
+      "Eliminate costly system overhauls. Our Model Context Protocol (MCP) server hooks directly into your legacy ERP, TMS, OMS, and CRM systems, preserving existing technology investments.",
+    bullets: ["SAP & Oracle Connectors", "Xero & QuickBooks Sync", "Model Context Protocol", "Bi-directional Data Sync"],
+    layerName: "Layer 3: Data & Enterprise Core",
+    dotPos: { x: 74, y: 38 },
+    layoutPosition: "top-right",
   },
   {
-    id: "modular-commerce",
-    title: "Modular Agent Mesh",
-    badge: "Plug & Play Agents",
-    targetLayer: 0,
+    id: "ready-use-commerce",
+    title: "Modular Agent Framework",
+    subtitle: "Plug & Play Capabilities",
     description:
-      "Deploy specialized agents independently or chain them together. From fleet maintenance to RMA fraud detection, each agent operates with complete audit logging and human-in-the-loop control.",
-    position: "bottom-left",
+      "Deploy specialized agents for route optimization, freight tracking, rate quoting, and inventory intelligence seamlessly across your entire supply chain.",
+    bullets: ["Open API 3.0 Schema", "100% Microservices Architecture", "API-First Gateway", "Self-Enabled Tech Stack"],
+    layerName: "Layer 4: API & Microservices",
+    dotPos: { x: 26, y: 70 },
+    layoutPosition: "bottom-left",
   },
   {
     id: "unmatched-unification",
-    title: "Unmatched Unification & Security",
-    badge: "Enterprise SOC2 Ready",
-    targetLayer: 3,
+    title: "Unmatched Unification",
+    subtitle: "Agnostic Enterprise Foundation",
     description:
-      "Bridge fragmented silos across transportation and retail workflows. Built with SAML SSO, encrypted vector memory, and fine-grained role permissions for high-consequence enterprise environments.",
-    position: "bottom-right",
+      "Unify fragmented silos across multi-modal transport and retail networks. Fully hardware, cloud, and OS agnostic with enterprise SOC2 security and SAML 2.0 SSO.",
+    bullets: ["Cloud & OS Agnostic", "SAML 2.0 & SSO Auth", "Immutable Audit Logging", "SOC2 Compliant Runtime"],
+    layerName: "Layer 5: Agnostic Infrastructure",
+    dotPos: { x: 58, y: 84 },
+    layoutPosition: "bottom-right",
   },
 ];
 
 const InteractivePlatformStack = () => {
-  const [activeLayer, setActiveLayer] = useState<number>(1);
-  const [activeCallout, setActiveCallout] = useState<string>("relentless-innovation");
+  const [activeHotspot, setActiveHotspot] = useState<string>("relentless-innovation");
 
-  const currentLayer = STACK_LAYERS[activeLayer];
+  const activePoint = HOTSPOTS.find((h) => h.id === activeHotspot) || HOTSPOTS[0];
 
   return (
-    <section className="bg-bg-base py-20 md:py-32 border-b border-border-subtle overflow-hidden">
-      <div className="container">
-        {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="inline-flex items-center gap-2 rounded-full bg-accent-dim px-3.5 py-1 text-xs font-semibold text-accent mb-3">
-            <Cpu className="h-3.5 w-3.5" /> Interactive Architecture Map
-          </span>
-          <h2 className="text-3xl font-extrabold text-fg-default sm:text-5xl font-display tracking-tight leading-tight">
-            The GrowthMates AI Decision Engine
+    <section className="bg-[#FAF9F6] py-20 md:py-32 border-b border-[#E7E5DE] overflow-hidden text-[#14171F]">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6">
+        
+        {/* Toshiba Style Top Headline & Narrative Block */}
+        <div className="max-w-4xl mb-16">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#2E5EFF] font-display tracking-tight leading-tight">
+            Relentless Innovation
           </h2>
-          <p className="mt-3 text-base text-fg-dim max-w-xl mx-auto">
-            Click any hotspot or callout below to inspect how our 5-tier architecture unifies legacy infrastructure with autonomous AI agents.
+          <p className="mt-6 text-base md:text-lg text-[#5B616E] leading-relaxed max-w-3xl font-body">
+            GrowthMates AI adapts to exponential operational velocity and pivots at the speed of modern enterprise supply chains. With GrowthMates AI, you can enable many concurrent agentic experimentations targeted to test new logistics, transport, and retail use cases. Eliminate the need for development "blackouts," allowing you to innovate continuously and fearlessly and build a future-proof foundation for digital transformation.
           </p>
         </div>
 
-        {/* Main Interactive Showcase Layout */}
-        <div className="relative max-w-6xl mx-auto">
-          {/* Grid Layout: Top Callouts / Center Stack / Bottom Callouts */}
-          <div className="grid gap-8 lg:grid-cols-12 items-center">
+        {/* Central Toshiba-Style Interactive 3D Stack Canvas */}
+        <div className="relative my-12 pt-8 pb-16">
+          
+          {/* Main Layout Grid matching Toshiba composition: Top-Left / Diagram Center / Surrounding Callout Headlines */}
+          <div className="grid lg:grid-cols-12 gap-8 items-center relative z-10">
 
-            {/* Left Column: Top-Left & Bottom-Left Callout Cards (4 cols) */}
-            <div className="lg:col-span-4 space-y-6">
-              {CALLOUTS.filter((c) => c.position.includes("left")).map((callout) => {
-                const isActive = activeCallout === callout.id;
+            {/* Central 3D Cloud Platform Stack Diagram (lg:col-span-8 or centered) */}
+            <div className="lg:col-span-8 lg:col-start-3 relative flex flex-col items-center">
+              
+              {/* Outer Orbiting Ellipses Background */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+                <svg className="w-full h-full max-w-[700px] max-h-[500px]" viewBox="0 0 700 500" fill="none">
+                  <ellipse cx="350" cy="250" rx="320" ry="180" stroke="#2E5EFF" strokeWidth="1.5" strokeDasharray="6 6" className="animate-spin-slow opacity-60" />
+                  <ellipse cx="350" cy="250" rx="280" ry="140" stroke="#FF6A3D" strokeWidth="1" opacity="0.4" />
+                </svg>
+              </div>
 
-                return (
-                  <motion.div
-                    key={callout.id}
-                    onClick={() => {
-                      setActiveCallout(callout.id);
-                      setActiveLayer(callout.targetLayer);
-                    }}
-                    whileHover={{ scale: 1.02 }}
-                    className={`cursor-pointer rounded-lg border p-6 transition-all duration-200 ${
-                      isActive
-                        ? "bg-bg-surface border-accent shadow-raised"
-                        : "bg-bg-surface/60 border-border-subtle hover:border-fg-dimmer/40 shadow-flat"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-3 border-b border-border-subtle pb-2">
-                      <span className="text-[11px] font-mono font-bold uppercase text-accent">
-                        {callout.badge}
-                      </span>
-                      <span
-                        className={`h-3 w-3 rounded-full ${
-                          isActive ? "bg-signal-warm animate-ping" : "bg-border-subtle"
-                        }`}
-                      />
-                    </div>
-                    <h3 className="text-lg font-bold text-fg-default font-display border-b border-accent/20 pb-1 mb-2">
-                      {callout.title}
-                    </h3>
-                    <p className="text-xs text-fg-dim leading-relaxed">
-                      {callout.description}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
+              {/* 3D Stack Illustration Container */}
+              <div className="relative w-full max-w-[580px] h-[460px] flex items-center justify-center">
+                
+                {/* SVG 3D Cylinder / Cloud Stack Graphic */}
+                <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 580 460" fill="none">
+                  <defs>
+                    {/* Gradients for 3D Layers */}
+                    <linearGradient id="layer1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#2E5EFF" stopOpacity="0.95" />
+                      <stop offset="100%" stopColor="#16214F" stopOpacity="0.95" />
+                    </linearGradient>
+                    <linearGradient id="layer2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#4171FF" stopOpacity="0.85" />
+                      <stop offset="100%" stopColor="#2E5EFF" stopOpacity="0.85" />
+                    </linearGradient>
+                    <linearGradient id="layer3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#5F88FF" stopOpacity="0.75" />
+                      <stop offset="100%" stopColor="#3B66F5" stopOpacity="0.75" />
+                    </linearGradient>
+                    <linearGradient id="layer4Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#7C97FF" stopOpacity="0.65" />
+                      <stop offset="100%" stopColor="#4F72FF" stopOpacity="0.65" />
+                    </linearGradient>
+                    <linearGradient id="baseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#14171F" stopOpacity="0.95" />
+                      <stop offset="100%" stopColor="#0B0D12" stopOpacity="0.95" />
+                    </linearGradient>
+                  </defs>
 
-            {/* Center Column: 3D Stack Graphic with Hotspot Dots (4 cols) */}
-            <div className="lg:col-span-4 flex flex-col items-center justify-center relative my-6 lg:my-0">
-              {/* Stack Graphic Box */}
-              <div className="w-full max-w-sm space-y-2.5 relative">
-                {STACK_LAYERS.map((layer) => {
-                  const isSelected = activeLayer === layer.id;
+                  {/* Layer 5: Dark Base Deck - Agnostic Infrastructure */}
+                  <g className="transition-opacity duration-300">
+                    <ellipse cx="290" cy="370" rx="230" ry="55" fill="url(#baseGrad)" stroke="#14171F" strokeWidth="2" />
+                    <path d="M60 370 C60 410 520 410 520 370 L520 395 C520 435 60 435 60 395 Z" fill="url(#baseGrad)" opacity="0.9" />
+                    <ellipse cx="290" cy="395" rx="230" ry="40" fill="#0B0D12" />
+                    <text x="290" y="405" textAnchor="middle" fill="#FFFFFF" fontSize="12" fontFamily="JetBrains Mono" fontWeight="600" opacity="0.9">
+                      Hardware, Cloud &amp; Operating System Agnostic
+                    </text>
+                  </g>
+
+                  {/* Layer 4: Microservices & API Deck */}
+                  <g className="transition-opacity duration-300">
+                    <ellipse cx="290" cy="310" rx="220" ry="50" fill="url(#layer4Grad)" stroke="#2E5EFF" strokeWidth="1.5" />
+                    <path d="M70 310 C70 350 510 350 510 310 L510 330 C510 370 70 370 70 330 Z" fill="url(#layer4Grad)" opacity="0.85" />
+                    {/* Floating Badges inside Layer 4 */}
+                    <rect x="130" y="295" width="90" height="22" rx="4" fill="#FFFFFF" fillOpacity="0.9" />
+                    <text x="175" y="310" textAnchor="middle" fill="#2E5EFF" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">Open API 3.0</text>
+                    
+                    <rect x="235" y="295" width="110" height="22" rx="4" fill="#FFFFFF" fillOpacity="0.9" />
+                    <text x="290" y="310" textAnchor="middle" fill="#2E5EFF" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">MCP 1.0 Server</text>
+                    
+                    <rect x="360" y="295" width="90" height="22" rx="4" fill="#FFFFFF" fillOpacity="0.9" />
+                    <text x="405" y="310" textAnchor="middle" fill="#2E5EFF" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">API First</text>
+                  </g>
+
+                  {/* Layer 3: Data & Enterprise Core */}
+                  <g className="transition-opacity duration-300">
+                    <ellipse cx="290" cy="245" rx="210" ry="48" fill="url(#layer3Grad)" stroke="#2E5EFF" strokeWidth="1.5" />
+                    <path d="M80 245 C80 285 500 285 500 245 L500 265 C500 305 80 305 80 265 Z" fill="url(#layer3Grad)" opacity="0.85" />
+                    {/* Floating Badges */}
+                    <rect x="120" y="232" width="70" height="20" rx="4" fill="#FFFFFF" fillOpacity="0.95" />
+                    <text x="155" y="246" textAnchor="middle" fill="#16214F" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">IoT Feeds</text>
+
+                    <rect x="205" y="232" width="75" height="20" rx="4" fill="#FFFFFF" fillOpacity="0.95" />
+                    <text x="242" y="246" textAnchor="middle" fill="#16214F" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">SAP ERP</text>
+
+                    <rect x="295" y="232" width="70" height="20" rx="4" fill="#FFFFFF" fillOpacity="0.95" />
+                    <text x="330" y="246" textAnchor="middle" fill="#16214F" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">Oracle TMS</text>
+
+                    <rect x="380" y="232" width="75" height="20" rx="4" fill="#FFFFFF" fillOpacity="0.95" />
+                    <text x="417" y="246" textAnchor="middle" fill="#16214F" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">Salesforce</text>
+                  </g>
+
+                  {/* Layer 2: Decision Analytics Deck */}
+                  <g className="transition-opacity duration-300">
+                    <ellipse cx="290" cy="180" rx="200" ry="45" fill="url(#layer2Grad)" stroke="#2E5EFF" strokeWidth="1.5" />
+                    <path d="M90 180 C90 220 490 220 490 180 L490 198 C490 238 90 238 90 198 Z" fill="url(#layer2Grad)" opacity="0.85" />
+                    {/* Badges */}
+                    <rect x="135" y="168" width="95" height="20" rx="4" fill="#FFFFFF" fillOpacity="0.95" />
+                    <text x="182" y="182" textAnchor="middle" fill="#2E5EFF" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">Step Reasoning</text>
+
+                    <rect x="245" y="168" width="95" height="20" rx="4" fill="#FFFFFF" fillOpacity="0.95" />
+                    <text x="292" y="182" textAnchor="middle" fill="#2E5EFF" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">Computer Vision</text>
+
+                    <rect x="350" y="168" width="95" height="20" rx="4" fill="#FFFFFF" fillOpacity="0.95" />
+                    <text x="397" y="182" textAnchor="middle" fill="#2E5EFF" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">Predictive AI</text>
+                  </g>
+
+                  {/* Layer 1: Top Cloud Deck - Applications & AI Agent Mesh */}
+                  <g className="transition-opacity duration-300">
+                    <ellipse cx="290" cy="115" rx="190" ry="42" fill="url(#layer1Grad)" stroke="#FFFFFF" strokeWidth="2" />
+                    {/* Cloud Top Puff */}
+                    <path d="M140 115 C140 70 200 60 230 85 C260 55 330 55 360 85 C390 65 440 85 440 115 Z" fill="#2E5EFF" opacity="0.95" />
+                    
+                    {/* Floating Agent Badges on Top */}
+                    <g transform="translate(160, 85)">
+                      <circle cx="20" cy="15" r="14" fill="#FF6A3D" />
+                      <text x="20" y="19" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="bold">Route</text>
+                    </g>
+                    <g transform="translate(230, 75)">
+                      <circle cx="20" cy="15" r="14" fill="#FF6A3D" />
+                      <text x="20" y="19" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="bold">Rate</text>
+                    </g>
+                    <g transform="translate(300, 75)">
+                      <circle cx="20" cy="15" r="14" fill="#FF6A3D" />
+                      <text x="20" y="19" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="bold">Fleet</text>
+                    </g>
+                    <g transform="translate(370, 85)">
+                      <circle cx="20" cy="15" r="14" fill="#FF6A3D" />
+                      <text x="20" y="19" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="bold">RMA</text>
+                    </g>
+                  </g>
+
+                  {/* Connecting Pointer Lines & Hotspot Dots */}
+                  {HOTSPOTS.map((hotspot) => {
+                    const isSelected = activeHotspot === hotspot.id;
+                    const cx = (hotspot.dotPos.x / 100) * 580;
+                    const cy = (hotspot.dotPos.y / 100) * 460;
+
+                    return (
+                      <g key={hotspot.id} onClick={() => setActiveHotspot(hotspot.id)} className="cursor-pointer">
+                        {/* Hotspot Outer Ring */}
+                        <circle
+                          cx={cx}
+                          cy={cy}
+                          r={isSelected ? 16 : 10}
+                          fill={isSelected ? "#FF6A3D" : "#FF6A3D"}
+                          fillOpacity={isSelected ? 0.35 : 0.2}
+                          className={isSelected ? "animate-ping" : ""}
+                        />
+                        {/* Hotspot Solid Inner Dot */}
+                        <circle
+                          cx={cx}
+                          cy={cy}
+                          r={isSelected ? 8 : 6}
+                          fill="#FF6A3D"
+                          stroke="#FFFFFF"
+                          strokeWidth="2"
+                        />
+                      </g>
+                    );
+                  })}
+                </svg>
+
+                {/* Hotspot Click Overlays (HTML Layer over SVG) */}
+                {HOTSPOTS.map((hotspot) => {
+                  const isSelected = activeHotspot === hotspot.id;
 
                   return (
-                    <motion.div
-                      key={layer.id}
-                      onClick={() => {
-                        setActiveLayer(layer.id);
-                        const matchedCallout = CALLOUTS.find((c) => c.targetLayer === layer.id);
-                        if (matchedCallout) setActiveCallout(matchedCallout.id);
+                    <button
+                      key={hotspot.id}
+                      onClick={() => setActiveHotspot(hotspot.id)}
+                      style={{
+                        left: `${hotspot.dotPos.x}%`,
+                        top: `${hotspot.dotPos.y}%`,
                       }}
-                      whileHover={{ scale: 1.03 }}
-                      className={`relative cursor-pointer rounded-md border p-4 transition-all duration-200 ${
-                        isSelected
-                          ? "bg-accent text-white border-accent shadow-floating z-20 scale-[1.04]"
-                          : `${layer.color} ${layer.borderColor} ${layer.textColor} shadow-flat hover:border-accent/60 z-10`
+                      className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full p-2 transition-transform hover:scale-125 focus:outline-none ${
+                        isSelected ? "z-30 scale-110" : "z-20"
                       }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold font-display uppercase tracking-wide">
-                          {layer.name}
-                        </span>
-                        {isSelected && (
-                          <span className="h-2 w-2 rounded-full bg-signal-warm animate-pulse" />
-                        )}
-                      </div>
-
-                      {/* Item chips inside layer */}
-                      <div className="mt-2.5 flex flex-wrap gap-1">
-                        {layer.items.slice(0, 3).map((item) => (
-                          <span
-                            key={item}
-                            className={`text-[10px] font-mono px-2 py-0.5 rounded ${
-                              isSelected
-                                ? "bg-white/20 text-white font-semibold"
-                                : "bg-bg-base/70 text-fg-dim border border-border-subtle"
-                            }`}
-                          >
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Hotspot Pin Dot */}
-                      <div
-                        className={`absolute -right-3 top-1/2 -translate-y-1/2 flex items-center justify-center h-6 w-6 rounded-full border-2 bg-white shadow-raised transition-transform ${
-                          isSelected ? "border-signal-warm scale-125 z-30" : "border-accent opacity-60"
-                        }`}
-                      >
-                        <span
-                          className={`h-2.5 w-2.5 rounded-full ${
-                            isSelected ? "bg-signal-warm animate-pulse" : "bg-accent"
-                          }`}
-                        />
-                      </div>
-                    </motion.div>
+                      aria-label={hotspot.title}
+                    />
                   );
                 })}
               </div>
             </div>
-
-            {/* Right Column: Top-Right & Bottom-Right Callout Cards (4 cols) */}
-            <div className="lg:col-span-4 space-y-6">
-              {CALLOUTS.filter((c) => c.position.includes("right")).map((callout) => {
-                const isActive = activeCallout === callout.id;
-
-                return (
-                  <motion.div
-                    key={callout.id}
-                    onClick={() => {
-                      setActiveCallout(callout.id);
-                      setActiveLayer(callout.targetLayer);
-                    }}
-                    whileHover={{ scale: 1.02 }}
-                    className={`cursor-pointer rounded-lg border p-6 transition-all duration-200 ${
-                      isActive
-                        ? "bg-bg-surface border-accent shadow-raised"
-                        : "bg-bg-surface/60 border-border-subtle hover:border-fg-dimmer/40 shadow-flat"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-3 border-b border-border-subtle pb-2">
-                      <span className="text-[11px] font-mono font-bold uppercase text-accent">
-                        {callout.badge}
-                      </span>
-                      <span
-                        className={`h-3 w-3 rounded-full ${
-                          isActive ? "bg-signal-warm animate-ping" : "bg-border-subtle"
-                        }`}
-                      />
-                    </div>
-                    <h3 className="text-lg font-bold text-fg-default font-display border-b border-accent/20 pb-1 mb-2">
-                      {callout.title}
-                    </h3>
-                    <p className="text-xs text-fg-dim leading-relaxed">
-                      {callout.description}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
           </div>
 
-          {/* Active Layer Inspector Drawer / Detail Box */}
-          <div className="mt-12 max-w-4xl mx-auto rounded-lg bg-bg-surface border border-accent/30 p-6 shadow-raised">
-            <div className="flex items-center justify-between border-b border-border-subtle pb-3 mb-4">
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-mono font-bold uppercase text-accent">
-                  SELECTED ARCHITECTURE TIER:
-                </span>
-                <span className="text-sm font-extrabold text-fg-default font-display">
-                  {currentLayer.name}
-                </span>
+          {/* Surrounding Toshiba Headline Pointer Callouts Layout (Desktop Overlay) */}
+          <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+            
+            {/* Top-Right Callout Position: Maximize Existing Investments */}
+            <div
+              onClick={() => setActiveHotspot("maximize-investments")}
+              className={`cursor-pointer border-t-2 pt-4 transition-all duration-300 ${
+                activeHotspot === "maximize-investments"
+                  ? "border-[#FF6A3D] text-[#14171F]"
+                  : "border-[#E7E5DE] text-[#5B616E] hover:border-[#2E5EFF]"
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-extrabold text-[#2E5EFF] font-display">
+                  Maximize Existing Investments
+                </h3>
+                <span className="h-2.5 w-2.5 rounded-full bg-[#FF6A3D]" />
               </div>
-              <span className="rounded-full bg-accent-dim px-3 py-0.5 text-xs font-bold text-accent">
-                {currentLayer.badge}
-              </span>
+              <p className="mt-2 text-sm text-[#5B616E] leading-relaxed">
+                Connect GrowthMates MCP server directly to your existing SAP, Oracle, Xero, and TMS infrastructure without replacing legacy code.
+              </p>
             </div>
 
-            <p className="text-xs text-fg-dim mb-4 leading-relaxed">
-              {currentLayer.description}
-            </p>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              {currentLayer.items.map((item) => (
-                <div
-                  key={item}
-                  className="p-2.5 rounded bg-bg-base border border-border-subtle text-xs font-mono font-semibold text-fg-default text-center"
-                >
-                  ✓ {item}
-                </div>
-              ))}
+            {/* Bottom-Left Callout Position: Modular Agent Framework */}
+            <div
+              onClick={() => setActiveHotspot("ready-use-commerce")}
+              className={`cursor-pointer border-t-2 pt-4 transition-all duration-300 ${
+                activeHotspot === "ready-use-commerce"
+                  ? "border-[#FF6A3D] text-[#14171F]"
+                  : "border-[#E7E5DE] text-[#5B616E] hover:border-[#2E5EFF]"
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-extrabold text-[#2E5EFF] font-display">
+                  Modular Agent Framework
+                </h3>
+                <span className="h-2.5 w-2.5 rounded-full bg-[#FF6A3D]" />
+              </div>
+              <p className="mt-2 text-sm text-[#5B616E] leading-relaxed">
+                Deploy specialized agents independently or chain them into coordinated multi-agent workflows across your entire enterprise.
+              </p>
             </div>
+
+            {/* Bottom-Right Callout Position: Unmatched Unification */}
+            <div
+              onClick={() => setActiveHotspot("unmatched-unification")}
+              className={`cursor-pointer border-t-2 pt-4 transition-all duration-300 ${
+                activeHotspot === "unmatched-unification"
+                  ? "border-[#FF6A3D] text-[#14171F]"
+                  : "border-[#E7E5DE] text-[#5B616E] hover:border-[#2E5EFF]"
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-extrabold text-[#2E5EFF] font-display">
+                  Unmatched Unification
+                </h3>
+                <span className="h-2.5 w-2.5 rounded-full bg-[#FF6A3D]" />
+              </div>
+              <p className="mt-2 text-sm text-[#5B616E] leading-relaxed">
+                Hardware, cloud, and OS agnostic foundation with enterprise SAML SSO, encrypted vector memory, and SOC2 compliance.
+              </p>
+            </div>
+
+            {/* Top-Center Callout Position: Relentless Innovation */}
+            <div
+              onClick={() => setActiveHotspot("relentless-innovation")}
+              className={`cursor-pointer border-t-2 pt-4 transition-all duration-300 ${
+                activeHotspot === "relentless-innovation"
+                  ? "border-[#FF6A3D] text-[#14171F]"
+                  : "border-[#E7E5DE] text-[#5B616E] hover:border-[#2E5EFF]"
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-extrabold text-[#2E5EFF] font-display">
+                  Autonomous Decision Engine
+                </h3>
+                <span className="h-2.5 w-2.5 rounded-full bg-[#FF6A3D]" />
+              </div>
+              <p className="mt-2 text-sm text-[#5B616E] leading-relaxed">
+                Step-based AI reasoning over live operational data with real-time auditability and human-in-the-loop controls.
+              </p>
+            </div>
+
           </div>
+
+          {/* Active Hotspot Inspector Card / Detail Panel */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activePoint.id}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.25 }}
+              className="mt-12 rounded-xl bg-[#FFFFFF] border-2 border-[#2E5EFF] p-8 shadow-2xl max-w-4xl mx-auto"
+            >
+              <div className="flex items-center justify-between border-b border-[#E7E5DE] pb-4 mb-4">
+                <div>
+                  <span className="text-xs font-mono font-bold text-[#FF6A3D] uppercase tracking-wider block mb-1">
+                    SELECTED HOTSPOT: {activePoint.layerName}
+                  </span>
+                  <h4 className="text-2xl font-extrabold text-[#14171F] font-display">
+                    {activePoint.title} — <span className="text-[#2E5EFF]">{activePoint.subtitle}</span>
+                  </h4>
+                </div>
+                <div className="hidden sm:flex items-center gap-2 rounded-full bg-[#EEF1FF] px-4 py-1.5 text-xs font-bold text-[#2E5EFF]">
+                  <Sparkles className="h-4 w-4" /> Live Architecture Active
+                </div>
+              </div>
+
+              <p className="text-sm text-[#5B616E] leading-relaxed mb-6">
+                {activePoint.description}
+              </p>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {activePoint.bullets.map((b) => (
+                  <div key={b} className="p-3 rounded-md bg-[#FAF9F6] border border-[#E7E5DE] text-xs font-mono font-semibold text-[#14171F] flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-[#2E5EFF] shrink-0" />
+                    <span>{b}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
         </div>
       </div>
     </section>
