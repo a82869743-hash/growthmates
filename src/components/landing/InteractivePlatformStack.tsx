@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, ArrowRight, Zap, CheckCircle2 } from "lucide-react";
+import { Sparkles, Cpu, CheckCircle2 } from "lucide-react";
 
 interface HotspotPoint {
   id: string;
@@ -11,26 +11,25 @@ interface HotspotPoint {
   layerName: string;
   // Position percentage for hotspot dot relative to central illustration canvas
   dotPos: { x: number; y: number };
-  // Text alignment & position around diagram
   layoutPosition: "top-center" | "top-right" | "bottom-left" | "bottom-right";
 }
 
 const HOTSPOTS: HotspotPoint[] = [
   {
-    id: "relentless-innovation",
-    title: "Relentless Innovation",
-    subtitle: "AI-Powered Decision Engine",
+    id: "autonomous-automation",
+    title: "Autonomous Decision Intelligence",
+    subtitle: "Real-Time Decision Logic",
     description:
-      "GrowthMates AI adapts to exponential operational velocity. Enable concurrent agentic experimentations targeted to test new logistics and retail workflows without development blackouts.",
+      "GrowthMates AI adapts to high-velocity operational changes. Enable concurrent agentic execution targeted to solve complex transport, freight, and retail workflows without development downtime.",
     bullets: ["Multi-Agent Execution", "Step-Based Reasoning", "Predictive Analytics", "Real-Time RAG Memory"],
     layerName: "Layer 1: Applications & Agent Mesh",
     dotPos: { x: 50, y: 16 },
     layoutPosition: "top-center",
   },
   {
-    id: "maximize-investments",
-    title: "Maximize Existing Investments",
-    subtitle: "Zero Rip-and-Replace Integration",
+    id: "seamless-integration",
+    title: "Seamless Enterprise Integration",
+    subtitle: "Zero Rip-and-Replace",
     description:
       "Eliminate costly system overhauls. Our Model Context Protocol (MCP) server hooks directly into your legacy ERP, TMS, OMS, and CRM systems, preserving existing technology investments.",
     bullets: ["SAP & Oracle Connectors", "Xero & QuickBooks Sync", "Model Context Protocol", "Bi-directional Data Sync"],
@@ -39,8 +38,8 @@ const HOTSPOTS: HotspotPoint[] = [
     layoutPosition: "top-right",
   },
   {
-    id: "ready-use-commerce",
-    title: "Modular Agent Framework",
+    id: "modular-agent-mesh",
+    title: "Modular Agent Mesh",
     subtitle: "Plug & Play Capabilities",
     description:
       "Deploy specialized agents for route optimization, freight tracking, rate quoting, and inventory intelligence seamlessly across your entire supply chain.",
@@ -50,9 +49,9 @@ const HOTSPOTS: HotspotPoint[] = [
     layoutPosition: "bottom-left",
   },
   {
-    id: "unmatched-unification",
-    title: "Unmatched Unification",
-    subtitle: "Agnostic Enterprise Foundation",
+    id: "enterprise-security",
+    title: "Enterprise Security & Unification",
+    subtitle: "SOC2 Ready Foundation",
     description:
       "Unify fragmented silos across multi-modal transport and retail networks. Fully hardware, cloud, and OS agnostic with enterprise SOC2 security and SAML 2.0 SSO.",
     bullets: ["Cloud & OS Agnostic", "SAML 2.0 & SSO Auth", "Immutable Audit Logging", "SOC2 Compliant Runtime"],
@@ -63,31 +62,31 @@ const HOTSPOTS: HotspotPoint[] = [
 ];
 
 const InteractivePlatformStack = () => {
-  const [activeHotspot, setActiveHotspot] = useState<string>("relentless-innovation");
+  const [activeHotspot, setActiveHotspot] = useState<string>("autonomous-automation");
 
   const activePoint = HOTSPOTS.find((h) => h.id === activeHotspot) || HOTSPOTS[0];
 
   return (
-    <section className="bg-[#FAF9F6] py-20 md:py-32 border-b border-[#E7E5DE] overflow-hidden text-[#14171F]">
+    <section className="bg-bg-base py-20 md:py-32 border-b border-border-subtle overflow-hidden text-fg-default font-body">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6">
         
-        {/* Toshiba Style Top Headline & Narrative Block */}
+        {/* GrowthMates AI Headline & Narrative Block */}
         <div className="max-w-4xl mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#2E5EFF] font-display tracking-tight leading-tight">
-            Relentless Innovation
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-accent font-display tracking-tight leading-tight">
+            Agentic Decision Intelligence
           </h2>
-          <p className="mt-6 text-base md:text-lg text-[#5B616E] leading-relaxed max-w-3xl font-body">
-            GrowthMates AI adapts to exponential operational velocity and pivots at the speed of modern enterprise supply chains. With GrowthMates AI, you can enable many concurrent agentic experimentations targeted to test new logistics, transport, and retail use cases. Eliminate the need for development "blackouts," allowing you to innovate continuously and fearlessly and build a future-proof foundation for digital transformation.
+          <p className="mt-6 text-base md:text-lg text-fg-dim leading-relaxed max-w-3xl font-body">
+            GrowthMates AI adapts to high-velocity operational changes, empowering transport, freight, and retail enterprises to build custom AI agents. Deploy concurrent agentic execution to automate complex decision-making, optimize route dispatching, and build a future-proof foundation for enterprise growth.
           </p>
         </div>
 
         {/* Central Toshiba-Style Interactive 3D Stack Canvas */}
         <div className="relative my-12 pt-8 pb-16">
           
-          {/* Main Layout Grid matching Toshiba composition: Top-Left / Diagram Center / Surrounding Callout Headlines */}
+          {/* Main Layout Grid */}
           <div className="grid lg:grid-cols-12 gap-8 items-center relative z-10">
 
-            {/* Central 3D Cloud Platform Stack Diagram (lg:col-span-8 or centered) */}
+            {/* Central 3D Cloud Platform Stack Diagram */}
             <div className="lg:col-span-8 lg:col-start-3 relative flex flex-col items-center">
               
               {/* Outer Orbiting Ellipses Background */}
@@ -101,10 +100,9 @@ const InteractivePlatformStack = () => {
               {/* 3D Stack Illustration Container */}
               <div className="relative w-full max-w-[580px] h-[460px] flex items-center justify-center">
                 
-                {/* SVG 3D Cylinder / Cloud Stack Graphic */}
+                {/* SVG 3D Cylinder Stack Graphic */}
                 <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 580 460" fill="none">
                   <defs>
-                    {/* Gradients for 3D Layers */}
                     <linearGradient id="layer1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#2E5EFF" stopOpacity="0.95" />
                       <stop offset="100%" stopColor="#16214F" stopOpacity="0.95" />
@@ -141,7 +139,6 @@ const InteractivePlatformStack = () => {
                   <g className="transition-opacity duration-300">
                     <ellipse cx="290" cy="310" rx="220" ry="50" fill="url(#layer4Grad)" stroke="#2E5EFF" strokeWidth="1.5" />
                     <path d="M70 310 C70 350 510 350 510 310 L510 330 C510 370 70 370 70 330 Z" fill="url(#layer4Grad)" opacity="0.85" />
-                    {/* Floating Badges inside Layer 4 */}
                     <rect x="130" y="295" width="90" height="22" rx="4" fill="#FFFFFF" fillOpacity="0.9" />
                     <text x="175" y="310" textAnchor="middle" fill="#2E5EFF" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">Open API 3.0</text>
                     
@@ -156,7 +153,6 @@ const InteractivePlatformStack = () => {
                   <g className="transition-opacity duration-300">
                     <ellipse cx="290" cy="245" rx="210" ry="48" fill="url(#layer3Grad)" stroke="#2E5EFF" strokeWidth="1.5" />
                     <path d="M80 245 C80 285 500 285 500 245 L500 265 C500 305 80 305 80 265 Z" fill="url(#layer3Grad)" opacity="0.85" />
-                    {/* Floating Badges */}
                     <rect x="120" y="232" width="70" height="20" rx="4" fill="#FFFFFF" fillOpacity="0.95" />
                     <text x="155" y="246" textAnchor="middle" fill="#16214F" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">IoT Feeds</text>
 
@@ -174,7 +170,6 @@ const InteractivePlatformStack = () => {
                   <g className="transition-opacity duration-300">
                     <ellipse cx="290" cy="180" rx="200" ry="45" fill="url(#layer2Grad)" stroke="#2E5EFF" strokeWidth="1.5" />
                     <path d="M90 180 C90 220 490 220 490 180 L490 198 C490 238 90 238 90 198 Z" fill="url(#layer2Grad)" opacity="0.85" />
-                    {/* Badges */}
                     <rect x="135" y="168" width="95" height="20" rx="4" fill="#FFFFFF" fillOpacity="0.95" />
                     <text x="182" y="182" textAnchor="middle" fill="#2E5EFF" fontSize="10" fontFamily="JetBrains Mono" fontWeight="700">Step Reasoning</text>
 
@@ -188,10 +183,8 @@ const InteractivePlatformStack = () => {
                   {/* Layer 1: Top Cloud Deck - Applications & AI Agent Mesh */}
                   <g className="transition-opacity duration-300">
                     <ellipse cx="290" cy="115" rx="190" ry="42" fill="url(#layer1Grad)" stroke="#FFFFFF" strokeWidth="2" />
-                    {/* Cloud Top Puff */}
                     <path d="M140 115 C140 70 200 60 230 85 C260 55 330 55 360 85 C390 65 440 85 440 115 Z" fill="#2E5EFF" opacity="0.95" />
                     
-                    {/* Floating Agent Badges on Top */}
                     <g transform="translate(160, 85)">
                       <circle cx="20" cy="15" r="14" fill="#FF6A3D" />
                       <text x="20" y="19" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="bold">Route</text>
@@ -218,16 +211,14 @@ const InteractivePlatformStack = () => {
 
                     return (
                       <g key={hotspot.id} onClick={() => setActiveHotspot(hotspot.id)} className="cursor-pointer">
-                        {/* Hotspot Outer Ring */}
                         <circle
                           cx={cx}
                           cy={cy}
                           r={isSelected ? 16 : 10}
-                          fill={isSelected ? "#FF6A3D" : "#FF6A3D"}
+                          fill="#FF6A3D"
                           fillOpacity={isSelected ? 0.35 : 0.2}
                           className={isSelected ? "animate-ping" : ""}
                         />
-                        {/* Hotspot Solid Inner Dot */}
                         <circle
                           cx={cx}
                           cy={cy}
@@ -241,7 +232,7 @@ const InteractivePlatformStack = () => {
                   })}
                 </svg>
 
-                {/* Hotspot Click Overlays (HTML Layer over SVG) */}
+                {/* Hotspot Click Overlays */}
                 {HOTSPOTS.map((hotspot) => {
                   const isSelected = activeHotspot === hotspot.id;
 
@@ -264,92 +255,92 @@ const InteractivePlatformStack = () => {
             </div>
           </div>
 
-          {/* Surrounding Toshiba Headline Pointer Callouts Layout (Desktop Overlay) */}
+          {/* Surrounding GrowthMates AI Callout Headlines */}
           <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-2">
             
-            {/* Top-Right Callout Position: Maximize Existing Investments */}
+            {/* Top-Right Callout: Seamless Enterprise Integration */}
             <div
-              onClick={() => setActiveHotspot("maximize-investments")}
+              onClick={() => setActiveHotspot("seamless-integration")}
               className={`cursor-pointer border-t-2 pt-4 transition-all duration-300 ${
-                activeHotspot === "maximize-investments"
-                  ? "border-[#FF6A3D] text-[#14171F]"
-                  : "border-[#E7E5DE] text-[#5B616E] hover:border-[#2E5EFF]"
+                activeHotspot === "seamless-integration"
+                  ? "border-signal-warm text-fg-default"
+                  : "border-border-subtle text-fg-dim hover:border-accent"
               }`}
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-extrabold text-[#2E5EFF] font-display">
-                  Maximize Existing Investments
+                <h3 className="text-2xl font-extrabold text-accent font-display">
+                  Seamless Enterprise Integration
                 </h3>
-                <span className="h-2.5 w-2.5 rounded-full bg-[#FF6A3D]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-signal-warm" />
               </div>
-              <p className="mt-2 text-sm text-[#5B616E] leading-relaxed">
+              <p className="mt-2 text-sm text-fg-dim leading-relaxed">
                 Connect GrowthMates MCP server directly to your existing SAP, Oracle, Xero, and TMS infrastructure without replacing legacy code.
               </p>
             </div>
 
-            {/* Bottom-Left Callout Position: Modular Agent Framework */}
+            {/* Bottom-Left Callout: Modular Agent Mesh */}
             <div
-              onClick={() => setActiveHotspot("ready-use-commerce")}
+              onClick={() => setActiveHotspot("modular-agent-mesh")}
               className={`cursor-pointer border-t-2 pt-4 transition-all duration-300 ${
-                activeHotspot === "ready-use-commerce"
-                  ? "border-[#FF6A3D] text-[#14171F]"
-                  : "border-[#E7E5DE] text-[#5B616E] hover:border-[#2E5EFF]"
+                activeHotspot === "modular-agent-mesh"
+                  ? "border-signal-warm text-fg-default"
+                  : "border-border-subtle text-fg-dim hover:border-accent"
               }`}
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-extrabold text-[#2E5EFF] font-display">
-                  Modular Agent Framework
+                <h3 className="text-2xl font-extrabold text-accent font-display">
+                  Modular Agent Mesh
                 </h3>
-                <span className="h-2.5 w-2.5 rounded-full bg-[#FF6A3D]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-signal-warm" />
               </div>
-              <p className="mt-2 text-sm text-[#5B616E] leading-relaxed">
+              <p className="mt-2 text-sm text-fg-dim leading-relaxed">
                 Deploy specialized agents independently or chain them into coordinated multi-agent workflows across your entire enterprise.
               </p>
             </div>
 
-            {/* Bottom-Right Callout Position: Unmatched Unification */}
+            {/* Bottom-Right Callout: Enterprise Security & Unification */}
             <div
-              onClick={() => setActiveHotspot("unmatched-unification")}
+              onClick={() => setActiveHotspot("enterprise-security")}
               className={`cursor-pointer border-t-2 pt-4 transition-all duration-300 ${
-                activeHotspot === "unmatched-unification"
-                  ? "border-[#FF6A3D] text-[#14171F]"
-                  : "border-[#E7E5DE] text-[#5B616E] hover:border-[#2E5EFF]"
+                activeHotspot === "enterprise-security"
+                  ? "border-signal-warm text-fg-default"
+                  : "border-border-subtle text-fg-dim hover:border-accent"
               }`}
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-extrabold text-[#2E5EFF] font-display">
-                  Unmatched Unification
+                <h3 className="text-2xl font-extrabold text-accent font-display">
+                  Enterprise Security &amp; Unification
                 </h3>
-                <span className="h-2.5 w-2.5 rounded-full bg-[#FF6A3D]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-signal-warm" />
               </div>
-              <p className="mt-2 text-sm text-[#5B616E] leading-relaxed">
+              <p className="mt-2 text-sm text-fg-dim leading-relaxed">
                 Hardware, cloud, and OS agnostic foundation with enterprise SAML SSO, encrypted vector memory, and SOC2 compliance.
               </p>
             </div>
 
-            {/* Top-Center Callout Position: Relentless Innovation */}
+            {/* Top-Center Callout: Autonomous Decision Intelligence */}
             <div
-              onClick={() => setActiveHotspot("relentless-innovation")}
+              onClick={() => setActiveHotspot("autonomous-automation")}
               className={`cursor-pointer border-t-2 pt-4 transition-all duration-300 ${
-                activeHotspot === "relentless-innovation"
-                  ? "border-[#FF6A3D] text-[#14171F]"
-                  : "border-[#E7E5DE] text-[#5B616E] hover:border-[#2E5EFF]"
+                activeHotspot === "autonomous-automation"
+                  ? "border-signal-warm text-fg-default"
+                  : "border-border-subtle text-fg-dim hover:border-accent"
               }`}
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-extrabold text-[#2E5EFF] font-display">
-                  Autonomous Decision Engine
+                <h3 className="text-2xl font-extrabold text-accent font-display">
+                  Autonomous Decision Intelligence
                 </h3>
-                <span className="h-2.5 w-2.5 rounded-full bg-[#FF6A3D]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-signal-warm" />
               </div>
-              <p className="mt-2 text-sm text-[#5B616E] leading-relaxed">
+              <p className="mt-2 text-sm text-fg-dim leading-relaxed">
                 Step-based AI reasoning over live operational data with real-time auditability and human-in-the-loop controls.
               </p>
             </div>
 
           </div>
 
-          {/* Active Hotspot Inspector Card / Detail Panel */}
+          {/* Active Hotspot Inspector Card */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activePoint.id}
@@ -357,30 +348,30 @@ const InteractivePlatformStack = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.25 }}
-              className="mt-12 rounded-xl bg-[#FFFFFF] border-2 border-[#2E5EFF] p-8 shadow-2xl max-w-4xl mx-auto"
+              className="mt-12 rounded-xl bg-bg-surface border-2 border-accent p-8 shadow-floating max-w-4xl mx-auto"
             >
-              <div className="flex items-center justify-between border-b border-[#E7E5DE] pb-4 mb-4">
+              <div className="flex items-center justify-between border-b border-border-subtle pb-4 mb-4">
                 <div>
-                  <span className="text-xs font-mono font-bold text-[#FF6A3D] uppercase tracking-wider block mb-1">
+                  <span className="text-xs font-mono font-bold text-signal-warm uppercase tracking-wider block mb-1">
                     SELECTED HOTSPOT: {activePoint.layerName}
                   </span>
-                  <h4 className="text-2xl font-extrabold text-[#14171F] font-display">
-                    {activePoint.title} — <span className="text-[#2E5EFF]">{activePoint.subtitle}</span>
+                  <h4 className="text-2xl font-extrabold text-fg-default font-display">
+                    {activePoint.title} — <span className="text-accent">{activePoint.subtitle}</span>
                   </h4>
                 </div>
-                <div className="hidden sm:flex items-center gap-2 rounded-full bg-[#EEF1FF] px-4 py-1.5 text-xs font-bold text-[#2E5EFF]">
-                  <Sparkles className="h-4 w-4" /> Live Architecture Active
+                <div className="hidden sm:flex items-center gap-2 rounded-full bg-accent-dim px-4 py-1.5 text-xs font-bold text-accent">
+                  <Sparkles className="h-4 w-4" /> GrowthMates AI Core
                 </div>
               </div>
 
-              <p className="text-sm text-[#5B616E] leading-relaxed mb-6">
+              <p className="text-sm text-fg-dim leading-relaxed mb-6">
                 {activePoint.description}
               </p>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {activePoint.bullets.map((b) => (
-                  <div key={b} className="p-3 rounded-md bg-[#FAF9F6] border border-[#E7E5DE] text-xs font-mono font-semibold text-[#14171F] flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-[#2E5EFF] shrink-0" />
+                  <div key={b} className="p-3 rounded-md bg-bg-base border border-border-subtle text-xs font-mono font-semibold text-fg-default flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-accent shrink-0" />
                     <span>{b}</span>
                   </div>
                 ))}
