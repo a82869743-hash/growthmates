@@ -1,0 +1,19 @@
+project_id = "pmfyqcmoqrgxfplugqid"
+
+[functions.send-contact-notification]
+verify_jwt = false
+
+[functions.get-admin-ideas]
+verify_jwt = true
+
+[functions.use-case-builder]
+verify_jwt = false
+
+[functions.roi-chat]
+verify_jwt = false
+
+[functions.use-case-qa]
+verify_jwt = false
+
+[functions.assessment-quiz]
+verify_jwt = false

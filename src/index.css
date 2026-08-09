@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@500;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-base: #FAF9F6;
+    --bg-surface: #FFFFFF;
+    --bg-muted: #F2F1EC;
+
+    --fg-default: #14171F;
+    --fg-dim: #5B616E;
+    --fg-dimmer: #8B8F99;
+
+    --border-subtle: #E7E5DE;
+
+    --accent: #2E5EFF;
+    --accent-dim: #EEF1FF;
+    --accent-deep: #16214F;
+    --accent-on-dark: #7C97FF;
+
+    --signal-warm: #FF6A3D;
+    --signal-warm-dim: #FFF1EC;
+
+    --success: #1FAA59;
+
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 24px;
+    --radius-full: 999px;
+
+    --shadow-flat: 0 1px 2px rgba(20,23,31,0.04);
+    --shadow-raised: 0 2px 8px rgba(20,23,31,0.06), 0 8px 24px rgba(20,23,31,0.04);
+    --shadow-floating: 0 4px 16px rgba(20,23,31,0.08), 0 16px 40px rgba(20,23,31,0.06);
+
+    /* shadcn map */
+    --background: 40 20% 97%;
+    --foreground: 222 22% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 22% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 22% 10%;
+    --primary: 226 100% 59%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 14% 93%;
+    --secondary-foreground: 222 22% 10%;
+    --muted: 40 14% 93%;
+    --muted-foreground: 221 9% 40%;
+    --accent-shadcn: 226 100% 97%;
+    --accent-foreground: 226 100% 59%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 43 14% 88%;
+    --input: 43 14% 88%;
+    --ring: 226 100% 59%;
+    --radius: 0.875rem;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border-subtle);
+  }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--fg-default);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  code, pre, kbd, samp {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom Utilities */
+.font-display {
+  font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
+}
+.font-body {
+  font-family: 'Inter', sans-serif;
+}
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.shadow-flat {
+  box-shadow: var(--shadow-flat);
+}
+.shadow-raised {
+  box-shadow: var(--shadow-raised);
+}
+.shadow-floating {
+  box-shadow: var(--shadow-floating);
+}
