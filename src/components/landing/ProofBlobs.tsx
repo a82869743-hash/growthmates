@@ -29,7 +29,7 @@ const CLIENT_OUTCOMES: ClientOutcome[] = [
     author: "Marcus Vance",
     role: "VP of Logistics Operations",
     verifiedTag: "SOC2 Audited",
-    borderRadius: "32px 32px 12px 32px",
+    borderRadius: "28px",
     challenge: "High driver idle times, manual dispatch phone calls, and inefficient lane planning across 500+ interstate freight trucks.",
     solution: "Deployed GrowthMates Autonomous Fleet Dispatch & Multi-Stop Route Optimization Agents via SAP ERP gateway.",
     impactMetrics: ["Optimized idle fuel consumption", "Reduced driver turn-around friction", "Zero dispatch errors over 90 days"],
@@ -44,7 +44,7 @@ const CLIENT_OUTCOMES: ClientOutcome[] = [
     author: "Elena Rostova",
     role: "Chief Technology Officer",
     verifiedTag: "Enterprise Verified",
-    borderRadius: "32px 12px 32px 32px",
+    borderRadius: "28px",
     challenge: "Peak holiday season order spikes caused warehouse bottlenecks and fulfillment delays.",
     solution: "Integrated GrowthMates Inventory & Order Routing Agents with Shopify Plus and Xero accounting ledger.",
     impactMetrics: ["Automated order routing", "Accelerated peak season throughput", "Reduced manual warehouse entry"],
@@ -59,14 +59,14 @@ const CLIENT_OUTCOMES: ClientOutcome[] = [
     author: "James Chen",
     role: "Head of E-Commerce",
     verifiedTag: "Live SLA Active",
-    borderRadius: "12px 32px 32px 32px",
+    borderRadius: "28px",
     challenge: "Overwhelmed support team handling high volumes of return requests with slow customer refund turnaround.",
     solution: "Deployed GrowthMates RMA & Refund Resolution Agent integrated directly with Zendesk and Stripe payment engine.",
     impactMetrics: ["Streamlined customer resolution time", "Automated return verification accuracy", "Increased customer CSAT score"],
   },
   {
     id: "linfox",
-    client: "Linfox Logistics Network",
+    client: "Linfox Logistics",
     industry: "Multi-Modal Freight",
     logoColor: "#7C97FF",
     outcomeTitle: "On-Time Freight Dispatch",
@@ -74,7 +74,7 @@ const CLIENT_OUTCOMES: ClientOutcome[] = [
     author: "Sarah Jenkins",
     role: "Director of Supply Chain",
     verifiedTag: "SOC2 Audited",
-    borderRadius: "32px 32px 32px 12px",
+    borderRadius: "28px",
     challenge: "Manual rate quoting and carrier confirmation took up to 6 hours per freight lane, missing high-margin spot rates.",
     solution: "Implemented GrowthMates Freight Rate Engine & Carrier Dispatch Agent connecting Oracle TMS to TruckMate.",
     impactMetrics: ["On-time freight dispatch execution", "Fast spot rate quoting", "Expanded net freight margins"],
@@ -114,80 +114,73 @@ const ProofBlobs = () => {
           </div>
         </div>
 
-        {/* Asymmetric Organic Blob Cards Row */}
+        {/* 4 Perfectly Equalized Cards Grid Row */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto items-stretch">
-          {CLIENT_OUTCOMES.map((item, idx) => {
-            const isOffset = idx % 2 === 1;
-
-            return (
-              <motion.div
-                key={item.client}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                style={{ borderRadius: item.borderRadius }}
-                className={`group relative bg-white border border-[#E7E5DE] p-7 shadow-raised flex flex-col justify-between transition-all duration-300 hover:border-[#2E5EFF] hover:shadow-2xl hover:-translate-y-1.5 ${
-                  isOffset ? "lg:translate-y-4" : ""
-                }`}
-              >
-                <div>
-                  {/* Client Name & Verified Badge */}
-                  <div className="flex items-center justify-between border-b border-[#E7E5DE] pb-4 mb-5">
-                    <div className="flex items-center gap-2">
-                      <div className="h-8 w-8 rounded-xl flex items-center justify-center text-white font-bold text-xs shadow-xs" style={{ backgroundColor: item.logoColor }}>
-                        <Building2 className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <span className="text-sm font-extrabold text-[#14171F] font-display block leading-tight">
-                          {item.client}
-                        </span>
-                        <span className="text-[10px] text-[#8B8F99] font-mono block">{item.industry}</span>
-                      </div>
+          {CLIENT_OUTCOMES.map((item, idx) => (
+            <motion.div
+              key={item.client}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
+              className="group relative bg-white border border-[#E7E5DE] p-6 sm:p-7 rounded-3xl shadow-raised flex flex-col justify-between transition-all duration-300 hover:border-[#2E5EFF] hover:shadow-2xl hover:-translate-y-1.5 h-full"
+            >
+              <div>
+                {/* Client Name & Icon Header */}
+                <div className="flex items-center justify-between border-b border-[#E7E5DE] pb-4 mb-4">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="h-8 w-8 rounded-xl flex items-center justify-center text-white font-bold text-xs shadow-xs shrink-0" style={{ backgroundColor: item.logoColor }}>
+                      <Building2 className="h-4 w-4" />
                     </div>
-                    <Quote className="h-4 w-4 text-[#2E5EFF] opacity-40 group-hover:opacity-100 transition-opacity" />
+                    <div className="min-w-0">
+                      <span className="text-sm font-extrabold text-[#14171F] font-display block leading-snug truncate">
+                        {item.client}
+                      </span>
+                      <span className="text-[10px] text-[#8B8F99] font-mono block truncate">{item.industry}</span>
+                    </div>
                   </div>
-
-                  {/* 5-Star Rating */}
-                  <div className="flex items-center gap-1 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-3.5 w-3.5 fill-[#FF6A3D] text-[#FF6A3D]" />
-                    ))}
-                  </div>
-
-                  {/* Outcome Title Banner */}
-                  <div className="text-lg font-extrabold font-display tracking-tight mb-3" style={{ color: item.logoColor }}>
-                    {item.outcomeTitle}
-                  </div>
-
-                  {/* Testimonial Quote */}
-                  <p className="text-xs text-[#5B616E] leading-relaxed italic font-body">
-                    "{item.quote}"
-                  </p>
+                  <Quote className="h-4 w-4 text-[#2E5EFF] opacity-40 group-hover:opacity-100 transition-opacity shrink-0 ml-1" />
                 </div>
 
-                {/* Author Info & Interactive Case Study Button */}
-                <div className="mt-6 pt-4 border-t border-[#E7E5DE] space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs font-bold text-[#14171F] font-display">{item.author}</p>
-                      <p className="text-[10px] font-mono text-[#8B8F99]">{item.role}</p>
-                    </div>
-                    <span className="text-[9px] font-mono font-bold text-[#1FAA59] bg-[#1FAA59]/10 px-2 py-0.5 rounded-full">
-                      {item.verifiedTag}
-                    </span>
-                  </div>
-
-                  <button
-                    onClick={() => setSelectedCase(item)}
-                    className="w-full rounded-full bg-[#FAF9F6] border border-[#E7E5DE] py-2 text-[11px] font-mono font-bold text-[#2E5EFF] group-hover:bg-[#2E5EFF] group-hover:text-white group-hover:border-[#2E5EFF] transition-all flex items-center justify-center gap-1 shadow-xs"
-                  >
-                    View Case Study <ArrowRight className="h-3 w-3" />
-                  </button>
+                {/* 5-Star Rating */}
+                <div className="flex items-center gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-3.5 w-3.5 fill-[#FF6A3D] text-[#FF6A3D]" />
+                  ))}
                 </div>
-              </motion.div>
-            );
-          })}
+
+                {/* Outcome Title Banner */}
+                <div className="text-base sm:text-lg font-extrabold font-display tracking-tight mb-2.5 min-h-[44px] flex items-center" style={{ color: item.logoColor }}>
+                  {item.outcomeTitle}
+                </div>
+
+                {/* Testimonial Quote */}
+                <p className="text-xs text-[#5B616E] leading-relaxed italic font-body">
+                  "{item.quote}"
+                </p>
+              </div>
+
+              {/* Author Info & Interactive Case Study Button */}
+              <div className="mt-6 pt-4 border-t border-[#E7E5DE] space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-[#14171F] font-display truncate">{item.author}</p>
+                    <p className="text-[10px] font-mono text-[#8B8F99] truncate">{item.role}</p>
+                  </div>
+                  <span className="text-[9px] font-mono font-bold text-[#1FAA59] bg-[#1FAA59]/10 px-2 py-0.5 rounded-full shrink-0">
+                    {item.verifiedTag}
+                  </span>
+                </div>
+
+                <button
+                  onClick={() => setSelectedCase(item)}
+                  className="w-full rounded-full bg-[#FAF9F6] border border-[#E7E5DE] py-2 text-[11px] font-mono font-bold text-[#2E5EFF] group-hover:bg-[#2E5EFF] group-hover:text-white group-hover:border-[#2E5EFF] transition-all flex items-center justify-center gap-1 shadow-xs"
+                >
+                  View Case Study <ArrowRight className="h-3 w-3" />
+                </button>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
       </div>
@@ -212,7 +205,7 @@ const ProofBlobs = () => {
 
               {/* Modal Header */}
               <div className="flex items-center gap-3 border-b border-[#E7E5DE] pb-4">
-                <div className="h-12 w-12 rounded-2xl flex items-center justify-center text-white font-bold text-base shadow-md" style={{ backgroundColor: selectedCase.logoColor }}>
+                <div className="h-12 w-12 rounded-2xl flex items-center justify-center text-white font-bold text-base shadow-md shrink-0" style={{ backgroundColor: selectedCase.logoColor }}>
                   <Building2 className="h-6 w-6" />
                 </div>
                 <div>
