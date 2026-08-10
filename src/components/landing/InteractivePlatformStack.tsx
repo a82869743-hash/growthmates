@@ -391,17 +391,6 @@ export const InteractivePlatformStack = () => {
 
         </div>
 
-        {/* Floating Quick Conversation Button */}
-        <div className="fixed bottom-6 right-6 z-50">
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-3 rounded-full bg-[#16214F] text-white px-6 py-3.5 text-xs font-bold font-display uppercase tracking-wider shadow-2xl hover:bg-[#2E5EFF] transition-all hover:scale-105 border border-white/20"
-          >
-            <span>START A CONVERSATION</span>
-            <Plus className="h-4 w-4 text-[#FF6A3D]" />
-          </a>
-        </div>
-
       </div>
     </section>
   );
