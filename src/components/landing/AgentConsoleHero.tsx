@@ -1,19 +1,76 @@
 import { useState, useEffect } from "react";
-import { ArrowUpRight, ShieldCheck, Cpu, CheckCircle2, BarChart3, Lock, Sparkles, Navigation } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowUpRight, ShieldCheck, Cpu, CheckCircle2, BarChart3, Navigation, Sparkles, Truck, ShoppingBag, Sprout, Building2, Zap } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+interface Sector {
+  id: string;
+  name: string;
+  badge: string;
+  stat: string;
+  statLabel: string;
+  description: string;
+  color: string;
+  icon: any;
+}
+
+const SECTORS: Sector[] = [
+  {
+    id: "logistics",
+    name: "Fleet & Logistics Mesh",
+    badge: "Route AI",
+    stat: "12-Stop",
+    statLabel: "Route Optimization",
+    description: "Autonomous multi-stop dispatch, traffic re-routing, and live freight rate calculation.",
+    color: "#2E5EFF",
+    icon: Truck,
+  },
+  {
+    id: "retail",
+    name: "Retail & E-Commerce OMS",
+    badge: "Refund AI",
+    stat: "< 2 mins",
+    statLabel: "Automated RMA",
+    description: "Instant customer refunding, predictive inventory reordering, and multi-storefront sync.",
+    color: "#FF6A3D",
+    icon: ShoppingBag,
+  },
+  {
+    id: "agtech",
+    name: "Agricultural Telemetry",
+    badge: "Yield AI",
+    stat: "+18%",
+    statLabel: "Crop Yield Boost",
+    description: "Real-time microclimate sensors, harvest dispatching, and cold-chain temperature logs.",
+    color: "#1FAA59",
+    icon: Sprout,
+  },
+  {
+    id: "security",
+    name: "Enterprise SOC2 Gateway",
+    badge: "Security AI",
+    stat: "Zero-Trust",
+    statLabel: "SAML 2.0 & MCP",
+    description: "Model Context Protocol zero-friction gateway with granular role permissions & audit trails.",
+    color: "#7C97FF",
+    icon: ShieldCheck,
+  },
+];
 
 const AGENT_STREAM = [
-  { action: "Optimizing 12 multi-stop routes", badge: "Route AI", time: "1.2s" },
+  { action: "Optimizing 12 multi-stop transport routes", badge: "Route AI", time: "1.2s" },
   { action: "Quoted freight lane MEL → SYD: $2,340", badge: "Rate Engine", time: "Live" },
   { action: "Inventory reorder triggered: 450 units", badge: "Inventory AI", time: "Synced" },
   { action: "Driver HOS compliance audit verified", badge: "Compliance AI", time: "Passed" },
+  { action: "Verified SOC2 SAML 2.0 handshake token", badge: "Security AI", time: "Secure" },
 ];
 
 const AgentConsoleHero = () => {
+  const [activeSector, setActiveSector] = useState<Sector>(SECTORS[0]);
   const [streamIdx, setStreamIdx] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
 
+  // Typewriter effect for live prompt stream
   useEffect(() => {
     let timeout: NodeJS.Timeout;
     const currentFullText = AGENT_STREAM[streamIdx].action;
@@ -22,18 +79,18 @@ const AgentConsoleHero = () => {
       if (displayText.length < currentFullText.length) {
         timeout = setTimeout(() => {
           setDisplayText(currentFullText.slice(0, displayText.length + 1));
-        }, 35);
+        }, 30);
       } else {
         timeout = setTimeout(() => {
           setIsTyping(false);
-        }, 2200);
+        }, 2000);
       }
     } else {
       timeout = setTimeout(() => {
         setDisplayText("");
         setIsTyping(true);
         setStreamIdx((prev) => (prev + 1) % AGENT_STREAM.length);
-      }, 350);
+      }, 300);
     }
 
     return () => clearTimeout(timeout);
@@ -42,11 +99,11 @@ const AgentConsoleHero = () => {
   const activeStream = AGENT_STREAM[streamIdx];
 
   return (
-    <section className="relative bg-[#FAF9F6] py-16 md:py-24 lg:py-32 overflow-hidden border-b border-[#E7E5DE] text-[#14171F]">
+    <section className="relative bg-[#FAF9F6] py-16 md:py-24 lg:py-28 overflow-hidden border-b border-[#E7E5DE] text-[#14171F]">
       <div className="container relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid items-center gap-12 lg:grid-cols-12">
           
-          {/* Left Column (5 cols ~ SDI Presence layout) */}
+          {/* Left Column (GrowthMates Vision Copy & Interactive Sector Controls) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -55,18 +112,72 @@ const AgentConsoleHero = () => {
           >
             <div className="inline-flex items-center gap-2 rounded-full bg-[#EEF1FF] px-4 py-1.5 text-xs font-bold text-[#2E5EFF]">
               <span className="h-2 w-2 rounded-full bg-[#2E5EFF] animate-pulse" />
-              Enterprise Agentic AI Platform
+              THE GROWTHMATES AI VISION
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#14171F] font-display leading-[1.08]">
-              Empowering Your Business with <span className="text-[#2E5EFF]">Modern Agentic AI</span>
+              Empowering Modern Enterprise with <span className="text-[#2E5EFF]">Autonomous Agent Mesh</span>
             </h1>
 
             <p className="text-base sm:text-lg text-[#5B616E] leading-relaxed max-w-2xl font-body">
-              GrowthMates AI helps organizations modernize operational workflows, cut costs by up to 85%, and achieve sustainable growth through proven AI agent strategies across Transportation, Retail, Agriculture, and Education. Transform your tech landscape into a powerful asset for growth.
+              GrowthMates AI deploys specialized decision agents across logistics, retail, agriculture, and enterprise cloud infrastructure. From real-time route optimization to automated refund processing and zero-trust security.
             </p>
 
-            {/* Pill-Shaped SDI Presence Style Glassmorphism CTAs */}
+            {/* Interactive Sector Pills (User can click to inspect each sector) */}
+            <div className="pt-1 flex flex-wrap gap-2">
+              {SECTORS.map((sector) => {
+                const Icon = sector.icon;
+                const isSelected = activeSector.id === sector.id;
+
+                return (
+                  <button
+                    key={sector.id}
+                    onClick={() => setActiveSector(sector)}
+                    className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold transition-all ${
+                      isSelected
+                        ? "bg-[#2E5EFF] text-white shadow-md scale-105"
+                        : "bg-white text-[#5B616E] border border-[#E7E5DE] hover:border-[#2E5EFF]/50"
+                    }`}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                    <span>{sector.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Selected Sector Inspector Panel */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSector.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+                className="rounded-2xl bg-white border border-[#E7E5DE] p-5 shadow-raised flex items-center justify-between gap-4"
+              >
+                <div className="space-y-1 max-w-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#2E5EFF]">
+                      {activeSector.name}
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#5B616E] font-body leading-relaxed">
+                    {activeSector.description}
+                  </p>
+                </div>
+                <div className="text-right shrink-0 border-l border-[#E7E5DE] pl-5">
+                  <p className="text-2xl font-extrabold font-display" style={{ color: activeSector.color }}>
+                    {activeSector.stat}
+                  </p>
+                  <p className="text-[11px] font-mono text-[#5B616E] font-semibold">
+                    {activeSector.statLabel}
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* SDI Style Action Buttons */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <button
                 onClick={() =>
@@ -87,8 +198,8 @@ const AgentConsoleHero = () => {
               </a>
             </div>
 
-            {/* SDI Style Stat Indicators */}
-            <div className="pt-8 flex items-center gap-8 border-t border-[#E7E5DE]">
+            {/* Stat Counters */}
+            <div className="pt-6 flex items-center gap-8 border-t border-[#E7E5DE]">
               <div>
                 <p className="text-3xl font-extrabold text-[#14171F] font-display">85%</p>
                 <p className="text-xs text-[#5B616E] font-semibold">Cost Reduction</p>
@@ -106,7 +217,7 @@ const AgentConsoleHero = () => {
             </div>
           </motion.div>
 
-          {/* Right Column — SDI Presence Inspired 3D Connected Ecosystem Graphic (6 cols) */}
+          {/* Right Column (Custom GrowthMates 3D Connected Ecosystem Graphic) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -114,127 +225,151 @@ const AgentConsoleHero = () => {
             className="relative lg:col-span-6 flex flex-col items-center justify-center"
           >
             {/* 3D Smart Ecosystem Canvas Container */}
-            <div className="relative w-full max-w-[600px] h-[480px] flex items-center justify-center">
+            <div className="relative w-full max-w-[620px] h-[520px] flex items-center justify-center">
               
-              {/* Outer Orbit Base Track (SDI Style) */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-60">
-                <svg className="w-full h-full max-w-[560px] max-h-[460px]" viewBox="0 0 560 460" fill="none">
-                  <ellipse cx="280" cy="360" rx="260" ry="85" stroke="#2E5EFF" strokeWidth="3" strokeDasharray="8 8" className="animate-spin-slow" />
-                  <ellipse cx="280" cy="360" rx="200" ry="60" stroke="#FF6A3D" strokeWidth="1.5" opacity="0.6" />
+              {/* Outer Glowing Orbit Ring */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-70">
+                <svg className="w-full h-full max-w-[580px] max-h-[480px]" viewBox="0 0 580 480" fill="none">
+                  <ellipse cx="290" cy="370" rx="270" ry="90" stroke="#2E5EFF" strokeWidth="2.5" strokeDasharray="10 8" className="animate-spin-slow" />
+                  <ellipse cx="290" cy="370" rx="210" ry="65" stroke="#FF6A3D" strokeWidth="1.5" opacity="0.6" />
                 </svg>
               </div>
 
-              {/* 3D Isometric Buildings & Connected Hubs SVG */}
-              <svg className="w-full h-full drop-shadow-2xl z-10" viewBox="0 0 600 480" fill="none">
+              {/* 3D Isometric Connected Sector Towers SVG */}
+              <svg className="w-full h-full drop-shadow-2xl z-10" viewBox="0 0 600 500" fill="none">
                 <defs>
-                  <linearGradient id="sdiBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <linearGradient id="corePlatformGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FFFFFF" />
+                    <stop offset="100%" stopColor="#EEF1FF" />
+                  </linearGradient>
+                  <linearGradient id="centerCoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#2E5EFF" />
                     <stop offset="100%" stopColor="#16214F" />
                   </linearGradient>
-                  <linearGradient id="sdiWhiteGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#FFFFFF" />
-                    <stop offset="100%" stopColor="#F2F1EC" />
-                  </linearGradient>
-                  <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#4171FF" />
-                    <stop offset="100%" stopColor="#2E5EFF" />
-                  </linearGradient>
                 </defs>
 
-                {/* Ground Base Platform */}
-                <ellipse cx="300" cy="380" rx="240" ry="70" fill="url(#sdiWhiteGrad)" stroke="#2E5EFF" strokeWidth="2" />
-                <ellipse cx="300" cy="380" rx="190" ry="50" fill="#EEF1FF" opacity="0.7" />
+                {/* Main Ground Platform */}
+                <ellipse cx="300" cy="390" rx="250" ry="75" fill="url(#corePlatformGrad)" stroke="#2E5EFF" strokeWidth="2" />
+                <ellipse cx="300" cy="390" rx="200" ry="55" fill="#E7E5DE" opacity="0.5" />
 
-                {/* 3D Tower 1 (Main AI Core Hub - Center High Tower) */}
+                {/* Glowing Laser Conduits connecting Towers to Center Core */}
+                <path d="M 180 260 L 300 230" stroke="#2E5EFF" strokeWidth="3" strokeDasharray="6 6" />
+                <path d="M 420 250 L 300 230" stroke="#FF6A3D" strokeWidth="3" strokeDasharray="6 6" />
+                <path d="M 230 340 L 300 230" stroke="#1FAA59" strokeWidth="3" strokeDasharray="6 6" />
+                <path d="M 370 340 L 300 230" stroke="#7C97FF" strokeWidth="3" strokeDasharray="6 6" />
+
+                {/* 3D Central GrowthMates AI Decision Core Tower */}
                 <g transform="translate(260, 110)">
-                  {/* Left Facet */}
-                  <path d="M40 0 L0 25 L0 210 L40 185 Z" fill="#2E5EFF" />
-                  {/* Right Facet */}
-                  <path d="M40 0 L80 25 L80 210 L40 185 Z" fill="#16214F" />
-                  {/* Top Facet */}
-                  <path d="M40 0 L80 25 L40 50 L0 25 Z" fill="#7C97FF" />
-                  {/* Glass Lines */}
-                  <line x1="20" y1="50" x2="20" y2="190" stroke="#FFFFFF" strokeWidth="1.5" strokeOpacity="0.4" />
-                  <line x1="60" y1="50" x2="60" y2="190" stroke="#FFFFFF" strokeWidth="1.5" strokeOpacity="0.3" />
+                  <path d="M 40 0 L 0 25 L 0 210 L 40 185 Z" fill="#2E5EFF" />
+                  <path d="M 40 0 L 80 25 L 80 210 L 40 185 Z" fill="#16214F" />
+                  <path d="M 40 0 L 80 25 L 40 50 L 0 25 Z" fill="#7C97FF" />
+                  
+                  {/* Glowing Core Sphere */}
+                  <circle cx="40" cy="80" r="16" fill="#FF6A3D" className="animate-pulse" />
+                  <circle cx="40" cy="80" r="24" fill="#FF6A3D" opacity="0.3" />
                 </g>
 
-                {/* 3D Building 2 (Left Transport Terminal) */}
-                <g transform="translate(140, 210)">
-                  <path d="M35 0 L0 20 L0 140 L35 120 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
-                  <path d="M35 0 L70 20 L70 140 L35 120 Z" fill="#EEF1FF" stroke="#2E5EFF" strokeWidth="1" />
-                  <path d="M35 0 L70 20 L35 40 L0 20 Z" fill="#4171FF" />
+                {/* 3D Logistics Sector Tower (Left) */}
+                <g transform="translate(140, 200)">
+                  <path d="M 40 0 L 0 22 L 0 140 L 40 118 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1.5" />
+                  <path d="M 40 0 L 80 22 L 80 140 L 40 118 Z" fill="#EEF1FF" stroke="#2E5EFF" strokeWidth="1.5" />
+                  <path d="M 40 0 L 80 22 L 40 44 L 0 22 Z" fill="#2E5EFF" />
                 </g>
 
-                {/* 3D Building 3 (Right Logistics Hub) */}
-                <g transform="translate(380, 200)">
-                  <path d="M40 0 L0 22 L0 150 L40 128 Z" fill="#2E5EFF" />
-                  <path d="M40 0 L80 22 L80 150 L40 128 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
-                  <path d="M40 0 L80 22 L40 44 L0 22 Z" fill="#7C97FF" />
+                {/* 3D Retail Sector Tower (Right) */}
+                <g transform="translate(380, 190)">
+                  <path d="M 40 0 L 0 22 L 0 150 L 40 128 Z" fill="#FF6A3D" />
+                  <path d="M 40 0 L 80 22 L 80 150 L 40 128 Z" fill="#FFFFFF" stroke="#FF6A3D" strokeWidth="1.5" />
+                  <path d="M 40 0 L 80 22 L 40 44 L 0 22 Z" fill="#16214F" />
                 </g>
 
-                {/* Front Low Buildings */}
-                <g transform="translate(200, 290)">
-                  <path d="M30 0 L0 15 L0 80 L30 65 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
-                  <path d="M30 0 L60 15 L60 80 L30 65 Z" fill="#2E5EFF" />
+                {/* 3D AgTech Tower (Front Left) */}
+                <g transform="translate(190, 290)">
+                  <path d="M 35 0 L 0 18 L 0 85 L 35 67 Z" fill="#FFFFFF" stroke="#1FAA59" strokeWidth="1.5" />
+                  <path d="M 35 0 L 70 18 L 70 85 L 35 67 Z" fill="#1FAA59" />
+                  <path d="M 35 0 L 70 18 L 35 36 L 0 18 Z" fill="#0B5C2B" />
                 </g>
+
+                {/* 3D Enterprise Security Tower (Front Right) */}
                 <g transform="translate(330, 290)">
-                  <path d="M30 0 L0 15 L0 80 L30 65 Z" fill="#2E5EFF" />
-                  <path d="M30 0 L60 15 L60 80 L30 65 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
+                  <path d="M 35 0 L 0 18 L 0 85 L 35 67 Z" fill="#2E5EFF" />
+                  <path d="M 35 0 L 70 18 L 70 85 L 35 67 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1.5" />
+                  <path d="M 35 0 L 70 18 L 35 36 L 0 18 Z" fill="#16214F" />
                 </g>
               </svg>
 
-              {/* Floating SDI Style 3D Badge Nodes (Hovering above buildings) */}
+              {/* Floating Interactive Badge Nodes linked to sectors */}
               
-              {/* Badge 1: Security Shield Node (Top Left) */}
-              <motion.div
+              {/* Badge 1: Logistics Node */}
+              <motion.button
+                onClick={() => setActiveSector(SECTORS[0])}
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-16 left-12 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
+                className={`absolute top-16 left-8 z-20 flex items-center gap-2 rounded-full px-3.5 py-2 shadow-raised border transition-all ${
+                  activeSector.id === "logistics"
+                    ? "bg-[#2E5EFF] text-white border-white scale-110"
+                    : "bg-white text-[#14171F] border-[#2E5EFF]/30 hover:scale-105"
+                }`}
               >
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#2E5EFF] text-white">
-                  <ShieldCheck className="h-4 w-4" />
+                  <Truck className="h-4 w-4" />
                 </div>
-                <span className="text-xs font-bold text-[#14171F]">SOC2 Security</span>
-              </motion.div>
+                <span className="text-xs font-bold">Fleet Dispatch</span>
+              </motion.button>
 
-              {/* Badge 2: Route AI Node (Top Right) */}
-              <motion.div
+              {/* Badge 2: Retail Node */}
+              <motion.button
+                onClick={() => setActiveSector(SECTORS[1])}
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-12 right-10 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
+                className={`absolute top-14 right-8 z-20 flex items-center gap-2 rounded-full px-3.5 py-2 shadow-raised border transition-all ${
+                  activeSector.id === "retail"
+                    ? "bg-[#FF6A3D] text-white border-white scale-110"
+                    : "bg-white text-[#14171F] border-[#FF6A3D]/30 hover:scale-105"
+                }`}
               >
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FF6A3D] text-white">
-                  <Navigation className="h-4 w-4" />
+                  <ShoppingBag className="h-4 w-4" />
                 </div>
-                <span className="text-xs font-bold text-[#14171F]">Route Optimization</span>
-              </motion.div>
+                <span className="text-xs font-bold">Retail OMS</span>
+              </motion.button>
 
-              {/* Badge 3: Real-Time Analytics Node (Middle Left) */}
-              <motion.div
+              {/* Badge 3: AgTech Node */}
+              <motion.button
+                onClick={() => setActiveSector(SECTORS[2])}
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-44 left-6 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
-              >
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#2E5EFF] text-white">
-                  <BarChart3 className="h-4 w-4" />
-                </div>
-                <span className="text-xs font-bold text-[#14171F]">Live Analytics</span>
-              </motion.div>
-
-              {/* Badge 4: Verified Check Node (Middle Right) */}
-              <motion.div
-                animate={{ y: [0, 6, 0] }}
-                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-48 right-6 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
+                className={`absolute top-44 left-4 z-20 flex items-center gap-2 rounded-full px-3.5 py-2 shadow-raised border transition-all ${
+                  activeSector.id === "agtech"
+                    ? "bg-[#1FAA59] text-white border-white scale-110"
+                    : "bg-white text-[#14171F] border-[#1FAA59]/30 hover:scale-105"
+                }`}
               >
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1FAA59] text-white">
-                  <CheckCircle2 className="h-4 w-4" />
+                  <Sprout className="h-4 w-4" />
                 </div>
-                <span className="text-xs font-bold text-[#14171F]">Zero Downtime</span>
-              </motion.div>
+                <span className="text-xs font-bold">Crop Telemetry</span>
+              </motion.button>
 
-              {/* Embedded Live Agent Prompt Pill Overlay (Bottom Center) */}
-              <div className="absolute bottom-4 z-30 w-full max-w-sm rounded-xl bg-white/95 backdrop-blur-md border border-[#2E5EFF]/40 p-4 shadow-floating">
+              {/* Badge 4: Security Node */}
+              <motion.button
+                onClick={() => setActiveSector(SECTORS[3])}
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+                className={`absolute top-48 right-4 z-20 flex items-center gap-2 rounded-full px-3.5 py-2 shadow-raised border transition-all ${
+                  activeSector.id === "security"
+                    ? "bg-[#7C97FF] text-white border-white scale-110"
+                    : "bg-white text-[#14171F] border-[#7C97FF]/30 hover:scale-105"
+                }`}
+              >
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#7C97FF] text-white">
+                  <ShieldCheck className="h-4 w-4" />
+                </div>
+                <span className="text-xs font-bold">SOC2 Security</span>
+              </motion.button>
+
+              {/* Embedded Live Agent Prompt Stream Card (Bottom Center) */}
+              <div className="absolute bottom-2 z-30 w-full max-w-sm rounded-xl bg-white/95 backdrop-blur-md border border-[#2E5EFF]/40 p-4 shadow-floating">
                 <div className="flex items-center justify-between text-[11px] font-mono text-[#5B616E] mb-1">
                   <span className="text-[#2E5EFF] font-bold">[{activeStream.badge}]</span>
                   <span className="text-[#FF6A3D] font-bold">● {activeStream.time}</span>
