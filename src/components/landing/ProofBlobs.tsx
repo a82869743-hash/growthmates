@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Quote, ShieldCheck, CheckCircle2, Award } from "lucide-react";
+import { ArrowRight, ArrowLeft, Award } from "lucide-react";
 import ScrollReveal from "@/components/landing/ScrollReveal";
 
 interface ExecutiveTestimonial {
@@ -92,7 +92,7 @@ const ProofBlobs = () => {
               <Award className="h-3.5 w-3.5 text-[#FF6A3D]" /> VERIFIED EXECUTIVE PROOF
             </span>
             <h2 className="text-4xl font-extrabold text-[#14171F] sm:text-5xl font-display tracking-tight">
-              Trusted by Industry Leaders
+              Trusted by Industry <span className="text-[#2E5EFF]">Leaders</span>
             </h2>
             <p className="text-base sm:text-lg text-[#5B616E] max-w-xl mx-auto font-body">
               Here's how enterprise transportation and retail leaders achieve measurable impact with GrowthMates AI.
@@ -188,19 +188,19 @@ const ProofBlobs = () => {
               </div>
             </div>
 
-            {/* Right Column: Replit Style Curved Wave Controls (3 cols) */}
+            {/* Right Column: Refined Enterprise Theme Controls (3 cols) */}
             <div className="lg:col-span-3 flex flex-col justify-between gap-4">
               
               {/* Top Control Box: Next Testimonial */}
               <button
                 onClick={nextTestimonial}
-                className="group flex-1 rounded-3xl bg-[#FF6A3D] text-white p-6 shadow-xl flex flex-col justify-between hover:bg-[#E5592E] transition-all hover:scale-[1.02] text-left"
+                className="group flex-1 rounded-3xl bg-[#16214F] text-white p-6 shadow-xl border border-[#2E5EFF]/30 flex flex-col justify-between hover:bg-[#1C2C6B] transition-all hover:scale-[1.02] text-left"
               >
                 <div className="flex items-center justify-between w-full">
                   <span className="text-xs font-mono font-bold uppercase tracking-wider text-white/90">
                     NEXT TESTIMONIAL
                   </span>
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="h-5 w-5 text-[#FF6A3D] group-hover:translate-x-1 transition-transform" />
                 </div>
 
                 <div className="flex items-center gap-3 pt-4">
@@ -219,10 +219,10 @@ const ProofBlobs = () => {
               {/* Bottom Control Box: Previous Testimonial */}
               <button
                 onClick={prevTestimonial}
-                className="group flex-1 rounded-3xl bg-[#FF6A3D]/90 text-white p-6 shadow-xl flex flex-col justify-between hover:bg-[#FF6A3D] transition-all hover:scale-[1.02] text-left"
+                className="group flex-1 rounded-3xl bg-[#16214F]/90 text-white p-6 shadow-xl border border-[#2E5EFF]/20 flex flex-col justify-between hover:bg-[#16214F] transition-all hover:scale-[1.02] text-left"
               >
                 <div className="flex items-center gap-2">
-                  <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-transform" />
+                  <ArrowLeft className="h-5 w-5 text-[#7C97FF] group-hover:-translate-x-1 transition-transform" />
                   <span className="text-xs font-mono font-bold uppercase tracking-wider text-white/90">
                     PREVIOUS TESTIMONIAL
                   </span>

@@ -97,8 +97,8 @@ export const InteractivePlatformStack = () => {
           <span className="inline-flex items-center gap-2 rounded-full bg-accent-dim px-3.5 py-1 text-xs font-semibold text-accent mb-3">
             <Cpu className="h-3.5 w-3.5" /> Interactive Floating Architecture Stack
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-accent font-display tracking-tight leading-tight">
-            Click to Expand Platform Layers
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#14171F] font-display tracking-tight leading-tight">
+            Click to Expand <span className="text-[#2E5EFF]">Platform Layers</span>
           </h2>
           <p className="mt-4 text-base md:text-lg text-fg-dim leading-relaxed font-body">
             Click any floating layer on the 3D cloud cylinder stack or select a feature module below to explore how GrowthMates AI connects to your existing infrastructure.
@@ -339,7 +339,7 @@ export const InteractivePlatformStack = () => {
               <span className="text-xs font-mono font-bold text-signal-warm uppercase tracking-wider block mb-1">
                 {activeLayer.layerName}
               </span>
-              <h3 className="text-3xl md:text-4xl font-extrabold text-accent font-display tracking-tight">
+              <h3 className="text-3xl md:text-4xl font-extrabold text-[#14171F] font-display tracking-tight">
                 {activeLayer.title}
               </h3>
               <p className="text-sm font-semibold text-fg-dim font-display mt-1">

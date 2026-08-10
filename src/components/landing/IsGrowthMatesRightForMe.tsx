@@ -104,8 +104,8 @@ export const IsGrowthMatesRightForMe = () => {
               <span className="text-xs font-mono font-bold text-[#FF6A3D] uppercase tracking-wider block">
                 PLATFORM FIT &amp; ADAPTABILITY
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2E5EFF] font-display tracking-tight leading-tight">
-                Is GrowthMates AI Right for Me?
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#14171F] font-display tracking-tight leading-tight">
+                Is GrowthMates AI <span className="text-[#2E5EFF]">Right for Me?</span>
               </h2>
               <p className="text-base sm:text-lg text-[#5B616E] font-body leading-relaxed">
                 Align your Autonomous Supply Chain &amp; Operational Platform to your business strategy, not the other way around. With GrowthMates AI you can:

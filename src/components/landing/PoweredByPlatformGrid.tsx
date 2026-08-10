@@ -12,7 +12,7 @@ export const PoweredByPlatformGrid = () => {
             <Sparkles className="h-3.5 w-3.5" /> PLATFORM ARCHITECTURE
           </div>
           <h2 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-[#14171F]">
-            Powered by the GrowthMates AI platform
+            Powered by the <span className="text-[#2E5EFF]">GrowthMates AI platform</span>
           </h2>
           <p className="text-base sm:text-lg text-[#5B616E] font-body">
             Everything enterprise leaders need to build, deploy, and govern autonomous AI agents.
