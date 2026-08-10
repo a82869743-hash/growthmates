@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
-import { motion } from "framer-motion";
-import { BarChart3, Bot, CheckCircle2, User } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { BarChart3, Bot, CheckCircle2, User, Sparkles, Truck, DollarSign, Calculator, ArrowRight, ShieldCheck } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import ROIResultsDashboard from "@/components/roi/ROIResultsDashboard";
@@ -15,11 +15,11 @@ import type {
 } from "@/components/roi/types";
 
 const STAGES = [
-  { id: 0, label: "1. Business Profile" },
-  { id: 1, label: "2. Operations" },
-  { id: 2, label: "3. Pain Points" },
-  { id: 3, label: "4. Readiness" },
-  { id: 4, label: "5. ROI Results" },
+  { id: 0, label: "1. Fleet & Load Volume" },
+  { id: 1, label: "2. Operations & Hours" },
+  { id: 2, label: "3. Bottlenecks & Disruption" },
+  { id: 3, label: "4. Readiness & Systems" },
+  { id: 4, label: "5. Real-Time ROI Metrics" },
 ];
 
 const ROICalculator = () => {
@@ -41,7 +41,7 @@ const ROICalculator = () => {
   const [painPoints, setPainPoints] = useState<PainPoint[]>(["highAdminWorkload", "delayedInvoicing"]);
   const [automation, setAutomation] = useState<AutomationReadiness>({
     currentSystems: ["excel"],
-    willingnessPercent: 70,
+    willingnessPercent: 80,
   });
 
   const handleBusinessChange = useCallback(
@@ -70,28 +70,30 @@ const ROICalculator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-bg-base text-fg-default font-body">
+    <div className="min-h-screen bg-[#FAF9F6] text-[#14171F] font-body">
       <Navbar />
 
-      <section className="container py-16 md:py-24">
-        {/* Header */}
-        <div className="mx-auto max-w-3xl text-center mb-12">
-          <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-md bg-signal-warm-dim text-signal-warm">
-            <BarChart3 className="h-5 w-5" />
+      <section className="container max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20">
+        
+        {/* Sleek Hero Header */}
+        <div className="mx-auto max-w-3xl text-center mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-wider text-[#2E5EFF]">
+            <Calculator className="h-3.5 w-3.5" /> INTERACTIVE ADVISOR THREAD
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display">
-            Interactive ROI Calculator Thread
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display text-[#14171F]">
+            AI Automation <span className="text-[#2E5EFF]">ROI Calculator</span>
           </h1>
-          <p className="mt-3 text-base text-fg-dim max-w-xl mx-auto">
-            Answer 4 quick operational questions below to generate your tailored AI ROI analysis in real time.
+          <p className="text-base text-[#5B616E] max-w-lg mx-auto font-body">
+            Answer 4 quick operational questions below to generate your tailored AI ROI analysis and cost reduction breakdown.
           </p>
         </div>
 
-        {/* Layout with Slim Sticky Side Progress Rail */}
-        <div className="mx-auto max-w-5xl grid gap-8 lg:grid-cols-12 items-start">
+        {/* Layout Grid with Sticky Side Rail */}
+        <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-12 items-start">
+          
           {/* Side Progress Rail (3 cols) */}
-          <div className="hidden lg:block lg:col-span-3 sticky top-28 rounded-md bg-bg-surface border border-border-subtle p-5 shadow-flat space-y-4">
-            <span className="text-[10px] font-mono font-semibold text-fg-dimmer uppercase tracking-wider block border-b border-border-subtle pb-2">
+          <div className="hidden lg:block lg:col-span-3 sticky top-28 rounded-2xl bg-white border border-[#E7E5DE] p-5 shadow-raised space-y-4">
+            <span className="text-xs font-mono font-bold text-[#5B616E] uppercase tracking-wider block border-b border-[#E7E5DE] pb-2">
               CONVERSATION STAGES
             </span>
             <div className="space-y-2">
@@ -103,68 +105,99 @@ const ROICalculator = () => {
                   <button
                     key={s.id}
                     onClick={() => setActiveStage(s.id)}
-                    className={`w-full text-left text-xs p-2.5 rounded-md flex items-center justify-between transition-all ${
+                    className={`w-full text-left text-xs p-3 rounded-xl flex items-center justify-between transition-all font-mono font-bold ${
                       isActive
-                        ? "bg-accent text-white font-semibold shadow-flat"
+                        ? "bg-[#2E5EFF] text-white shadow-sm"
                         : isDone
-                        ? "bg-accent-dim text-accent font-medium"
-                        : "text-fg-dim hover:text-fg-default"
+                        ? "bg-[#EEF1FF] text-[#2E5EFF]"
+                        : "bg-[#FAF9F6] text-[#5B616E] hover:text-[#14171F]"
                     }`}
                   >
                     <span>{s.label}</span>
-                    {isDone && <CheckCircle2 className="h-3.5 w-3.5" />}
+                    {isDone && <CheckCircle2 className="h-4 w-4 text-[#1FAA59]" />}
                   </button>
                 );
               })}
             </div>
+
+            {/* Quick Live Savings Counter Badge */}
+            <div className="mt-6 pt-4 border-t border-[#E7E5DE] text-center space-y-1">
+              <span className="text-[10px] font-mono text-[#8B8F99] uppercase">ESTIMATED ANNUAL SAVINGS</span>
+              <div className="text-xl font-extrabold text-[#1FAA59] font-display">
+                ${results.annualSavings.toLocaleString()}
+              </div>
+            </div>
           </div>
 
-          {/* Chat Conversational Stream Column (9 cols) */}
-          <div className="lg:col-span-9 space-y-8">
+          {/* Conversational Interactive Chat Column (9 cols) */}
+          <div className="lg:col-span-9 space-y-6">
+            
             {/* Stage 0: Business Profile */}
-            <div className="rounded-md bg-bg-surface border border-border-subtle p-6 shadow-raised space-y-4">
-              {/* System Prompt Bubble */}
+            <div className="rounded-3xl bg-white border border-[#E7E5DE] p-6 sm:p-8 shadow-raised space-y-6">
+              
+              {/* System AI Advisor Message */}
               <div className="flex gap-3 items-start">
-                <div className="h-8 w-8 rounded-full bg-signal-warm-dim text-signal-warm flex items-center justify-center shrink-0">
-                  <Bot className="h-4 w-4" />
+                <div className="h-10 w-10 rounded-2xl bg-[#16214F] text-white flex items-center justify-center shrink-0 shadow-md">
+                  <Bot className="h-5 w-5" />
                 </div>
-                <div className="rounded-md bg-signal-warm-dim border border-signal-warm/20 p-4 text-xs text-fg-default leading-relaxed max-w-xl">
-                  <p className="font-semibold text-signal-warm mb-1">GROWTHMATES AI ADVISOR</p>
-                  Let's start with your fleet profile. What is your current fleet size and load volume?
+                <div className="rounded-2xl bg-[#EEF1FF] border border-[#2E5EFF]/20 p-4 sm:p-5 text-sm text-[#14171F] leading-relaxed max-w-xl shadow-xs">
+                  <p className="font-bold text-[#2E5EFF] text-xs font-mono mb-1">GROWTHMATES AI ADVISOR</p>
+                  Welcome! Let's calculate your operational savings. First, tell us about your current fleet size and load volume.
                 </div>
               </div>
 
-              {/* Interactive User Input Bubble */}
+              {/* Interactive Inputs */}
               <div className="flex gap-3 items-start justify-end">
-                <div className="rounded-md bg-accent-dim border border-accent/20 p-5 text-xs text-fg-default space-y-4 max-w-xl w-full">
-                  <div className="flex items-center gap-2 font-semibold text-accent border-b border-accent/20 pb-2">
-                    <User className="h-4 w-4" /> Business &amp; Fleet Inputs
+                <div className="rounded-2xl bg-[#FAF9F6] border border-[#E7E5DE] p-5 sm:p-6 text-sm text-[#14171F] space-y-5 max-w-xl w-full shadow-xs">
+                  <div className="flex items-center justify-between border-b border-[#E7E5DE] pb-3">
+                    <div className="flex items-center gap-2 font-bold text-[#14171F] font-display">
+                      <Truck className="h-4 w-4 text-[#2E5EFF]" /> Fleet &amp; Load Inputs
+                    </div>
+                    {/* Quick Preset Buttons */}
+                    <div className="flex gap-1.5">
+                      <button
+                        onClick={() => {
+                          setBusiness((b) => ({ ...b, fleetSize: 15, monthlyOrders: 400 }));
+                        }}
+                        className="rounded-full bg-white border border-[#E7E5DE] px-2.5 py-0.5 text-[11px] font-mono text-[#5B616E] hover:border-[#2E5EFF]"
+                      >
+                        15 Trucks
+                      </button>
+                      <button
+                        onClick={() => {
+                          setBusiness((b) => ({ ...b, fleetSize: 50, monthlyOrders: 1800 }));
+                        }}
+                        className="rounded-full bg-white border border-[#E7E5DE] px-2.5 py-0.5 text-[11px] font-mono text-[#5B616E] hover:border-[#2E5EFF]"
+                      >
+                        50 Trucks
+                      </button>
+                    </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[11px] font-semibold text-fg-dim mb-1">
-                        Fleet Size (Trucks)
+                      <label className="block text-xs font-bold text-[#5B616E] font-mono mb-1.5">
+                        Fleet Size (Active Vehicles)
                       </label>
                       <input
                         type="number"
                         min={5}
                         value={business.fleetSize}
                         onChange={(e) => handleBusinessChange("fleetSize", parseInt(e.target.value) || 0)}
-                        className="w-full rounded-md border border-border-subtle bg-bg-surface px-3 py-2 text-xs text-fg-default focus:border-accent"
+                        className="w-full rounded-xl border border-[#E7E5DE] bg-white px-3.5 py-2.5 text-sm font-semibold text-[#14171F] focus:border-[#2E5EFF] focus:outline-none shadow-xs"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-semibold text-fg-dim mb-1">
-                        Monthly Orders / Loads
+                      <label className="block text-xs font-bold text-[#5B616E] font-mono mb-1.5">
+                        Monthly Orders / Freight Loads
                       </label>
                       <input
                         type="number"
                         min={10}
                         value={business.monthlyOrders}
                         onChange={(e) => handleBusinessChange("monthlyOrders", parseInt(e.target.value) || 0)}
-                        className="w-full rounded-md border border-border-subtle bg-bg-surface px-3 py-2 text-xs text-fg-default focus:border-accent"
+                        className="w-full rounded-xl border border-[#E7E5DE] bg-white px-3.5 py-2.5 text-sm font-semibold text-[#14171F] focus:border-[#2E5EFF] focus:outline-none shadow-xs"
                       />
                     </div>
                   </div>
@@ -172,9 +205,9 @@ const ROICalculator = () => {
                   <div className="flex justify-end pt-2">
                     <button
                       onClick={() => setActiveStage(1)}
-                      className="rounded-full bg-accent px-4 py-2 text-xs font-semibold text-white hover:opacity-90"
+                      className="rounded-full bg-[#2E5EFF] px-6 py-2.5 text-xs font-bold text-white hover:bg-[#1B3BB3] transition-all shadow-md flex items-center gap-1.5"
                     >
-                      Confirm Fleet Details &rarr;
+                      Confirm Fleet Details <ArrowRight className="h-3.5 w-3.5" />
                     </button>
                   </div>
                 </div>
@@ -186,27 +219,27 @@ const ROICalculator = () => {
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="rounded-md bg-bg-surface border border-border-subtle p-6 shadow-raised space-y-4"
+                className="rounded-3xl bg-white border border-[#E7E5DE] p-6 sm:p-8 shadow-raised space-y-6"
               >
                 <div className="flex gap-3 items-start">
-                  <div className="h-8 w-8 rounded-full bg-signal-warm-dim text-signal-warm flex items-center justify-center shrink-0">
-                    <Bot className="h-4 w-4" />
+                  <div className="h-10 w-10 rounded-2xl bg-[#16214F] text-white flex items-center justify-center shrink-0 shadow-md">
+                    <Bot className="h-5 w-5" />
                   </div>
-                  <div className="rounded-md bg-signal-warm-dim border border-signal-warm/20 p-4 text-xs text-fg-default leading-relaxed max-w-xl">
-                    <p className="font-semibold text-signal-warm mb-1">GROWTHMATES AI ADVISOR</p>
-                    Great! Now tell us about your admin team's weekly manual hours spent on tasks like order entry, tracking, and invoicing.
+                  <div className="rounded-2xl bg-[#EEF1FF] border border-[#2E5EFF]/20 p-4 sm:p-5 text-sm text-[#14171F] leading-relaxed max-w-xl shadow-xs">
+                    <p className="font-bold text-[#2E5EFF] text-xs font-mono mb-1">GROWTHMATES AI ADVISOR</p>
+                    Great! Next, tell us about your admin team's weekly manual hours spent on tasks like order entry, tracking, and invoicing.
                   </div>
                 </div>
 
                 <div className="flex gap-3 items-start justify-end">
-                  <div className="rounded-md bg-accent-dim border border-accent/20 p-5 text-xs text-fg-default space-y-4 max-w-xl w-full">
-                    <div className="flex items-center gap-2 font-semibold text-accent border-b border-accent/20 pb-2">
-                      <User className="h-4 w-4" /> Weekly Admin Hours
+                  <div className="rounded-2xl bg-[#FAF9F6] border border-[#E7E5DE] p-5 sm:p-6 text-sm text-[#14171F] space-y-5 max-w-xl w-full shadow-xs">
+                    <div className="flex items-center gap-2 font-bold text-[#14171F] font-display border-b border-[#E7E5DE] pb-3">
+                      <User className="h-4 w-4 text-[#2E5EFF]" /> Weekly Manual Hours
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[11px] font-semibold text-fg-dim mb-1">Order Entry Hours/wk</label>
+                        <label className="block text-xs font-bold text-[#5B616E] font-mono mb-1.5">Order Entry Hours/wk</label>
                         <input
                           type="number"
                           value={operations.weeklyHours.manualOrderEntry}
@@ -216,11 +249,11 @@ const ROICalculator = () => {
                               weeklyHours: { ...prev.weeklyHours, manualOrderEntry: parseInt(e.target.value) || 0 },
                             }))
                           }
-                          className="w-full rounded-md border border-border-subtle bg-bg-surface px-3 py-2 text-xs text-fg-default focus:border-accent"
+                          className="w-full rounded-xl border border-[#E7E5DE] bg-white px-3.5 py-2.5 text-sm font-semibold text-[#14171F] focus:border-[#2E5EFF] focus:outline-none shadow-xs"
                         />
                       </div>
                       <div>
-                        <label className="block text-[11px] font-semibold text-fg-dim mb-1">Invoice Processing Hours/wk</label>
+                        <label className="block text-xs font-bold text-[#5B616E] font-mono mb-1.5">Invoice Processing Hours/wk</label>
                         <input
                           type="number"
                           value={operations.weeklyHours.invoiceProcessing}
@@ -230,7 +263,7 @@ const ROICalculator = () => {
                               weeklyHours: { ...prev.weeklyHours, invoiceProcessing: parseInt(e.target.value) || 0 },
                             }))
                           }
-                          className="w-full rounded-md border border-border-subtle bg-bg-surface px-3 py-2 text-xs text-fg-default focus:border-accent"
+                          className="w-full rounded-xl border border-[#E7E5DE] bg-white px-3.5 py-2.5 text-sm font-semibold text-[#14171F] focus:border-[#2E5EFF] focus:outline-none shadow-xs"
                         />
                       </div>
                     </div>
@@ -238,9 +271,9 @@ const ROICalculator = () => {
                     <div className="flex justify-end pt-2">
                       <button
                         onClick={() => setActiveStage(2)}
-                        className="rounded-full bg-accent px-4 py-2 text-xs font-semibold text-white hover:opacity-90"
+                        className="rounded-full bg-[#2E5EFF] px-6 py-2.5 text-xs font-bold text-white hover:bg-[#1B3BB3] transition-all shadow-md flex items-center gap-1.5"
                       >
-                        Confirm Operation Hours &rarr;
+                        Confirm Operation Hours <ArrowRight className="h-3.5 w-3.5" />
                       </button>
                     </div>
                   </div>
@@ -253,25 +286,25 @@ const ROICalculator = () => {
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="rounded-md bg-bg-surface border border-border-subtle p-6 shadow-raised space-y-4"
+                className="rounded-3xl bg-white border border-[#E7E5DE] p-6 sm:p-8 shadow-raised space-y-6"
               >
                 <div className="flex gap-3 items-start">
-                  <div className="h-8 w-8 rounded-full bg-signal-warm-dim text-signal-warm flex items-center justify-center shrink-0">
-                    <Bot className="h-4 w-4" />
+                  <div className="h-10 w-10 rounded-2xl bg-[#16214F] text-white flex items-center justify-center shrink-0 shadow-md">
+                    <Bot className="h-5 w-5" />
                   </div>
-                  <div className="rounded-md bg-signal-warm-dim border border-signal-warm/20 p-4 text-xs text-fg-default leading-relaxed max-w-xl">
-                    <p className="font-semibold text-signal-warm mb-1">GROWTHMATES AI ADVISOR</p>
-                    What are your biggest operational pain points right now? Select all that apply.
+                  <div className="rounded-2xl bg-[#EEF1FF] border border-[#2E5EFF]/20 p-4 sm:p-5 text-sm text-[#14171F] leading-relaxed max-w-xl shadow-xs">
+                    <p className="font-bold text-[#2E5EFF] text-xs font-mono mb-1">GROWTHMATES AI ADVISOR</p>
+                    What are your biggest operational bottlenecks right now? Select all that apply.
                   </div>
                 </div>
 
                 <div className="flex gap-3 items-start justify-end">
-                  <div className="rounded-md bg-accent-dim border border-accent/20 p-5 text-xs text-fg-default space-y-4 max-w-xl w-full">
-                    <div className="flex items-center gap-2 font-semibold text-accent border-b border-accent/20 pb-2">
-                      <User className="h-4 w-4" /> Operational Bottlenecks
+                  <div className="rounded-2xl bg-[#FAF9F6] border border-[#E7E5DE] p-5 sm:p-6 text-sm text-[#14171F] space-y-5 max-w-xl w-full shadow-xs">
+                    <div className="flex items-center gap-2 font-bold text-[#14171F] font-display border-b border-[#E7E5DE] pb-3">
+                      <Sparkles className="h-4 w-4 text-[#FF6A3D]" /> Operational Bottlenecks
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid sm:grid-cols-2 gap-3">
                       {[
                         { key: "highAdminWorkload", label: "High Admin Workload" },
                         { key: "delayedInvoicing", label: "Delayed Invoicing & Cash Flow" },
@@ -284,10 +317,10 @@ const ROICalculator = () => {
                             key={item.key}
                             type="button"
                             onClick={() => togglePainPoint(item.key as PainPoint)}
-                            className={`p-3 rounded-md text-xs font-semibold text-left border transition-all ${
+                            className={`p-3.5 rounded-xl text-xs font-bold text-left border transition-all ${
                               isSelected
-                                ? "bg-accent text-white border-accent"
-                                : "bg-bg-surface text-fg-dim border-border-subtle"
+                                ? "bg-[#2E5EFF] text-white border-[#2E5EFF] shadow-sm"
+                                : "bg-white text-[#14171F] border-[#E7E5DE] hover:border-[#2E5EFF]"
                             }`}
                           >
                             {item.label}
@@ -299,9 +332,9 @@ const ROICalculator = () => {
                     <div className="flex justify-end pt-2">
                       <button
                         onClick={() => setActiveStage(3)}
-                        className="rounded-full bg-accent px-4 py-2 text-xs font-semibold text-white hover:opacity-90"
+                        className="rounded-full bg-[#2E5EFF] px-6 py-2.5 text-xs font-bold text-white hover:bg-[#1B3BB3] transition-all shadow-md flex items-center gap-1.5"
                       >
-                        Confirm Pain Points &rarr;
+                        Confirm Pain Points <ArrowRight className="h-3.5 w-3.5" />
                       </button>
                     </div>
                   </div>
@@ -314,28 +347,28 @@ const ROICalculator = () => {
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="rounded-md bg-bg-surface border border-border-subtle p-6 shadow-raised space-y-4"
+                className="rounded-3xl bg-white border border-[#E7E5DE] p-6 sm:p-8 shadow-raised space-y-6"
               >
                 <div className="flex gap-3 items-start">
-                  <div className="h-8 w-8 rounded-full bg-signal-warm-dim text-signal-warm flex items-center justify-center shrink-0">
-                    <Bot className="h-4 w-4" />
+                  <div className="h-10 w-10 rounded-2xl bg-[#16214F] text-white flex items-center justify-center shrink-0 shadow-md">
+                    <Bot className="h-5 w-5" />
                   </div>
-                  <div className="rounded-md bg-signal-warm-dim border border-signal-warm/20 p-4 text-xs text-fg-default leading-relaxed max-w-xl">
-                    <p className="font-semibold text-signal-warm mb-1">GROWTHMATES AI ADVISOR</p>
-                    Almost done! How ready is your team to automate manual workflows?
+                  <div className="rounded-2xl bg-[#EEF1FF] border border-[#2E5EFF]/20 p-4 sm:p-5 text-sm text-[#14171F] leading-relaxed max-w-xl shadow-xs">
+                    <p className="font-bold text-[#2E5EFF] text-xs font-mono mb-1">GROWTHMATES AI ADVISOR</p>
+                    Almost done! How willing is your team to automate manual operational steps?
                   </div>
                 </div>
 
                 <div className="flex gap-3 items-start justify-end">
-                  <div className="rounded-md bg-accent-dim border border-accent/20 p-5 text-xs text-fg-default space-y-4 max-w-xl w-full">
-                    <div className="flex items-center gap-2 font-semibold text-accent border-b border-accent/20 pb-2">
-                      <User className="h-4 w-4" /> Readiness Level
+                  <div className="rounded-2xl bg-[#FAF9F6] border border-[#E7E5DE] p-5 sm:p-6 text-sm text-[#14171F] space-y-5 max-w-xl w-full shadow-xs">
+                    <div className="flex items-center gap-2 font-bold text-[#14171F] font-display border-b border-[#E7E5DE] pb-3">
+                      <ShieldCheck className="h-4 w-4 text-[#1FAA59]" /> Automation Readiness Level
                     </div>
 
                     <div>
-                      <div className="flex justify-between text-xs font-semibold text-fg-dim mb-2">
-                        <span>Automation Readiness Willingness</span>
-                        <span className="text-accent">{automation.willingnessPercent}%</span>
+                      <div className="flex justify-between text-xs font-bold text-[#5B616E] font-mono mb-2">
+                        <span>Willingness to Automate</span>
+                        <span className="text-[#2E5EFF] font-bold">{automation.willingnessPercent}%</span>
                       </div>
                       <input
                         type="range"
@@ -346,19 +379,19 @@ const ROICalculator = () => {
                         onChange={(e) =>
                           setAutomation((prev) => ({
                             ...prev,
-                            willingnessPercent: parseInt(e.target.value) || 70,
+                            willingnessPercent: parseInt(e.target.value) || 80,
                           }))
                         }
-                        className="w-full accent-accent cursor-pointer"
+                        className="w-full accent-[#2E5EFF] cursor-pointer"
                       />
                     </div>
 
                     <div className="flex justify-end pt-2">
                       <button
                         onClick={() => setActiveStage(4)}
-                        className="rounded-full bg-accent px-6 py-2.5 text-xs font-semibold text-white hover:opacity-90 shadow-flat"
+                        className="rounded-full bg-[#FF6A3D] px-7 py-3 text-xs font-bold text-white hover:bg-[#E5592E] transition-all shadow-lg flex items-center gap-1.5"
                       >
-                        Calculate Final ROI &rarr;
+                        Calculate Final ROI Metrics <ArrowRight className="h-4 w-4" />
                       </button>
                     </div>
                   </div>
@@ -366,17 +399,19 @@ const ROICalculator = () => {
               </motion.div>
             )}
 
-            {/* Stage 4: Results Dashboard */}
+            {/* Stage 4: ROI Results Dashboard */}
             {activeStage >= 4 && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="rounded-md bg-bg-surface border border-border-subtle p-8 shadow-raised"
+                className="rounded-3xl bg-white border-2 border-[#2E5EFF]/30 p-8 shadow-2xl"
               >
                 <ROIResultsDashboard results={results} business={business} />
               </motion.div>
             )}
+
           </div>
+
         </div>
       </section>
 

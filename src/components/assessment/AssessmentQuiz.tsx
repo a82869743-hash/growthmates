@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 import type { QuizQuestion } from "./types";
 
 const QUESTIONS: QuizQuestion[] = [
@@ -65,16 +66,16 @@ const AssessmentQuiz = ({ currentStep, answers, onAnswer }: AssessmentQuizProps)
   const pct = Math.round((currentStep / QUESTIONS.length) * 100);
 
   return (
-    <div className="mx-auto max-w-xl">
-      {/* Top Thin Progress Bar */}
-      <div className="mb-8 font-mono text-xs">
-        <div className="flex items-center justify-between text-fg-dim mb-2">
-          <span>Question {currentStep + 1} of {QUESTIONS.length}</span>
-          <span className="text-accent font-semibold">{pct}% Complete</span>
+    <div className="mx-auto max-w-2xl">
+      {/* Progress Rail Header */}
+      <div className="mb-6 font-mono text-xs space-y-2">
+        <div className="flex items-center justify-between text-[#5B616E] font-bold">
+          <span>QUESTION {currentStep + 1} OF {QUESTIONS.length}</span>
+          <span className="text-[#2E5EFF]">{pct}% COMPLETE</span>
         </div>
-        <div className="h-2 w-full rounded-full bg-bg-muted overflow-hidden border border-border-subtle">
+        <div className="h-2.5 w-full rounded-full bg-[#E7E5DE] overflow-hidden">
           <div
-            className="h-full bg-accent rounded-full transition-all duration-500"
+            className="h-full bg-[#2E5EFF] rounded-full transition-all duration-500"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -84,28 +85,31 @@ const AssessmentQuiz = ({ currentStep, answers, onAnswer }: AssessmentQuizProps)
       <AnimatePresence mode="wait">
         <motion.div
           key={question.id}
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -15 }}
           transition={{ duration: 0.25 }}
-          className="rounded-md bg-bg-surface border border-border-subtle p-8 shadow-raised"
+          className="rounded-3xl bg-white border border-[#E7E5DE] p-8 shadow-raised"
         >
-          <h2 className="text-2xl font-extrabold text-fg-default mb-6 font-display">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#14171F] mb-6 font-display leading-tight">
             {question.question}
           </h2>
 
           {/* Large Tappable Option Blocks */}
-          <div className="space-y-3">
+          <div className="space-y-3.5">
             {question.options.map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => onAnswer(opt.value)}
-                className="w-full flex flex-col items-start rounded-md border border-border-subtle bg-bg-base p-5 text-left transition-all duration-200 hover:border-accent hover:bg-accent-dim hover:shadow-flat group"
+                className="w-full flex items-center justify-between rounded-2xl border border-[#E7E5DE] bg-[#FAF9F6] p-5 text-left transition-all duration-200 hover:border-[#2E5EFF] hover:bg-[#EEF1FF] hover:shadow-md group"
               >
-                <span className="font-bold text-sm text-fg-default group-hover:text-accent font-display">
-                  {opt.label}
-                </span>
-                <span className="mt-1 text-xs text-fg-dim">{opt.description}</span>
+                <div>
+                  <span className="font-bold text-sm text-[#14171F] group-hover:text-[#2E5EFF] font-display block">
+                    {opt.label}
+                  </span>
+                  <span className="mt-0.5 text-xs text-[#5B616E] block font-body">{opt.description}</span>
+                </div>
+                <ArrowRight className="h-4 w-4 text-[#8B8F99] group-hover:text-[#2E5EFF] group-hover:translate-x-1 transition-all shrink-0" />
               </button>
             ))}
           </div>

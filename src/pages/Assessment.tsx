@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ClipboardCheck, Sparkles, ArrowRight, RefreshCw } from "lucide-react";
+import { ClipboardCheck, Sparkles, ArrowRight } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import AssessmentQuiz, { QUESTIONS } from "@/components/assessment/AssessmentQuiz";
@@ -22,9 +22,8 @@ const Assessment = () => {
     if (!textToSubmit.trim()) return;
 
     setIsLoading(true);
-    setStep(QUESTIONS.length); // Jump to results
+    setStep(QUESTIONS.length);
 
-    // Construct 5 synthetic answers based on custom prompt
     const customAnswers = [
       textToSubmit,
       "manual_data_entry",
@@ -42,7 +41,6 @@ const Assessment = () => {
       setResult(data as AssessmentResult);
     } catch {
       toast({ title: "Report generated", description: "Calculating customized readiness metrics...", variant: "default" });
-      // Fallback synthetic high readiness result
       setResult({
         overallScore: 84,
         metrics: [
@@ -98,24 +96,26 @@ const Assessment = () => {
   };
 
   return (
-    <div className="min-h-screen bg-bg-base text-fg-default font-body">
+    <div className="min-h-screen bg-[#FAF9F6] text-[#14171F] font-body">
       <Navbar />
-      <section className="container py-16 md:py-24">
-        <div className="mx-auto max-w-3xl text-center mb-10">
-          <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-md bg-accent-dim text-accent">
-            <ClipboardCheck className="h-5 w-5" />
+      <section className="container max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24">
+        
+        {/* Header */}
+        <div className="mx-auto max-w-3xl text-center mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-wider text-[#2E5EFF]">
+            <ClipboardCheck className="h-3.5 w-3.5" /> AI READINESS DIAGNOSTIC
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display">
-            AI Readiness Assessment
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display text-[#14171F]">
+            AI Readiness <span className="text-[#2E5EFF]">Assessment</span>
           </h1>
-          <p className="mt-3 text-base text-fg-dim max-w-lg mx-auto">
-            Type your biggest operational challenge into the Replit-style command bar below or answer our 5 quick questions.
+          <p className="text-base sm:text-lg text-[#5B616E] max-w-lg mx-auto font-body">
+            Type your operational goal into the prompt bar below for instant AI analysis, or answer 5 quick questions.
           </p>
         </div>
 
-        {/* Replit Style Assessment Prompt Bar */}
+        {/* Prompt Launcher Bar */}
         {!quizDone && (
-          <div className="max-w-2xl mx-auto mb-12">
+          <div className="max-w-2xl mx-auto mb-14">
             <div className="rounded-2xl bg-white border-2 border-[#2E5EFF]/30 p-4 shadow-xl focus-within:border-[#2E5EFF] transition-all">
               <div className="flex items-center gap-3">
                 <Sparkles className="h-5 w-5 text-[#2E5EFF] shrink-0" />
@@ -158,8 +158,11 @@ const Assessment = () => {
               </div>
             </div>
             
-            <div className="mt-4 text-center">
-              <span className="text-xs text-[#8B8F99] font-mono">OR ANSWER STRUCTURED QUESTIONS BELOW</span>
+            <div className="relative my-8 text-center">
+              <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[#E7E5DE]" /></div>
+              <span className="relative rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-4 py-1 text-[10px] font-mono font-bold text-[#2E5EFF] uppercase tracking-wider">
+                OR ANSWER STRUCTURED QUESTIONS BELOW
+              </span>
             </div>
           </div>
         )}
