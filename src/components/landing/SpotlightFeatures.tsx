@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CheckCircle2, Truck, ShoppingBag, Sprout, ShieldCheck, ArrowRight } from "lucide-react";
+import { CheckCircle2, Truck, ShoppingBag, Sprout, ShieldCheck, ArrowRight, Package, Cpu, Zap, Wifi } from "lucide-react";
 
 interface IndustryFeature {
   id: string;
@@ -70,12 +70,12 @@ const INDUSTRY_FEATURES: IndustryFeature[] = [
   },
 ];
 
-/* High-Precision 3D Isometric Visual Component matching SDI Presence reference style 1:1 */
+/* Ultra-High-Precision 3D Isometric Visual Component */
 const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
   if (type === "transportation") {
     return (
-      <div className="relative w-full max-w-lg mx-auto h-[400px] flex items-center justify-center">
-        <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 520 400" fill="none">
+      <div className="relative w-full max-w-lg mx-auto h-[420px] flex items-center justify-center">
+        <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 540 420" fill="none">
           <defs>
             <linearGradient id="roadTopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#2E5EFF" />
@@ -91,10 +91,10 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
             </linearGradient>
           </defs>
 
-          {/* Gear Base Wheel Teeth (SDI Style Base Element) */}
+          {/* Gear Base Wheel Teeth */}
           <g transform="translate(0, 15)">
             <path
-              d="M 120 280 L 140 270 L 155 277 L 175 267 L 190 274 L 210 264 L 225 271 L 245 261 L 260 268 L 280 258 L 295 265 L 315 255 L 330 262 L 350 252 L 370 262 L 370 295 L 120 295 Z"
+              d="M 120 295 L 140 285 L 155 292 L 175 282 L 190 289 L 210 279 L 225 286 L 245 276 L 260 283 L 280 273 L 295 280 L 315 270 L 330 277 L 350 267 L 370 277 L 370 310 L 120 310 Z"
               fill="url(#gearBaseGrad)"
               stroke="#2E5EFF"
               strokeWidth="1.5"
@@ -102,67 +102,48 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
           </g>
 
           {/* 3D Extruded Isometric Road Base Platform */}
-          {/* Top Diamond Surface */}
-          <path d="M 50 240 L 260 130 L 470 240 L 260 350 Z" fill="url(#roadTopGrad)" stroke="#2E5EFF" strokeWidth="2" />
-          {/* Left Extruded Thickness */}
-          <path d="M 50 240 L 260 350 L 260 368 L 50 258 Z" fill="url(#roadSideGrad)" />
-          {/* Right Extruded Thickness */}
-          <path d="M 260 350 L 470 240 L 470 258 L 260 368 Z" fill="#0A0F26" />
+          <path d="M 50 250 L 270 140 L 490 250 L 270 360 Z" fill="url(#roadTopGrad)" stroke="#2E5EFF" strokeWidth="2" />
+          <path d="M 50 250 L 270 360 L 270 380 L 50 270 Z" fill="url(#roadSideGrad)" />
+          <path d="M 270 360 L 490 250 L 490 270 L 270 380 Z" fill="#0A0F26" />
 
           {/* Road Marking Center Stripes */}
-          <path d="M 130 240 L 390 240" stroke="#FFFFFF" strokeWidth="4" strokeDasharray="14 12" opacity="0.9" />
+          <path d="M 130 250 L 410 250" stroke="#FFFFFF" strokeWidth="4" strokeDasharray="16 14" opacity="0.9" />
 
           {/* 3D Transit Bus Model */}
-          <g transform="translate(90, 130)">
-            {/* Top Roof Surface */}
+          <g transform="translate(100, 135)">
             <path d="M 50 40 L 160 95 L 200 75 L 90 20 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1.5" />
-            
-            {/* AC Roof Units */}
             <rect x="90" y="32" width="30" height="10" rx="3" fill="#2E5EFF" />
             <rect x="130" y="52" width="30" height="10" rx="3" fill="#2E5EFF" />
-
-            {/* Left Body Side */}
             <path d="M 50 40 L 160 95 L 160 145 L 50 90 Z" fill="#2E5EFF" />
-            
-            {/* Front Bumper Face */}
             <path d="M 160 95 L 200 75 L 200 125 L 160 145 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1.5" />
-
-            {/* Side Windows */}
+            
             <path d="M 60 52 L 150 97 L 150 78 L 60 33 Z" fill="#16214F" />
             <path d="M 65 57 L 90 69 L 90 60 L 65 48 Z" fill="#7C97FF" opacity="0.8" />
             <path d="M 98 73 L 123 85 L 123 76 L 98 64 Z" fill="#7C97FF" opacity="0.8" />
             <path d="M 128 88 L 145 96 L 145 87 L 128 79 Z" fill="#7C97FF" opacity="0.8" />
 
-            {/* Front Windshield Glass */}
             <path d="M 165 92 L 195 77 L 195 97 L 165 112 Z" fill="#16214F" />
             <path d="M 170 95 L 190 85 L 190 95 L 170 105 Z" fill="#7C97FF" opacity="0.9" />
 
-            {/* Headlights */}
             <circle cx="170" cy="130" r="4" fill="#FF6A3D" />
             <circle cx="190" cy="120" r="4" fill="#FF6A3D" />
 
-            {/* Wheels */}
             <ellipse cx="85" cy="100" rx="14" ry="14" fill="#14171F" stroke="#FFFFFF" strokeWidth="2" />
             <ellipse cx="140" cy="128" rx="14" ry="14" fill="#14171F" stroke="#FFFFFF" strokeWidth="2" />
           </g>
 
-          {/* 3D Solar Streetlight & Telematics Antenna */}
-          <g transform="translate(330, 70)">
+          {/* 3D Solar Streetlight */}
+          <g transform="translate(350, 75)">
             <rect x="20" y="40" width="8" height="140" rx="4" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1.5" />
-            {/* Solar Panel Box */}
             <path d="M -5 30 L 45 5 L 60 20 L 10 45 Z" fill="#2E5EFF" stroke="#FFFFFF" strokeWidth="1.5" />
-            {/* Camera / Telematics Sensor */}
             <rect x="24" y="70" width="24" height="12" rx="3" fill="#FF6A3D" />
           </g>
 
-          {/* 3D Transit Passenger Shelter */}
-          <g transform="translate(260, 135)">
-            {/* Roof Canopy */}
+          {/* 3D Transit Shelter */}
+          <g transform="translate(280, 140)">
             <path d="M 0 30 L 75 0 L 115 20 L 40 50 Z" fill="#EEF1FF" stroke="#2E5EFF" strokeWidth="1.5" />
-            {/* Support Posts */}
             <line x1="12" y1="35" x2="12" y2="95" stroke="#2E5EFF" strokeWidth="2.5" />
             <line x1="108" y1="22" x2="108" y2="82" stroke="#2E5EFF" strokeWidth="2.5" />
-            {/* Bench */}
             <path d="M 25 60 L 95 30 L 95 38 L 25 68 Z" fill="#FF6A3D" />
           </g>
         </svg>
@@ -172,12 +153,12 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
 
   if (type === "retail") {
     return (
-      <div className="relative w-full max-w-lg mx-auto h-[400px] flex items-center justify-center">
-        <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 520 400" fill="none">
+      <div className="relative w-full max-w-lg mx-auto h-[420px] flex items-center justify-center">
+        <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 540 420" fill="none">
           <defs>
             <linearGradient id="retailTopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#FF6A3D" />
-              <stop offset="100%" stopColor="#B33E1B" />
+              <stop offset="100%" stopColor="#D94E24" />
             </linearGradient>
             <linearGradient id="retailSideGrad" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#16214F" />
@@ -185,32 +166,52 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
             </linearGradient>
           </defs>
 
-          {/* 3D Extruded Platform */}
-          <path d="M 50 240 L 260 130 L 470 240 L 260 350 Z" fill="url(#retailTopGrad)" stroke="#FF6A3D" strokeWidth="2" />
-          <path d="M 50 240 L 260 350 L 260 368 L 50 258 Z" fill="url(#retailSideGrad)" />
-          <path d="M 260 350 L 470 240 L 470 258 L 260 368 Z" fill="#0A0F26" />
+          {/* Gear Base Foundation */}
+          <g transform="translate(0, 15)">
+            <path
+              d="M 120 295 L 140 285 L 155 292 L 175 282 L 190 289 L 210 279 L 225 286 L 245 276 L 260 283 L 280 273 L 295 280 L 315 270 L 330 277 L 350 267 L 370 277 L 370 310 L 120 310 Z"
+              fill="#F2F1EC"
+              stroke="#FF6A3D"
+              strokeWidth="1.5"
+            />
+          </g>
 
-          {/* 3D Storefront Building */}
-          <g transform="translate(150, 100)">
-            {/* Left Wall */}
-            <path d="M 110 0 L 0 55 L 0 170 L 110 115 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2" />
-            {/* Right Wall */}
-            <path d="M 110 0 L 220 55 L 220 170 L 110 115 Z" fill="#EEF1FF" stroke="#2E5EFF" strokeWidth="2" />
-            {/* Roof */}
-            <path d="M 110 0 L 220 55 L 110 110 L 0 55 Z" fill="#2E5EFF" />
+          {/* 3D Extruded Retail Platform */}
+          <path d="M 50 250 L 270 140 L 490 250 L 270 360 Z" fill="url(#retailTopGrad)" stroke="#FF6A3D" strokeWidth="2" />
+          <path d="M 50 250 L 270 360 L 270 380 L 50 270 Z" fill="url(#retailSideGrad)" />
+          <path d="M 270 360 L 490 250 L 490 270 L 270 380 Z" fill="#0A0F26" />
+
+          {/* 3D Flagship Retail Store Architecture */}
+          <g transform="translate(135, 90)">
+            {/* Main Store Building Left Wall */}
+            <path d="M 130 0 L 0 65 L 0 190 L 130 125 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2" />
+            {/* Main Store Building Right Wall */}
+            <path d="M 130 0 L 260 65 L 260 190 L 130 125 Z" fill="#EEF1FF" stroke="#2E5EFF" strokeWidth="2" />
+            {/* Roof Top */}
+            <path d="M 130 0 L 260 65 L 130 130 L 0 65 Z" fill="#2E5EFF" />
             
-            {/* Entrance Awning */}
-            <path d="M 20 75 L 100 115 L 100 135 L 20 95 Z" fill="#FF6A3D" />
-            <path d="M 120 125 L 200 165 L 200 175 L 120 135 Z" fill="#2E5EFF" />
+            {/* Striped Entrance Awning Canopy */}
+            <path d="M 25 85 L 115 130 L 115 150 L 25 105 Z" fill="#FF6A3D" />
+            <path d="M 145 145 L 235 190 L 235 200 L 145 155 Z" fill="#2E5EFF" />
 
-            {/* Display Windows */}
-            <rect x="20" y="110" width="70" height="45" fill="#16214F" />
-            <rect x="130" y="135" width="70" height="45" fill="#16214F" />
+            {/* Display Windows (Upper & Lower) */}
+            <rect x="25" y="125" width="80" height="50" rx="3" fill="#16214F" />
+            <rect x="35" y="132" width="60" height="36" rx="2" fill="#7C97FF" opacity="0.8" />
+            
+            <rect x="155" y="155" width="80" height="50" rx="3" fill="#16214F" />
+            <rect x="165" y="162" width="60" height="36" rx="2" fill="#7C97FF" opacity="0.8" />
 
-            {/* Shopping Bag Badge */}
-            <g transform="translate(90, -35)">
-              <circle cx="20" cy="20" r="24" fill="#FFFFFF" stroke="#FF6A3D" strokeWidth="3" />
-              <ShoppingBag className="h-6 w-6 text-[#FF6A3D] translate-x-2 translate-y-2" />
+            {/* 3D Delivery Packages Stacked Outside */}
+            <g transform="translate(20, 160)">
+              <path d="M 20 0 L 0 10 L 0 30 L 20 20 Z" fill="#FF6A3D" />
+              <path d="M 20 0 L 40 10 L 40 30 L 20 20 Z" fill="#E7E5DE" stroke="#FF6A3D" strokeWidth="1" />
+              <path d="M 20 0 L 40 10 L 20 20 L 0 10 Z" fill="#FFFFFF" />
+            </g>
+
+            {/* Floating 3D Shopping Bag Node Badge */}
+            <g transform="translate(105, -45)">
+              <circle cx="25" cy="25" r="28" fill="#FFFFFF" stroke="#FF6A3D" strokeWidth="3" className="drop-shadow-lg" />
+              <ShoppingBag className="h-7 w-7 text-[#FF6A3D] translate-x-3 translate-y-3" />
             </g>
           </g>
         </svg>
@@ -220,12 +221,12 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
 
   if (type === "agriculture") {
     return (
-      <div className="relative w-full max-w-lg mx-auto h-[400px] flex items-center justify-center">
-        <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 520 400" fill="none">
+      <div className="relative w-full max-w-lg mx-auto h-[420px] flex items-center justify-center">
+        <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 540 420" fill="none">
           <defs>
             <linearGradient id="farmTopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#1FAA59" />
-              <stop offset="100%" stopColor="#0E6633" />
+              <stop offset="100%" stopColor="#0B5C2B" />
             </linearGradient>
             <linearGradient id="farmSideGrad" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#16214F" />
@@ -233,25 +234,44 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
             </linearGradient>
           </defs>
 
-          {/* 3D Extruded Field Platform */}
-          <path d="M 50 240 L 260 130 L 470 240 L 260 350 Z" fill="url(#farmTopGrad)" stroke="#1FAA59" strokeWidth="2" />
-          <path d="M 50 240 L 260 350 L 260 368 L 50 258 Z" fill="url(#farmSideGrad)" />
-          <path d="M 260 350 L 470 240 L 470 258 L 260 368 Z" fill="#0A0F26" />
+          {/* Gear Base Foundation */}
+          <g transform="translate(0, 15)">
+            <path
+              d="M 120 295 L 140 285 L 155 292 L 175 282 L 190 289 L 210 279 L 225 286 L 245 276 L 260 283 L 280 273 L 295 280 L 315 270 L 330 277 L 350 267 L 370 277 L 370 310 L 120 310 Z"
+              fill="#F2F1EC"
+              stroke="#1FAA59"
+              strokeWidth="1.5"
+            />
+          </g>
 
-          {/* Crop Rows */}
-          <path d="M 120 220 L 260 290" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="10 8" opacity="0.85" />
-          <path d="M 160 200 L 300 270" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="10 8" opacity="0.85" />
-          <path d="M 200 180 L 340 250" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="10 8" opacity="0.85" />
+          {/* 3D Extruded Farm Field Platform */}
+          <path d="M 50 250 L 270 140 L 490 250 L 270 360 Z" fill="url(#farmTopGrad)" stroke="#1FAA59" strokeWidth="2" />
+          <path d="M 50 250 L 270 360 L 270 380 L 50 270 Z" fill="url(#farmSideGrad)" />
+          <path d="M 270 360 L 490 250 L 490 270 L 270 380 Z" fill="#0A0F26" />
 
-          {/* 3D Silo Structure */}
-          <g transform="translate(220, 95)">
-            <rect x="20" y="40" width="65" height="130" rx="30" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2" />
-            <path d="M 20 70 L 85 70 L 52 20 Z" fill="#2E5EFF" />
+          {/* Plant Crop Rows */}
+          <path d="M 120 230 L 270 305" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="12 10" opacity="0.9" />
+          <path d="M 165 205 L 315 280" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="12 10" opacity="0.9" />
+          <path d="M 210 180 L 360 255" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="12 10" opacity="0.9" />
 
-            {/* Sprout Icon Badge */}
-            <g transform="translate(10, -25)">
-              <circle cx="20" cy="20" r="24" fill="#FFFFFF" stroke="#1FAA59" strokeWidth="3" />
-              <Sprout className="h-6 w-6 text-[#1FAA59] translate-x-2 translate-y-2" />
+          {/* 3D Farm Silo & Telematics Station */}
+          <g transform="translate(225, 80)">
+            {/* Silo Body */}
+            <rect x="25" y="45" width="70" height="140" rx="35" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2.5" />
+            <path d="M 25 80 L 95 80 L 60 20 Z" fill="#2E5EFF" />
+            {/* Silo Ladder */}
+            <line x1="80" y1="85" x2="80" y2="175" stroke="#16214F" strokeWidth="2" />
+
+            {/* Greenhouse Box Beside Silo */}
+            <g transform="translate(-70, 70)">
+              <path d="M 40 0 L 0 20 L 0 70 L 40 50 Z" fill="#FFFFFF" fillOpacity="0.8" stroke="#1FAA59" strokeWidth="1.5" />
+              <path d="M 40 0 L 80 20 L 80 70 L 40 50 Z" fill="#EEF1FF" fillOpacity="0.8" stroke="#1FAA59" strokeWidth="1.5" />
+            </g>
+
+            {/* Floating 3D Sprout Node Badge */}
+            <g transform="translate(35, -35)">
+              <circle cx="25" cy="25" r="28" fill="#FFFFFF" stroke="#1FAA59" strokeWidth="3" className="drop-shadow-lg" />
+              <Sprout className="h-7 w-7 text-[#1FAA59] translate-x-3 translate-y-3" />
             </g>
           </g>
         </svg>
@@ -261,35 +281,50 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
 
   // Enterprise Security
   return (
-    <div className="relative w-full max-w-lg mx-auto h-[400px] flex items-center justify-center">
-      <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 520 400" fill="none">
+    <div className="relative w-full max-w-lg mx-auto h-[420px] flex items-center justify-center">
+      <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 540 420" fill="none">
         <defs>
           <linearGradient id="secTopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#2E5EFF" />
             <stop offset="100%" stopColor="#16214F" />
           </linearGradient>
+          <linearGradient id="secSideGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#16214F" />
+            <stop offset="100%" stopColor="#0D1433" />
+          </linearGradient>
         </defs>
 
-        <path d="M 50 240 L 260 130 L 470 240 L 260 350 Z" fill="url(#secTopGrad)" stroke="#2E5EFF" strokeWidth="2" />
-        <path d="M 50 240 L 260 350 L 260 368 L 50 258 Z" fill="#16214F" />
-        <path d="M 260 350 L 470 240 L 470 258 L 260 368 Z" fill="#0A0F26" />
+        <g transform="translate(0, 15)">
+          <path
+            d="M 120 295 L 140 285 L 155 292 L 175 282 L 190 289 L 210 279 L 225 286 L 245 276 L 260 283 L 280 273 L 295 280 L 315 270 L 330 277 L 350 267 L 370 277 L 370 310 L 120 310 Z"
+            fill="#F2F1EC"
+            stroke="#2E5EFF"
+            strokeWidth="1.5"
+          />
+        </g>
 
-        {/* 3D Server Rack Cabinet */}
-        <g transform="translate(180, 85)">
-          <path d="M 80 0 L 0 40 L 0 165 L 80 125 Z" fill="#14171F" stroke="#2E5EFF" strokeWidth="2" />
-          <path d="M 80 0 L 160 40 L 160 165 L 80 125 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2" />
-          <path d="M 80 0 L 160 40 L 80 80 L 0 40 Z" fill="#2E5EFF" />
+        <path d="M 50 250 L 270 140 L 490 250 L 270 360 Z" fill="url(#secTopGrad)" stroke="#2E5EFF" strokeWidth="2" />
+        <path d="M 50 250 L 270 360 L 270 380 L 50 270 Z" fill="url(#secSideGrad)" />
+        <path d="M 270 360 L 490 250 L 490 270 L 270 380 Z" fill="#0A0F26" />
+
+        {/* 3D Data Center Server Rack Cabinet */}
+        <g transform="translate(175, 75)">
+          <path d="M 95 0 L 0 45 L 0 190 L 95 145 Z" fill="#14171F" stroke="#2E5EFF" strokeWidth="2" />
+          <path d="M 95 0 L 190 45 L 190 190 L 95 145 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2" />
+          <path d="M 95 0 L 190 45 L 95 90 L 0 45 Z" fill="#2E5EFF" />
 
           {/* LED Status Indicators */}
-          <circle cx="30" cy="70" r="4" fill="#1FAA59" />
-          <circle cx="45" cy="70" r="4" fill="#2E5EFF" />
-          <circle cx="30" cy="100" r="4" fill="#FF6A3D" />
-          <circle cx="45" cy="100" r="4" fill="#1FAA59" />
+          <circle cx="35" cy="75" r="5" fill="#1FAA59" />
+          <circle cx="55" cy="75" r="5" fill="#2E5EFF" />
+          <circle cx="35" cy="115" r="5" fill="#FF6A3D" />
+          <circle cx="55" cy="115" r="5" fill="#1FAA59" />
+          <circle cx="35" cy="155" r="5" fill="#2E5EFF" />
+          <circle cx="55" cy="155" r="5" fill="#1FAA59" />
 
           {/* Shield Badge */}
-          <g transform="translate(60, -35)">
-            <circle cx="20" cy="20" r="24" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="3" />
-            <ShieldCheck className="h-6 w-6 text-[#2E5EFF] translate-x-2 translate-y-2" />
+          <g transform="translate(70, -40)">
+            <circle cx="25" cy="25" r="28" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="3" className="drop-shadow-lg" />
+            <ShieldCheck className="h-7 w-7 text-[#2E5EFF] translate-x-3 translate-y-3" />
           </g>
         </g>
       </svg>
@@ -309,7 +344,7 @@ const SpotlightFeatures = () => {
             <div className="container max-w-7xl mx-auto px-4 sm:px-6">
               <div className="grid items-center gap-12 lg:grid-cols-12">
                 
-                {/* Text Content Column (Exact SDI Presence Headline & Typography Style) */}
+                {/* Text Content Column */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -348,7 +383,7 @@ const SpotlightFeatures = () => {
                   </div>
                 </motion.div>
 
-                {/* 3D Isometric Visual Column (Exact SDI Presence Style 1:1) */}
+                {/* Ultra-Rich 3D Isometric Visual Column */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
