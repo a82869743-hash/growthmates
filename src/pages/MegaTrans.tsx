@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import {
-  ArrowUpRight, CalendarDays, Clock, MapPin, Sparkles, Truck, Store, BrainCircuit
+  ArrowUpRight, CalendarDays, Clock, MapPin, Sparkles, Truck, Store, BrainCircuit, ShieldCheck, Cpu, Zap, BarChart3
 } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
@@ -23,58 +23,115 @@ const MegaTrans = () => {
     <div className="min-h-screen bg-bg-base text-fg-default font-body">
       <Navbar />
 
-      {/* Event Hero */}
-      <section className="relative py-20 md:py-28 border-b border-border-subtle bg-bg-surface overflow-hidden">
-        <div className="container relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <span className="inline-flex items-center gap-2 rounded-full bg-accent-dim px-4 py-1.5 text-xs font-semibold text-accent mb-4">
-              <Sparkles className="h-3.5 w-3.5" /> MegaTrans 2026 · Startup POD
-            </span>
-
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl font-display leading-tight">
-              Come meet us at <span className="text-accent">MegaTrans 2026</span>
-            </h1>
-
-            <p className="mx-auto mt-6 max-w-2xl text-base text-fg-dim leading-relaxed">
-              We're exhibiting at Australia's largest integrated logistics and supply chain expo. Drop by our Startup POD to see how Agentic AI becomes the decision engine for transport and retail operations.
-            </p>
-
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button
-                onClick={openCalendly}
-                className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white hover:opacity-90 shadow-flat"
-              >
-                Book a Meeting <ArrowUpRight className="h-4 w-4" />
-              </button>
-
-              <a
-                href="/"
-                className="inline-flex items-center gap-2 rounded-full bg-bg-muted border border-border-subtle px-6 py-3.5 text-sm font-semibold text-fg-default hover:bg-bg-surface"
-              >
-                Explore Platform <ArrowUpRight className="h-4 w-4" />
-              </a>
+      {/* Main Hero Container (SDI Presence Inspired Rounded Dark Banner Card) */}
+      <section className="py-12 md:py-20 bg-bg-base">
+        <div className="container max-w-7xl mx-auto px-4 sm:px-6">
+          
+          {/* Large SDI Style Hero Banner Box */}
+          <div className="relative overflow-hidden rounded-3xl bg-[#16214F] text-white p-8 md:p-14 shadow-2xl min-h-[540px] flex flex-col justify-between">
+            
+            {/* Background Highway Motion Light Trails SVG Overlay */}
+            <div className="absolute inset-0 pointer-events-none opacity-30">
+              <svg className="w-full h-full object-cover" viewBox="0 0 1200 600" fill="none">
+                {/* Light Trails Lines */}
+                <path d="M-100 500 C 300 450, 700 350, 1300 200" stroke="#2E5EFF" strokeWidth="12" opacity="0.6" />
+                <path d="M-100 520 C 300 470, 700 370, 1300 220" stroke="#FF6A3D" strokeWidth="8" opacity="0.8" />
+                <path d="M-100 540 C 300 490, 700 390, 1300 240" stroke="#FFFFFF" strokeWidth="4" opacity="0.5" />
+                <ellipse cx="950" cy="220" rx="350" ry="180" stroke="#2E5EFF" strokeWidth="2" strokeDasharray="8 8" />
+              </svg>
             </div>
-          </motion.div>
+
+            {/* Top Text Content inside Banner */}
+            <div className="relative z-10 max-w-3xl space-y-4">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-white">
+                <Sparkles className="h-3.5 w-3.5 text-[#FF6A3D]" /> WE DELIVER · MEGATRANS 2026 STARTUP POD
+              </div>
+
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-display tracking-tight leading-[1.08] text-white">
+                Why Transportation Leaders Choose GrowthMates AI
+              </h1>
+              
+              <p className="text-base md:text-lg text-white/80 max-w-2xl font-body leading-relaxed">
+                Come meet us at Australia’s largest integrated logistics and supply chain expo. Visit our Startup POD at MCEC Melbourne to see live agentic decision execution.
+              </p>
+            </div>
+
+            {/* Bottom 4 Glassmorphism Frosted Cards Grid (SDI Presence Screenshot Composition) */}
+            <div className="relative z-10 mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              
+              {/* Card 1 */}
+              <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 p-6 hover:bg-white/15 transition-all duration-300">
+                <div className="flex items-center gap-3 mb-3 text-[#7C97FF]">
+                  <Truck className="h-5 w-5" />
+                  <span className="text-xs font-mono uppercase font-bold text-white/70">FLEET DISPATCH</span>
+                </div>
+                <h3 className="text-lg font-bold font-display text-white mb-2">
+                  Autonomous Fleet Dispatch
+                </h3>
+                <p className="text-xs text-white/70 leading-relaxed">
+                  Multi-stop route optimisation, real-time traffic rerouting, and lane margin enforcement.
+                </p>
+              </div>
+
+              {/* Card 2 */}
+              <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 p-6 hover:bg-white/15 transition-all duration-300">
+                <div className="flex items-center gap-3 mb-3 text-[#FF6A3D]">
+                  <ShieldCheck className="h-5 w-5" />
+                  <span className="text-xs font-mono uppercase font-bold text-white/70">GOVERNANCE</span>
+                </div>
+                <h3 className="text-lg font-bold font-display text-white mb-2">
+                  Security-First Design
+                </h3>
+                <p className="text-xs text-white/70 leading-relaxed">
+                  SOC2 compliant runtime, zero-trust memory isolation, and SAML 2.0 SSO enterprise authentication.
+                </p>
+              </div>
+
+              {/* Card 3 */}
+              <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 p-6 hover:bg-white/15 transition-all duration-300">
+                <div className="flex items-center gap-3 mb-3 text-[#7C97FF]">
+                  <Cpu className="h-5 w-5" />
+                  <span className="text-xs font-mono uppercase font-bold text-white/70">PARTNERSHIP</span>
+                </div>
+                <h3 className="text-lg font-bold font-display text-white mb-2">
+                  Hands-On Partnership
+                </h3>
+                <p className="text-xs text-white/70 leading-relaxed">
+                  Embedded collaboration with engineering teams to deploy pre-built transport agents in days.
+                </p>
+              </div>
+
+              {/* Card 4 */}
+              <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 p-6 hover:bg-white/15 transition-all duration-300">
+                <div className="flex items-center gap-3 mb-3 text-[#1FAA59]">
+                  <BarChart3 className="h-5 w-5" />
+                  <span className="text-xs font-mono uppercase font-bold text-white/70">PROVEN ROI</span>
+                </div>
+                <h3 className="text-lg font-bold font-display text-white mb-2">
+                  Proven Methodologies
+                </h3>
+                <p className="text-xs text-white/70 leading-relaxed">
+                  Frameworks for high-volume, mission-critical transport operations with 85% cost reduction.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
         </div>
       </section>
 
       {/* Boarding Pass Style Ticket Stub Strip */}
       <section className="py-16 bg-bg-muted border-b border-border-subtle">
-        <div className="container">
-          <div className="mx-auto max-w-4xl rounded-lg bg-bg-surface border border-border-subtle p-8 shadow-raised">
+        <div className="container max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="mx-auto max-w-4xl rounded-2xl bg-bg-surface border border-border-subtle p-8 shadow-raised">
             <div className="text-xs font-mono font-bold text-accent uppercase tracking-wider mb-6 flex justify-between items-center border-b border-border-subtle pb-3">
               <span>MEGATRANS 2026 EVENT PASS</span>
-              <span>STARTUP POD #04</span>
+              <span className="text-signal-warm font-bold">STARTUP POD #04</span>
             </div>
 
             {/* Ticket Stub Sections with Dashed Perforation Line */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-center relative">
-              {/* Dashed Perforation Overlay (Desktop) */}
               <div className="hidden md:block absolute top-0 bottom-0 left-1/4 w-px border-r-2 border-dashed border-border-subtle" />
               <div className="hidden md:block absolute top-0 bottom-0 left-2/4 w-px border-r-2 border-dashed border-border-subtle" />
               <div className="hidden md:block absolute top-0 bottom-0 left-3/4 w-px border-r-2 border-dashed border-border-subtle" />
@@ -119,9 +176,9 @@ const MegaTrans = () => {
         </div>
       </section>
 
-      {/* Why Visit Us: Simple 3-Item Horizontal Row (Not Cards) */}
+      {/* Why Visit Us Section */}
       <section className="py-20 md:py-28 bg-bg-base border-b border-border-subtle">
-        <div className="container">
+        <div className="container max-w-7xl mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center mb-14">
             <h2 className="text-3xl font-extrabold text-fg-default font-display sm:text-4xl">
               Why Stop By Our POD
@@ -159,10 +216,10 @@ const MegaTrans = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-accent-deep text-white text-center">
-        <div className="container">
-          <h2 className="text-3xl font-extrabold font-display sm:text-4xl">
+      {/* Booking CTA */}
+      <section className="py-20 bg-[#16214F] text-white text-center">
+        <div className="container max-w-7xl mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl font-extrabold font-display sm:text-4xl text-white">
             Let's Talk at MegaTrans
           </h2>
           <p className="mt-3 text-sm text-white/70 max-w-xl mx-auto">
@@ -170,7 +227,7 @@ const MegaTrans = () => {
           </p>
           <button
             onClick={openCalendly}
-            className="mt-8 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white hover:opacity-90 inline-flex items-center gap-2 shadow-flat"
+            className="mt-8 rounded-full bg-[#2E5EFF] px-8 py-4 text-sm font-bold text-white hover:opacity-90 inline-flex items-center gap-2 shadow-lg transition-transform hover:scale-105"
           >
             Book a Meeting <ArrowUpRight className="h-4 w-4" />
           </button>
