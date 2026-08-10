@@ -102,11 +102,11 @@ const ArticleList = () => {
             </div>
 
             <Link to={`/blog/${featuredPost.slug}`} className="group block space-y-4">
-              <div className="aspect-[21/9] sm:aspect-[2.2/1] overflow-hidden rounded-2xl border border-[#E7E5DE] mb-4 shadow-xl bg-white p-1">
+              <div className="overflow-hidden rounded-2xl border-2 border-[#2E5EFF]/20 mb-4 shadow-xl bg-white p-2 sm:p-3">
                 <img
                   src={featuredPost.cover_image_url}
                   alt={featuredPost.title}
-                  className="h-full w-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-[1.02]"
+                  className="h-full w-full object-contain rounded-xl transition-transform duration-500 group-hover:scale-[1.01]"
                 />
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#14171F] font-display group-hover:text-[#2E5EFF] transition-colors leading-tight">
