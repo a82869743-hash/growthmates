@@ -7,8 +7,7 @@ interface ClientOutcome {
   client: string;
   industry: string;
   logoColor: string;
-  stat: string;
-  statLabel: string;
+  outcomeTitle: string;
   quote: string;
   author: string;
   role: string;
@@ -25,8 +24,7 @@ const CLIENT_OUTCOMES: ClientOutcome[] = [
     client: "Roadmaster Transport",
     industry: "Logistics & Heavy Haulage",
     logoColor: "#2E5EFF",
-    stat: "42%",
-    statLabel: "Fleet Idle Time Reduced",
+    outcomeTitle: "Fleet Idle Time Optimized",
     quote: "GrowthMates gave us instant visibility over 500+ heavy vehicles and eliminated manual dispatch friction across inter-state routes.",
     author: "Marcus Vance",
     role: "VP of Logistics Operations",
@@ -34,47 +32,44 @@ const CLIENT_OUTCOMES: ClientOutcome[] = [
     borderRadius: "32px 32px 12px 32px",
     challenge: "High driver idle times, manual dispatch phone calls, and inefficient lane planning across 500+ interstate freight trucks.",
     solution: "Deployed GrowthMates Autonomous Fleet Dispatch & Multi-Stop Route Optimization Agents via SAP ERP gateway.",
-    impactMetrics: ["42% reduction in idle fuel consumption", "1.4 hours saved per driver turn", "Zero dispatch errors over 90 days"],
+    impactMetrics: ["Optimized idle fuel consumption", "Reduced driver turn-around friction", "Zero dispatch errors over 90 days"],
   },
   {
     id: "digitxl",
     client: "DigitXl Omnichannel",
     industry: "Enterprise Retail",
     logoColor: "#FF6A3D",
-    stat: "94%",
-    statLabel: "Automated Order Routing",
-    quote: "Our operational bottleneck vanished overnight. Order processing speed increased by 4x across peak Black Friday fulfillment.",
+    outcomeTitle: "Automated Order Routing",
+    quote: "Our operational bottleneck vanished overnight. Order processing speed increased significantly across peak Black Friday fulfillment.",
     author: "Elena Rostova",
     role: "Chief Technology Officer",
     verifiedTag: "Enterprise Verified",
     borderRadius: "32px 12px 32px 32px",
-    challenge: "Peak holiday season order spikes caused warehouse bottlenecks and 48-hour fulfillment delays.",
+    challenge: "Peak holiday season order spikes caused warehouse bottlenecks and fulfillment delays.",
     solution: "Integrated GrowthMates Inventory & Order Routing Agents with Shopify Plus and Xero accounting ledger.",
-    impactMetrics: ["94% fully automated order routing", "4x faster peak season throughput", "85% reduction in manual warehouse entry"],
+    impactMetrics: ["Automated order routing", "Accelerated peak season throughput", "Reduced manual warehouse entry"],
   },
   {
     id: "lumiland",
     client: "Lumiland Commerce",
     industry: "Global E-Commerce",
     logoColor: "#1FAA59",
-    stat: "3.8x",
-    statLabel: "Faster RMA Resolution",
+    outcomeTitle: "Streamlined RMA Support",
     quote: "The customer RMA and fraud prevention agents handle support tickets seamlessly with zero human delay and full policy compliance.",
     author: "James Chen",
     role: "Head of E-Commerce",
     verifiedTag: "Live SLA Active",
     borderRadius: "12px 32px 32px 32px",
-    challenge: "Overwhelmed support team handling 3,000+ monthly return requests with slow customer refund turnaround.",
+    challenge: "Overwhelmed support team handling high volumes of return requests with slow customer refund turnaround.",
     solution: "Deployed GrowthMates RMA & Refund Resolution Agent integrated directly with Zendesk and Stripe payment engine.",
-    impactMetrics: ["3.8x faster customer resolution time", "99.4% automated return verification accuracy", "92% positive customer CSAT score"],
+    impactMetrics: ["Streamlined customer resolution time", "Automated return verification accuracy", "Increased customer CSAT score"],
   },
   {
     id: "linfox",
     client: "Linfox Logistics Network",
     industry: "Multi-Modal Freight",
     logoColor: "#7C97FF",
-    stat: "99.2%",
-    statLabel: "On-Time Dispatch Rate",
+    outcomeTitle: "On-Time Freight Dispatch",
     quote: "An indispensable platform for multi-modal freight networks. Real-time rate quoting and automated lane booking has boosted our margins.",
     author: "Sarah Jenkins",
     role: "Director of Supply Chain",
@@ -82,7 +77,7 @@ const CLIENT_OUTCOMES: ClientOutcome[] = [
     borderRadius: "32px 32px 32px 12px",
     challenge: "Manual rate quoting and carrier confirmation took up to 6 hours per freight lane, missing high-margin spot rates.",
     solution: "Implemented GrowthMates Freight Rate Engine & Carrier Dispatch Agent connecting Oracle TMS to TruckMate.",
-    impactMetrics: ["99.2% on-time freight dispatch rate", "Under 15-second spot rate quoting", "+18% expansion in net freight margin"],
+    impactMetrics: ["On-time freight dispatch execution", "Fast spot rate quoting", "Expanded net freight margins"],
   },
 ];
 
@@ -108,13 +103,13 @@ const ProofBlobs = () => {
           {/* Key Proof Metric Strip */}
           <div className="pt-4 flex flex-wrap items-center justify-center gap-6 text-xs font-mono font-bold text-[#5B616E]">
             <span className="flex items-center gap-1.5 bg-white px-3 py-1 rounded-full border border-[#E7E5DE] shadow-xs">
-              <TrendingUp className="h-3.5 w-3.5 text-[#1FAA59]" /> $420M+ Freight Managed
+              <TrendingUp className="h-3.5 w-3.5 text-[#1FAA59]" /> Multi-Modal Fleet &amp; Supply Chain Network
             </span>
             <span className="flex items-center gap-1.5 bg-white px-3 py-1 rounded-full border border-[#E7E5DE] shadow-xs">
               <ShieldCheck className="h-3.5 w-3.5 text-[#2E5EFF]" /> SOC2 Type II Certified
             </span>
             <span className="flex items-center gap-1.5 bg-white px-3 py-1 rounded-full border border-[#E7E5DE] shadow-xs">
-              <CheckCircle2 className="h-3.5 w-3.5 text-[#FF6A3D]" /> 99.99% Execution SLA
+              <CheckCircle2 className="h-3.5 w-3.5 text-[#FF6A3D]" /> Enterprise Execution SLA
             </span>
           </div>
         </div>
@@ -154,18 +149,15 @@ const ProofBlobs = () => {
                   </div>
 
                   {/* 5-Star Rating */}
-                  <div className="flex items-center gap-1 mb-2">
+                  <div className="flex items-center gap-1 mb-3">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="h-3.5 w-3.5 fill-[#FF6A3D] text-[#FF6A3D]" />
                     ))}
                   </div>
 
-                  {/* Big Stat Impact */}
-                  <div className="text-4xl font-extrabold font-display tracking-tight" style={{ color: item.logoColor }}>
-                    {item.stat}
-                  </div>
-                  <div className="text-xs font-bold text-[#14171F] mt-1 mb-4 uppercase tracking-wider font-mono">
-                    {item.statLabel}
+                  {/* Outcome Title Banner */}
+                  <div className="text-lg font-extrabold font-display tracking-tight mb-3" style={{ color: item.logoColor }}>
+                    {item.outcomeTitle}
                   </div>
 
                   {/* Testimonial Quote */}
