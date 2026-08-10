@@ -23,43 +23,43 @@ const MegaTrans = () => {
     <div className="min-h-screen bg-bg-base text-fg-default font-body">
       <Navbar />
 
-      {/* Main Hero Container (SDI Style Rounded Banner Card with Multi-Modal Logistics Background) */}
+      {/* Main Hero Container with Highly Visible Multi-Modal Logistics Background */}
       <section className="py-12 md:py-20 bg-bg-base">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6">
           
-          {/* Large SDI Style Hero Banner Box with Logistics Background */}
+          {/* Large Hero Banner Box with Vibrant Logistics Background */}
           <div
-            className="relative overflow-hidden rounded-3xl text-white p-8 md:p-14 shadow-2xl min-h-[580px] flex flex-col justify-between border border-[#2E5EFF]/30"
+            className="relative overflow-hidden rounded-3xl text-white p-8 md:p-14 shadow-2xl min-h-[640px] flex flex-col justify-between border-2 border-[#2E5EFF]/40"
             style={{
-              backgroundImage: `linear-gradient(to right, rgba(22, 33, 79, 0.95) 0%, rgba(22, 33, 79, 0.85) 55%, rgba(22, 33, 79, 0.55) 100%), url('/images/megatrans-bg.png')`,
-              backgroundPosition: "center",
+              backgroundImage: `linear-gradient(to right, rgba(16, 23, 53, 0.78) 0%, rgba(16, 23, 53, 0.55) 50%, rgba(16, 23, 53, 0.35) 100%), url('/images/megatrans-bg.png')`,
+              backgroundPosition: "center 30%",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
             }}
           >
-            {/* Top Text Content inside Banner */}
+            {/* Top Text Content inside Banner with Drop Shadows for Ultra Legibility */}
             <div className="relative z-10 max-w-3xl space-y-5">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-white">
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#16214F]/80 backdrop-blur-md border border-white/30 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-lg">
                 <Sparkles className="h-3.5 w-3.5 text-[#FF6A3D]" /> WE DELIVER · MEGATRANS 2026 STARTUP POD
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-display tracking-tight leading-[1.08] text-white drop-shadow-md">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-display tracking-tight leading-[1.08] text-white [text-shadow:_0_4px_12px_rgba(0,0,0,0.8)]">
                 Why Transportation Leaders Choose GrowthMates AI
               </h1>
               
-              <p className="text-base md:text-lg text-white/90 max-w-2xl font-body leading-relaxed drop-shadow-sm">
+              <p className="text-base md:text-lg text-white font-medium max-w-2xl font-body leading-relaxed [text-shadow:_0_2px_8px_rgba(0,0,0,0.8)]">
                 Come meet us at Australia’s largest integrated logistics and supply chain expo. Visit our Startup POD at MCEC Melbourne to see live agentic decision execution.
               </p>
             </div>
 
-            {/* Bottom 4 Glassmorphism Frosted Cards Grid (SDI Presence Style Composition) */}
+            {/* Bottom 4 Glassmorphism Frosted Cards Grid */}
             <div className="relative z-10 mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               
               {/* Card 1 */}
-              <div className="rounded-2xl bg-[#16214F]/70 backdrop-blur-lg border border-white/20 p-6 hover:bg-[#16214F]/85 hover:border-white/40 transition-all duration-300 shadow-xl">
+              <div className="rounded-2xl bg-[#16214F]/80 backdrop-blur-md border border-white/25 p-6 hover:bg-[#16214F]/90 hover:border-white/50 transition-all duration-300 shadow-2xl">
                 <div className="flex items-center gap-3 mb-3 text-[#7C97FF]">
                   <Truck className="h-5 w-5" />
-                  <span className="text-xs font-mono uppercase font-bold text-white/80">FLEET DISPATCH</span>
+                  <span className="text-xs font-mono uppercase font-bold text-white/90">FLEET DISPATCH</span>
                 </div>
                 <h3 className="text-lg font-bold font-display text-white mb-2">
                   Autonomous Fleet Dispatch
@@ -70,10 +70,10 @@ const MegaTrans = () => {
               </div>
 
               {/* Card 2 */}
-              <div className="rounded-2xl bg-[#16214F]/70 backdrop-blur-lg border border-white/20 p-6 hover:bg-[#16214F]/85 hover:border-white/40 transition-all duration-300 shadow-xl">
+              <div className="rounded-2xl bg-[#16214F]/80 backdrop-blur-md border border-white/25 p-6 hover:bg-[#16214F]/90 hover:border-white/50 transition-all duration-300 shadow-2xl">
                 <div className="flex items-center gap-3 mb-3 text-[#FF6A3D]">
                   <ShieldCheck className="h-5 w-5" />
-                  <span className="text-xs font-mono uppercase font-bold text-white/80">GOVERNANCE</span>
+                  <span className="text-xs font-mono uppercase font-bold text-white/90">GOVERNANCE</span>
                 </div>
                 <h3 className="text-lg font-bold font-display text-white mb-2">
                   Security-First Design
@@ -84,10 +84,10 @@ const MegaTrans = () => {
               </div>
 
               {/* Card 3 */}
-              <div className="rounded-2xl bg-[#16214F]/70 backdrop-blur-lg border border-white/20 p-6 hover:bg-[#16214F]/85 hover:border-white/40 transition-all duration-300 shadow-xl">
+              <div className="rounded-2xl bg-[#16214F]/80 backdrop-blur-md border border-white/25 p-6 hover:bg-[#16214F]/90 hover:border-white/50 transition-all duration-300 shadow-2xl">
                 <div className="flex items-center gap-3 mb-3 text-[#7C97FF]">
                   <Cpu className="h-5 w-5" />
-                  <span className="text-xs font-mono uppercase font-bold text-white/80">PARTNERSHIP</span>
+                  <span className="text-xs font-mono uppercase font-bold text-white/90">PARTNERSHIP</span>
                 </div>
                 <h3 className="text-lg font-bold font-display text-white mb-2">
                   Hands-On Partnership
@@ -98,10 +98,10 @@ const MegaTrans = () => {
               </div>
 
               {/* Card 4 */}
-              <div className="rounded-2xl bg-[#16214F]/70 backdrop-blur-lg border border-white/20 p-6 hover:bg-[#16214F]/85 hover:border-white/40 transition-all duration-300 shadow-xl">
+              <div className="rounded-2xl bg-[#16214F]/80 backdrop-blur-md border border-white/25 p-6 hover:bg-[#16214F]/90 hover:border-white/50 transition-all duration-300 shadow-2xl">
                 <div className="flex items-center gap-3 mb-3 text-[#1FAA59]">
                   <BarChart3 className="h-5 w-5" />
-                  <span className="text-xs font-mono uppercase font-bold text-white/80">PROVEN ROI</span>
+                  <span className="text-xs font-mono uppercase font-bold text-white/90">PROVEN ROI</span>
                 </div>
                 <h3 className="text-lg font-bold font-display text-white mb-2">
                   Proven Methodologies
