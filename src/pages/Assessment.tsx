@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ClipboardCheck, Sparkles, ArrowRight } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
+import ScrollReveal from "@/components/landing/ScrollReveal";
 import AssessmentQuiz, { QUESTIONS } from "@/components/assessment/AssessmentQuiz";
 import AssessmentResults from "@/components/assessment/AssessmentResults";
 import type { AssessmentResult } from "@/components/assessment/types";
@@ -100,71 +101,75 @@ const Assessment = () => {
       <Navbar />
       <section className="container max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24">
         
-        {/* Header */}
-        <div className="mx-auto max-w-3xl text-center mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-wider text-[#2E5EFF]">
-            <ClipboardCheck className="h-3.5 w-3.5" /> AI READINESS DIAGNOSTIC
+        {/* Header with ScrollReveal */}
+        <ScrollReveal variant="fade-up">
+          <div className="mx-auto max-w-3xl text-center mb-12 space-y-3">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-wider text-[#2E5EFF]">
+              <ClipboardCheck className="h-3.5 w-3.5" /> AI READINESS DIAGNOSTIC
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display text-[#14171F]">
+              AI Readiness <span className="text-[#2E5EFF]">Assessment</span>
+            </h1>
+            <p className="text-base sm:text-lg text-[#5B616E] max-w-lg mx-auto font-body">
+              Type your operational goal into the prompt bar below for instant AI analysis, or answer 5 quick questions.
+            </p>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display text-[#14171F]">
-            AI Readiness <span className="text-[#2E5EFF]">Assessment</span>
-          </h1>
-          <p className="text-base sm:text-lg text-[#5B616E] max-w-lg mx-auto font-body">
-            Type your operational goal into the prompt bar below for instant AI analysis, or answer 5 quick questions.
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* Prompt Launcher Bar */}
         {!quizDone && (
-          <div className="max-w-2xl mx-auto mb-14">
-            <div className="rounded-2xl bg-white border-2 border-[#2E5EFF]/30 p-4 shadow-xl focus-within:border-[#2E5EFF] transition-all">
-              <div className="flex items-center gap-3">
-                <Sparkles className="h-5 w-5 text-[#2E5EFF] shrink-0" />
-                <input
-                  type="text"
-                  value={promptInput}
-                  onChange={(e) => setPromptInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handlePromptSubmit()}
-                  placeholder="Analyze our operations: We spend 3 hrs/day manually dispatching trucks..."
-                  className="w-full bg-transparent text-sm sm:text-base text-[#14171F] placeholder-[#8B8F99] focus:outline-none font-body"
-                />
-                <button
-                  onClick={() => handlePromptSubmit()}
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FF6A3D] text-white hover:bg-[#E5592E] transition-all shadow-md hover:scale-105"
-                  title="Run instant AI assessment"
-                >
-                  <ArrowRight className="h-5 w-5" />
-                </button>
-              </div>
-
-              {/* Sample Prompt Chips */}
-              <div className="mt-3 pt-3 border-t border-[#E7E5DE] flex flex-wrap items-center gap-2">
-                <span className="text-xs text-[#8B8F99] font-mono">Try prompt:</span>
-                {[
-                  "Manual freight rate quoting & carrier follow-ups",
-                  "Automate e-commerce RMA return refunds",
-                  "Forecast crop water demands & soil moisture",
-                ].map((sample) => (
+          <ScrollReveal variant="scale" delay={0.1}>
+            <div className="max-w-2xl mx-auto mb-14">
+              <div className="rounded-2xl bg-white border-2 border-[#2E5EFF]/30 p-4 shadow-xl focus-within:border-[#2E5EFF] transition-all">
+                <div className="flex items-center gap-3">
+                  <Sparkles className="h-5 w-5 text-[#2E5EFF] shrink-0" />
+                  <input
+                    type="text"
+                    value={promptInput}
+                    onChange={(e) => setPromptInput(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handlePromptSubmit()}
+                    placeholder="Analyze our operations: We spend 3 hrs/day manually dispatching trucks..."
+                    className="w-full bg-transparent text-sm sm:text-base text-[#14171F] placeholder-[#8B8F99] focus:outline-none font-body"
+                  />
                   <button
-                    key={sample}
-                    onClick={() => {
-                      setPromptInput(sample);
-                      handlePromptSubmit(sample);
-                    }}
-                    className="rounded-full bg-[#FAF9F6] border border-[#E7E5DE] px-3 py-1 text-xs text-[#14171F] hover:border-[#2E5EFF] hover:bg-[#EEF1FF] transition-all"
+                    onClick={() => handlePromptSubmit()}
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FF6A3D] text-white hover:bg-[#E5592E] transition-all shadow-md hover:scale-105"
+                    title="Run instant AI assessment"
                   >
-                    {sample}
+                    <ArrowRight className="h-5 w-5" />
                   </button>
-                ))}
+                </div>
+
+                {/* Sample Prompt Chips */}
+                <div className="mt-3 pt-3 border-t border-[#E7E5DE] flex flex-wrap items-center gap-2">
+                  <span className="text-xs text-[#8B8F99] font-mono">Try prompt:</span>
+                  {[
+                    "Manual freight rate quoting & carrier follow-ups",
+                    "Automate e-commerce RMA return refunds",
+                    "Forecast crop water demands & soil moisture",
+                  ].map((sample) => (
+                    <button
+                      key={sample}
+                      onClick={() => {
+                        setPromptInput(sample);
+                        handlePromptSubmit(sample);
+                      }}
+                      className="rounded-full bg-[#FAF9F6] border border-[#E7E5DE] px-3 py-1 text-xs text-[#14171F] hover:border-[#2E5EFF] hover:bg-[#EEF1FF] transition-all"
+                    >
+                      {sample}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="relative my-8 text-center">
+                <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[#E7E5DE]" /></div>
+                <span className="relative rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-4 py-1 text-[10px] font-mono font-bold text-[#2E5EFF] uppercase tracking-wider">
+                  OR ANSWER STRUCTURED QUESTIONS BELOW
+                </span>
               </div>
             </div>
-            
-            <div className="relative my-8 text-center">
-              <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[#E7E5DE]" /></div>
-              <span className="relative rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-4 py-1 text-[10px] font-mono font-bold text-[#2E5EFF] uppercase tracking-wider">
-                OR ANSWER STRUCTURED QUESTIONS BELOW
-              </span>
-            </div>
-          </div>
+          </ScrollReveal>
         )}
 
         {!quizDone ? (

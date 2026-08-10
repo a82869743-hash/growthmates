@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
+import ScrollReveal from "@/components/landing/ScrollReveal";
 
 const FEATURED_INFOGRAPHIC_POST = {
   id: "post-featured-infographic",
@@ -65,7 +66,6 @@ const ArticleList = () => {
   });
 
   const featuredPost = FEATURED_INFOGRAPHIC_POST;
-  // Enforce 3 unique editorial posts with distinct unique images
   const remainingPosts = DEFAULT_EDITORIAL_POSTS;
 
   return (
@@ -74,17 +74,19 @@ const ArticleList = () => {
 
       {/* Hero Header */}
       <section className="border-b border-[#E7E5DE] bg-white py-16 md:py-24">
-        <div className="container max-w-4xl text-center px-4 sm:px-6">
-          <span className="inline-block rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-3.5 py-1 text-xs font-mono font-bold uppercase text-[#2E5EFF] mb-3">
-            GrowthMates Publication
-          </span>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display text-[#14171F]">
-            Perspectives &amp; Insights
-          </h1>
-          <p className="mt-3 text-base text-[#5B616E] max-w-xl mx-auto font-body">
-            Deep-dive articles on Agentic AI, supply chain decision engines, and enterprise workflow automation.
-          </p>
-        </div>
+        <ScrollReveal variant="fade-up">
+          <div className="container max-w-4xl text-center px-4 sm:px-6">
+            <span className="inline-block rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-3.5 py-1 text-xs font-mono font-bold uppercase text-[#2E5EFF] mb-3">
+              GrowthMates Publication
+            </span>
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display text-[#14171F]">
+              Perspectives &amp; Insights
+            </h1>
+            <p className="mt-3 text-base text-[#5B616E] max-w-xl mx-auto font-body">
+              Deep-dive articles on Agentic AI, supply chain decision engines, and enterprise workflow automation.
+            </p>
+          </div>
+        </ScrollReveal>
       </section>
 
       {/* Editorial Article List Section */}
@@ -92,96 +94,95 @@ const ArticleList = () => {
         <div className="container max-w-4xl px-4 sm:px-6 space-y-12">
           
           {/* FEATURED ARTICLE: AI AGENT vs AGENTIC AI */}
-          <div className="border-b border-[#E7E5DE] pb-12">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-[10px] font-mono font-bold text-[#FF6A3D] bg-[#FF6A3D]/10 px-2.5 py-0.5 rounded uppercase tracking-wider">
-                FEATURED ARTICLE
-              </span>
-              <span className="text-[10px] font-mono text-[#2E5EFF] bg-[#EEF1FF] px-2.5 py-0.5 rounded font-bold">
-                Agentic AI
-              </span>
-            </div>
-
-            <Link to={`/blog/${featuredPost.slug}`} className="group block space-y-4">
-              <div className="overflow-hidden rounded-2xl border-2 border-[#2E5EFF]/20 mb-4 shadow-xl bg-white p-2 sm:p-3">
-                <img
-                  src={featuredPost.cover_image_url}
-                  alt={featuredPost.title}
-                  className="h-full w-full object-contain rounded-xl transition-transform duration-500 group-hover:scale-[1.01]"
-                />
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#14171F] font-display group-hover:text-[#2E5EFF] transition-colors leading-tight">
-                {featuredPost.title}
-              </h2>
-              <p className="text-sm text-[#5B616E] leading-relaxed line-clamp-2 font-body">
-                {featuredPost.excerpt}
-              </p>
-              <div className="flex items-center gap-4 text-xs text-[#8B8F99] font-mono pt-1">
-                <span>{featuredPost.author_name}</span>
-                <span>•</span>
-                <span>March 28, 2026</span>
-                <span>•</span>
-                <span className="text-[#2E5EFF] font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                  Read Full Article &rarr;
+          <ScrollReveal variant="scale">
+            <div className="border-b border-[#E7E5DE] pb-12">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-[10px] font-mono font-bold text-[#FF6A3D] bg-[#FF6A3D]/10 px-2.5 py-0.5 rounded uppercase tracking-wider">
+                  FEATURED ARTICLE
+                </span>
+                <span className="text-[10px] font-mono text-[#2E5EFF] bg-[#EEF1FF] px-2.5 py-0.5 rounded font-bold">
+                  Agentic AI
                 </span>
               </div>
-            </Link>
-          </div>
 
-          {/* Remaining Posts Editorial List with 100% Unique Images */}
+              <Link to={`/blog/${featuredPost.slug}`} className="group block space-y-4">
+                <div className="overflow-hidden rounded-2xl border-2 border-[#2E5EFF]/20 mb-4 shadow-xl bg-white p-2 sm:p-3">
+                  <img
+                    src={featuredPost.cover_image_url}
+                    alt={featuredPost.title}
+                    className="h-full w-full object-contain rounded-xl transition-transform duration-500 group-hover:scale-[1.01]"
+                  />
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#14171F] font-display group-hover:text-[#2E5EFF] transition-colors leading-tight">
+                  {featuredPost.title}
+                </h2>
+                <p className="text-sm text-[#5B616E] leading-relaxed line-clamp-2 font-body">
+                  {featuredPost.excerpt}
+                </p>
+                <div className="flex items-center gap-4 text-xs text-[#8B8F99] font-mono pt-1">
+                  <span>{featuredPost.author_name}</span>
+                  <span>•</span>
+                  <span>March 28, 2026</span>
+                  <span>•</span>
+                  <span className="text-[#2E5EFF] font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                    Read Full Article &rarr;
+                  </span>
+                </div>
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          {/* Remaining Posts Editorial List */}
           <div className="space-y-8">
             <h3 className="text-xs font-mono font-bold text-[#8B8F99] uppercase tracking-wider">
               LATEST RESEARCH &amp; ANALYSIS
             </h3>
 
-            {remainingPosts.map((post) => (
-              <article
-                key={post.id}
-                className="border-b border-[#E7E5DE] pb-8 last:border-b-0 last:pb-0"
-              >
-                <Link
-                  to={`/blog/${post.slug}`}
-                  className="group grid gap-6 md:grid-cols-12 items-center"
-                >
-                  {/* Left Thumbnail with Unique HD Image */}
-                  <div className="md:col-span-4">
-                    <div className="aspect-video overflow-hidden rounded-xl border border-[#E7E5DE] shadow-sm bg-white">
-                      <img
-                        src={post.cover_image_url}
-                        alt={post.title}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
+            {remainingPosts.map((post, idx) => (
+              <ScrollReveal key={post.id} variant="fade-up" delay={idx * 0.1}>
+                <article className="border-b border-[#E7E5DE] pb-8 last:border-b-0 last:pb-0">
+                  <Link
+                    to={`/blog/${post.slug}`}
+                    className="group grid gap-6 md:grid-cols-12 items-center"
+                  >
+                    <div className="md:col-span-4">
+                      <div className="aspect-video overflow-hidden rounded-xl border border-[#E7E5DE] shadow-sm bg-white">
+                        <img
+                          src={post.cover_image_url}
+                          alt={post.title}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Right Title & Excerpt */}
-                  <div className="md:col-span-8 space-y-2">
-                    <div className="flex flex-wrap gap-2 mb-1">
-                      {post.tags?.map((t: string) => (
-                        <span key={t} className="text-[10px] font-mono font-bold text-[#2E5EFF] bg-[#EEF1FF] px-2 py-0.5 rounded">
-                          {t}
+                    <div className="md:col-span-8 space-y-2">
+                      <div className="flex flex-wrap gap-2 mb-1">
+                        {post.tags?.map((t: string) => (
+                          <span key={t} className="text-[10px] font-mono font-bold text-[#2E5EFF] bg-[#EEF1FF] px-2 py-0.5 rounded">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                      <h3 className="text-lg md:text-xl font-bold text-[#14171F] font-display group-hover:text-[#2E5EFF] transition-colors leading-snug">
+                        {post.title}
+                      </h3>
+                      <p className="text-xs text-[#5B616E] line-clamp-2 leading-relaxed font-body">
+                        {post.excerpt}
+                      </p>
+                      <div className="flex items-center justify-between text-xs text-[#8B8F99] pt-2 font-mono">
+                        <span>
+                          {post.published_at
+                            ? format(new Date(post.published_at), "MMM d, yyyy")
+                            : "March 2026"}
                         </span>
-                      ))}
+                        <span className="text-[#2E5EFF] font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                          Read Article <ArrowUpRight className="h-3.5 w-3.5" />
+                        </span>
+                      </div>
                     </div>
-                    <h3 className="text-lg md:text-xl font-bold text-[#14171F] font-display group-hover:text-[#2E5EFF] transition-colors leading-snug">
-                      {post.title}
-                    </h3>
-                    <p className="text-xs text-[#5B616E] line-clamp-2 leading-relaxed font-body">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center justify-between text-xs text-[#8B8F99] pt-2 font-mono">
-                      <span>
-                        {post.published_at
-                          ? format(new Date(post.published_at), "MMM d, yyyy")
-                          : "March 2026"}
-                      </span>
-                      <span className="text-[#2E5EFF] font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                        Read Article <ArrowUpRight className="h-3.5 w-3.5" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </article>
+                  </Link>
+                </article>
+              </ScrollReveal>
             ))}
           </div>
 

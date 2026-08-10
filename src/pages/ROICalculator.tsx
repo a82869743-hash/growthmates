@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Bot, CheckCircle2, User, Sparkles, Truck, Calculator, ArrowRight, ShieldCheck } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
+import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/landing/ScrollReveal";
 import ROIResultsDashboard from "@/components/roi/ROIResultsDashboard";
 import { useROICalculations } from "@/components/roi/useROICalculations";
 import { COUNTRY_DEFAULTS } from "@/components/roi/constants";
@@ -76,67 +77,74 @@ const ROICalculator = () => {
 
       <section className="container max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20">
         
-        {/* Sleek Hero Header */}
-        <div className="mx-auto max-w-3xl text-center mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-wider text-[#2E5EFF]">
-            <Calculator className="h-3.5 w-3.5" /> INTERACTIVE ADVISOR THREAD
+        {/* Hero Header with ScrollReveal */}
+        <ScrollReveal variant="fade-up">
+          <div className="mx-auto max-w-3xl text-center mb-12 space-y-3">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-wider text-[#2E5EFF]">
+              <Calculator className="h-3.5 w-3.5" /> INTERACTIVE ADVISOR THREAD
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display text-[#14171F]">
+              AI Automation <span className="text-[#2E5EFF]">ROI Calculator</span>
+            </h1>
+            <p className="text-base text-[#5B616E] max-w-lg mx-auto font-body">
+              Answer 4 quick operational questions below to generate your tailored AI ROI analysis and cost reduction breakdown.
+            </p>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display text-[#14171F]">
-            AI Automation <span className="text-[#2E5EFF]">ROI Calculator</span>
-          </h1>
-          <p className="text-base text-[#5B616E] max-w-lg mx-auto font-body">
-            Answer 4 quick operational questions below to generate your tailored AI ROI analysis and cost reduction breakdown.
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* Layout Grid with Sticky Side Rail */}
         <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-12 items-start">
           
-          {/* Side Progress Rail (3 cols) */}
-          <div className="hidden lg:block lg:col-span-3 sticky top-28 rounded-2xl bg-white border border-[#E7E5DE] p-5 shadow-raised space-y-4">
-            <span className="text-xs font-mono font-bold text-[#5B616E] uppercase tracking-wider block border-b border-[#E7E5DE] pb-2">
-              CONVERSATION STAGES
-            </span>
-            <div className="space-y-2">
-              {STAGES.map((s) => {
-                const isActive = activeStage === s.id;
-                const isDone = activeStage > s.id;
+          {/* Side Progress Rail */}
+          <ScrollReveal variant="fade-right" className="hidden lg:block lg:col-span-3 sticky top-28">
+            <div className="rounded-2xl bg-white border border-[#E7E5DE] p-5 shadow-raised space-y-4">
+              <span className="text-xs font-mono font-bold text-[#5B616E] uppercase tracking-wider block border-b border-[#E7E5DE] pb-2">
+                CONVERSATION STAGES
+              </span>
+              <div className="space-y-2">
+                {STAGES.map((s) => {
+                  const isActive = activeStage === s.id;
+                  const isDone = activeStage > s.id;
 
-                return (
-                  <button
-                    key={s.id}
-                    onClick={() => setActiveStage(s.id)}
-                    className={`w-full text-left text-xs p-3 rounded-xl flex items-center justify-between transition-all font-mono font-bold ${
-                      isActive
-                        ? "bg-[#2E5EFF] text-white shadow-sm"
-                        : isDone
-                        ? "bg-[#EEF1FF] text-[#2E5EFF]"
-                        : "bg-[#FAF9F6] text-[#5B616E] hover:text-[#14171F]"
-                    }`}
-                  >
-                    <span>{s.label}</span>
-                    {isDone && <CheckCircle2 className="h-4 w-4 text-[#1FAA59]" />}
-                  </button>
-                );
-              })}
-            </div>
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={() => setActiveStage(s.id)}
+                      className={`w-full text-left text-xs p-3 rounded-xl flex items-center justify-between transition-all font-mono font-bold ${
+                        isActive
+                          ? "bg-[#2E5EFF] text-white shadow-sm"
+                          : isDone
+                          ? "bg-[#EEF1FF] text-[#2E5EFF]"
+                          : "bg-[#FAF9F6] text-[#5B616E] hover:text-[#14171F]"
+                      }`}
+                    >
+                      <span>{s.label}</span>
+                      {isDone && <CheckCircle2 className="h-4 w-4 text-[#1FAA59]" />}
+                    </button>
+                  );
+                })}
+              </div>
 
-            {/* Quick Live Savings Counter Badge */}
-            <div className="mt-6 pt-4 border-t border-[#E7E5DE] text-center space-y-1">
-              <span className="text-[10px] font-mono text-[#8B8F99] uppercase">ESTIMATED ANNUAL SAVINGS</span>
-              <div className="text-xl font-extrabold text-[#1FAA59] font-display">
-                ${annualSavings.toLocaleString()}
+              {/* Quick Live Savings Counter Badge */}
+              <div className="mt-6 pt-4 border-t border-[#E7E5DE] text-center space-y-1">
+                <span className="text-[10px] font-mono text-[#8B8F99] uppercase">ESTIMATED ANNUAL SAVINGS</span>
+                <div className="text-xl font-extrabold text-[#1FAA59] font-display">
+                  ${annualSavings.toLocaleString()}
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Conversational Interactive Chat Column (9 cols) */}
           <div className="lg:col-span-9 space-y-6">
             
             {/* Stage 0: Business Profile */}
-            <div className="rounded-3xl bg-white border border-[#E7E5DE] p-6 sm:p-8 shadow-raised space-y-6">
-              
-              {/* System AI Advisor Message */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="rounded-3xl bg-white border border-[#E7E5DE] p-6 sm:p-8 shadow-raised space-y-6"
+            >
               <div className="flex gap-3 items-start">
                 <div className="h-10 w-10 rounded-2xl bg-[#16214F] text-white flex items-center justify-center shrink-0 shadow-md">
                   <Bot className="h-5 w-5" />
@@ -147,14 +155,12 @@ const ROICalculator = () => {
                 </div>
               </div>
 
-              {/* Interactive Inputs */}
               <div className="flex gap-3 items-start justify-end">
                 <div className="rounded-2xl bg-[#FAF9F6] border border-[#E7E5DE] p-5 sm:p-6 text-sm text-[#14171F] space-y-5 max-w-xl w-full shadow-xs">
                   <div className="flex items-center justify-between border-b border-[#E7E5DE] pb-3">
                     <div className="flex items-center gap-2 font-bold text-[#14171F] font-display">
                       <Truck className="h-4 w-4 text-[#2E5EFF]" /> Fleet &amp; Load Inputs
                     </div>
-                    {/* Quick Preset Buttons */}
                     <div className="flex gap-1.5">
                       <button
                         onClick={() => {
@@ -213,13 +219,14 @@ const ROICalculator = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Stage 1: Operations Hours */}
             {activeStage >= 1 && (
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
                 className="rounded-3xl bg-white border border-[#E7E5DE] p-6 sm:p-8 shadow-raised space-y-6"
               >
                 <div className="flex gap-3 items-start">
@@ -285,8 +292,9 @@ const ROICalculator = () => {
             {/* Stage 2: Pain Points */}
             {activeStage >= 2 && (
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
                 className="rounded-3xl bg-white border border-[#E7E5DE] p-6 sm:p-8 shadow-raised space-y-6"
               >
                 <div className="flex gap-3 items-start">
@@ -346,8 +354,9 @@ const ROICalculator = () => {
             {/* Stage 3: Automation Readiness */}
             {activeStage >= 3 && (
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
                 className="rounded-3xl bg-white border border-[#E7E5DE] p-6 sm:p-8 shadow-raised space-y-6"
               >
                 <div className="flex gap-3 items-start">
@@ -405,6 +414,7 @@ const ROICalculator = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
                 className="rounded-3xl bg-white border-2 border-[#2E5EFF]/30 p-8 shadow-2xl"
               >
                 <ROIResultsDashboard results={results} business={business} />

@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
+import ScrollReveal from "@/components/landing/ScrollReveal";
 
 const CALENDLY_URL = "https://calendly.com/d-bstsolutions/book-your-free-consultation";
 
@@ -121,17 +122,19 @@ const ContactPanel = () => {
       <div className="container py-16 md:py-24">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
-          <div className="mb-12 text-center max-w-2xl mx-auto">
-            <span className="inline-block rounded-full bg-accent-dim px-3.5 py-1 text-xs font-semibold text-accent mb-3">
-              Direct Contact &amp; Consultations
-            </span>
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display">
-              Get in Touch
-            </h1>
-            <p className="mt-3 text-base text-fg-dim">
-              Send us a message or schedule a live working session directly with our engineering team.
-            </p>
-          </div>
+          <ScrollReveal variant="fade-up">
+            <div className="mb-12 text-center max-w-2xl mx-auto">
+              <span className="inline-block rounded-full bg-accent-dim px-3.5 py-1 text-xs font-semibold text-accent mb-3">
+                Direct Contact &amp; Consultations
+              </span>
+              <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display">
+                Get in Touch
+              </h1>
+              <p className="mt-3 text-base text-fg-dim">
+                Send us a message or schedule a live working session directly with our engineering team.
+              </p>
+            </div>
+          </ScrollReveal>
 
           <div className="grid gap-8 lg:grid-cols-12 items-start">
             {/* Left: Contact Form Column (6 cols) */}
