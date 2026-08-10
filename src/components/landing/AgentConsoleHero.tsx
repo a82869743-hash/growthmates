@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowUpRight, ShieldCheck, Cpu, CheckCircle2, BarChart3, Lock, Sparkles, Navigation } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, CheckCircle2, BarChart3, Navigation } from "lucide-react";
 import { motion } from "framer-motion";
 
 const AGENT_STREAM = [
@@ -42,16 +42,16 @@ const AgentConsoleHero = () => {
   const activeStream = AGENT_STREAM[streamIdx];
 
   return (
-    <section className="relative bg-[#FAF9F6] py-16 md:py-24 lg:py-32 overflow-hidden border-b border-[#E7E5DE] text-[#14171F]">
+    <section className="relative bg-[#FAF9F6] pt-6 sm:pt-8 md:pt-10 lg:pt-12 pb-12 md:pb-16 overflow-hidden border-b border-[#E7E5DE] text-[#14171F]">
       <div className="container relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid items-center gap-12 lg:grid-cols-12">
+        <div className="grid items-center gap-10 lg:grid-cols-12">
           
-          {/* Left Column (5 cols ~ SDI Presence layout) */}
+          {/* Left Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-6 space-y-6"
+            className="lg:col-span-6 space-y-5"
           >
             <div className="inline-flex items-center gap-2 rounded-full bg-[#EEF1FF] px-4 py-1.5 text-xs font-bold text-[#2E5EFF]">
               <span className="h-2 w-2 rounded-full bg-[#2E5EFF] animate-pulse" />
@@ -66,8 +66,8 @@ const AgentConsoleHero = () => {
               GrowthMates AI helps organizations modernize operational workflows, cut costs by up to 85%, and achieve sustainable growth through proven AI agent strategies across Transportation, Retail, Agriculture, and Education. Transform your tech landscape into a powerful asset for growth.
             </p>
 
-            {/* Pill-Shaped SDI Presence Style Glassmorphism CTAs */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            {/* Pill-Shaped Glassmorphism CTAs */}
+            <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <button
                 onClick={() =>
                   (window as any).Calendly?.initPopupWidget({
@@ -87,8 +87,8 @@ const AgentConsoleHero = () => {
               </a>
             </div>
 
-            {/* SDI Style Stat Indicators */}
-            <div className="pt-8 flex items-center gap-8 border-t border-[#E7E5DE]">
+            {/* Stat Indicators */}
+            <div className="pt-6 flex items-center gap-8 border-t border-[#E7E5DE]">
               <div>
                 <p className="text-3xl font-extrabold text-[#14171F] font-display">85%</p>
                 <p className="text-xs text-[#5B616E] font-semibold">Cost Reduction</p>
@@ -106,7 +106,7 @@ const AgentConsoleHero = () => {
             </div>
           </motion.div>
 
-          {/* Right Column — SDI Presence Inspired 3D Connected Ecosystem Graphic (6 cols) */}
+          {/* Right Column — 3D Connected Ecosystem Graphic (6 cols) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -114,18 +114,18 @@ const AgentConsoleHero = () => {
             className="relative lg:col-span-6 flex flex-col items-center justify-center"
           >
             {/* 3D Smart Ecosystem Canvas Container */}
-            <div className="relative w-full max-w-[600px] h-[480px] flex items-center justify-center">
+            <div className="relative w-full max-w-[600px] h-[440px] flex items-center justify-center">
               
-              {/* Outer Orbit Base Track (SDI Style) */}
+              {/* Outer Orbit Base Track */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-60">
-                <svg className="w-full h-full max-w-[560px] max-h-[460px]" viewBox="0 0 560 460" fill="none">
-                  <ellipse cx="280" cy="360" rx="260" ry="85" stroke="#2E5EFF" strokeWidth="3" strokeDasharray="8 8" className="animate-spin-slow" />
-                  <ellipse cx="280" cy="360" rx="200" ry="60" stroke="#FF6A3D" strokeWidth="1.5" opacity="0.6" />
+                <svg className="w-full h-full max-w-[560px] max-h-[420px]" viewBox="0 0 560 420" fill="none">
+                  <ellipse cx="280" cy="330" rx="260" ry="85" stroke="#2E5EFF" strokeWidth="3" strokeDasharray="8 8" className="animate-spin-slow" />
+                  <ellipse cx="280" cy="330" rx="200" ry="60" stroke="#FF6A3D" strokeWidth="1.5" opacity="0.6" />
                 </svg>
               </div>
 
               {/* 3D Isometric Buildings & Connected Hubs SVG */}
-              <svg className="w-full h-full drop-shadow-2xl z-10" viewBox="0 0 600 480" fill="none">
+              <svg className="w-full h-full drop-shadow-2xl z-10" viewBox="0 0 600 440" fill="none">
                 <defs>
                   <linearGradient id="sdiBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#2E5EFF" />
@@ -135,61 +135,51 @@ const AgentConsoleHero = () => {
                     <stop offset="0%" stopColor="#FFFFFF" />
                     <stop offset="100%" stopColor="#F2F1EC" />
                   </linearGradient>
-                  <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#4171FF" />
-                    <stop offset="100%" stopColor="#2E5EFF" />
-                  </linearGradient>
                 </defs>
 
                 {/* Ground Base Platform */}
-                <ellipse cx="300" cy="380" rx="240" ry="70" fill="url(#sdiWhiteGrad)" stroke="#2E5EFF" strokeWidth="2" />
-                <ellipse cx="300" cy="380" rx="190" ry="50" fill="#EEF1FF" opacity="0.7" />
+                <ellipse cx="300" cy="350" rx="240" ry="65" fill="url(#sdiWhiteGrad)" stroke="#2E5EFF" strokeWidth="2" />
+                <ellipse cx="300" cy="350" rx="190" ry="45" fill="#EEF1FF" opacity="0.7" />
 
-                {/* 3D Tower 1 (Main AI Core Hub - Center High Tower) */}
-                <g transform="translate(260, 110)">
-                  {/* Left Facet */}
+                {/* 3D Tower 1 (Main AI Core Hub) */}
+                <g transform="translate(260, 90)">
                   <path d="M40 0 L0 25 L0 210 L40 185 Z" fill="#2E5EFF" />
-                  {/* Right Facet */}
                   <path d="M40 0 L80 25 L80 210 L40 185 Z" fill="#16214F" />
-                  {/* Top Facet */}
                   <path d="M40 0 L80 25 L40 50 L0 25 Z" fill="#7C97FF" />
-                  {/* Glass Lines */}
                   <line x1="20" y1="50" x2="20" y2="190" stroke="#FFFFFF" strokeWidth="1.5" strokeOpacity="0.4" />
                   <line x1="60" y1="50" x2="60" y2="190" stroke="#FFFFFF" strokeWidth="1.5" strokeOpacity="0.3" />
                 </g>
 
-                {/* 3D Building 2 (Left Transport Terminal) */}
-                <g transform="translate(140, 210)">
+                {/* 3D Building 2 */}
+                <g transform="translate(140, 190)">
                   <path d="M35 0 L0 20 L0 140 L35 120 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
                   <path d="M35 0 L70 20 L70 140 L35 120 Z" fill="#EEF1FF" stroke="#2E5EFF" strokeWidth="1" />
                   <path d="M35 0 L70 20 L35 40 L0 20 Z" fill="#4171FF" />
                 </g>
 
-                {/* 3D Building 3 (Right Logistics Hub) */}
-                <g transform="translate(380, 200)">
+                {/* 3D Building 3 */}
+                <g transform="translate(380, 180)">
                   <path d="M40 0 L0 22 L0 150 L40 128 Z" fill="#2E5EFF" />
                   <path d="M40 0 L80 22 L80 150 L40 128 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
                   <path d="M40 0 L80 22 L40 44 L0 22 Z" fill="#7C97FF" />
                 </g>
 
                 {/* Front Low Buildings */}
-                <g transform="translate(200, 290)">
+                <g transform="translate(200, 270)">
                   <path d="M30 0 L0 15 L0 80 L30 65 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
                   <path d="M30 0 L60 15 L60 80 L30 65 Z" fill="#2E5EFF" />
                 </g>
-                <g transform="translate(330, 290)">
+                <g transform="translate(330, 270)">
                   <path d="M30 0 L0 15 L0 80 L30 65 Z" fill="#2E5EFF" />
                   <path d="M30 0 L60 15 L60 80 L30 65 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
                 </g>
               </svg>
 
-              {/* Floating SDI Style 3D Badge Nodes (Hovering above buildings) */}
-              
-              {/* Badge 1: Security Shield Node (Top Left) */}
+              {/* Floating 3D Badge Nodes */}
               <motion.div
-                animate={{ y: [0, -8, 0] }}
+                animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-16 left-12 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
+                className="absolute top-12 left-12 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
               >
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#2E5EFF] text-white">
                   <ShieldCheck className="h-4 w-4" />
@@ -197,11 +187,10 @@ const AgentConsoleHero = () => {
                 <span className="text-xs font-bold text-[#14171F]">SOC2 Security</span>
               </motion.div>
 
-              {/* Badge 2: Route AI Node (Top Right) */}
               <motion.div
-                animate={{ y: [0, 8, 0] }}
+                animate={{ y: [0, 6, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-12 right-10 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
+                className="absolute top-8 right-10 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
               >
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FF6A3D] text-white">
                   <Navigation className="h-4 w-4" />
@@ -209,11 +198,10 @@ const AgentConsoleHero = () => {
                 <span className="text-xs font-bold text-[#14171F]">Route Optimization</span>
               </motion.div>
 
-              {/* Badge 3: Real-Time Analytics Node (Middle Left) */}
               <motion.div
-                animate={{ y: [0, -6, 0] }}
+                animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-44 left-6 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
+                className="absolute top-36 left-6 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
               >
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#2E5EFF] text-white">
                   <BarChart3 className="h-4 w-4" />
@@ -221,11 +209,10 @@ const AgentConsoleHero = () => {
                 <span className="text-xs font-bold text-[#14171F]">Live Analytics</span>
               </motion.div>
 
-              {/* Badge 4: Verified Check Node (Middle Right) */}
               <motion.div
-                animate={{ y: [0, 6, 0] }}
+                animate={{ y: [0, 5, 0] }}
                 transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-48 right-6 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
+                className="absolute top-40 right-6 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
               >
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1FAA59] text-white">
                   <CheckCircle2 className="h-4 w-4" />
@@ -233,8 +220,8 @@ const AgentConsoleHero = () => {
                 <span className="text-xs font-bold text-[#14171F]">Zero Downtime</span>
               </motion.div>
 
-              {/* Embedded Live Agent Prompt Pill Overlay (Bottom Center) */}
-              <div className="absolute bottom-4 z-30 w-full max-w-sm rounded-xl bg-white/95 backdrop-blur-md border border-[#2E5EFF]/40 p-4 shadow-floating">
+              {/* Embedded Live Agent Prompt Overlay */}
+              <div className="absolute bottom-2 z-30 w-full max-w-sm rounded-xl bg-white/95 backdrop-blur-md border border-[#2E5EFF]/40 p-3.5 shadow-floating">
                 <div className="flex items-center justify-between text-[11px] font-mono text-[#5B616E] mb-1">
                   <span className="text-[#2E5EFF] font-bold">[{activeStream.badge}]</span>
                   <span className="text-[#FF6A3D] font-bold">● {activeStream.time}</span>
