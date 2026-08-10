@@ -1,283 +1,305 @@
 import { motion } from "framer-motion";
-import { CheckCircle2, Cpu, Shield, Zap, Layers, Link2, BarChart2 } from "lucide-react";
+import { CheckCircle2, Truck, ShoppingBag, Sprout, ShieldCheck, ArrowRight } from "lucide-react";
 
-interface Feature {
+interface IndustryFeature {
   id: string;
+  eyebrow: string;
   title: string;
-  badge: string;
   description: string;
   bullets: string[];
-  visualType: "nodes" | "stat" | "timeline" | "security" | "integrations" | "architecture";
+  visualType: "transportation" | "retail" | "agriculture" | "enterprise";
 }
 
-const FEATURES: Feature[] = [
+const INDUSTRY_FEATURES: IndustryFeature[] = [
   {
-    id: "rapid-deployment",
-    badge: "Speed to Value",
-    title: "Rapid No-Code Agent Deployment",
+    id: "transportation",
+    eyebrow: "WHY GROWTHMATES AI",
+    title: "Our Role in Transportation",
     description:
-      "Launch specialized AI agents in days, not months. Configure step-based decision logic and prompt chains without touching backend infrastructure.",
+      "Technology is the backbone of modern transportation. From fleet dispatching to route optimization and automated freight rate quoting, GrowthMates AI delivers intelligent agent solutions that keep fleets and cargo moving safely, securely, and efficiently.",
     bullets: [
-      "Step-based configuration editor",
-      "Instant sandbox testing and prompt simulation",
-      "One-click deployment to enterprise production",
+      "Autonomous 12-stop route optimization & traffic re-routing",
+      "Live freight rate calculation & margin enforcement",
+      "Driver HOS compliance auditing & electronic logging sync",
     ],
-    visualType: "timeline",
+    visualType: "transportation",
   },
   {
-    id: "modular-framework",
-    badge: "Modular Architecture",
-    title: "Modular Agent Framework",
+    id: "retail",
+    eyebrow: "WHY GROWTHMATES AI",
+    title: "Our Role in Retail & E-Commerce",
     description:
-      "Deploy specialized agents for freight tracking, rate quoting, driver scheduling, or inventory intelligence — wired together cleanly to execute multi-step goals.",
+      "Intelligence is the catalyst for modern retail growth. GrowthMates AI powers automated RMA refund processing, predictive inventory reordering, and multi-channel order orchestration that maximize customer lifetime value.",
     bullets: [
-      "Composable multi-agent orchestrator",
-      "Domain-tuned decision prompts",
-      "Autonomous exception handling",
+      "Automated RMA fraud verification & instant customer refunding",
+      "Predictive inventory stockout alerts & supplier PO generation",
+      "Multi-channel OMS & ERP synchronization across storefronts",
     ],
-    visualType: "nodes",
+    visualType: "retail",
   },
   {
-    id: "seamless-integrations",
-    badge: "Universal Connectivity",
-    title: "Seamless API & System Integrations",
+    id: "agriculture",
+    eyebrow: "WHY GROWTHMATES AI",
+    title: "Our Role in Agriculture & AgTech",
     description:
-      "Connect effortlessly with ERP, TMS, CRM, mapping providers, and LLM providers via our Model Context Protocol (MCP) server & secure API gateway.",
+      "Data is the engine of sustainable agriculture. GrowthMates AI deploys autonomous crop telemetry agents, weather risk forecasters, and supply chain tracking solutions that maximize crop yield and streamline farm-to-market distribution.",
     bullets: [
-      "Built-in MCP server protocol support",
-      "Bidirectional sync with SAP, Oracle, and Salesforce",
-      "Real-time webhook and event bus triggers",
+      "Real-time soil sensor & microclimate weather forecasting",
+      "Automated harvest dispatching & cold-chain temperature tracking",
+      "Farm input inventory monitoring & bulk order automation",
     ],
-    visualType: "integrations",
+    visualType: "agriculture",
   },
   {
-    id: "security-compliance",
-    badge: "Enterprise Security",
-    title: "Enterprise-Grade Security & Governance",
+    id: "enterprise",
+    eyebrow: "WHY GROWTHMATES AI",
+    title: "Our Role in Enterprise Technology",
     description:
-      "Keep operational data protected with SSO/SAML 2.0 authentication, granular role-based access control, end-to-end data encryption, and full audit logs.",
+      "Security is the foundation of digital transformation. GrowthMates AI connects directly to your existing SAP, Oracle, Xero, and Salesforce infrastructure using Model Context Protocol (MCP) with enterprise SOC2 compliance.",
     bullets: [
-      "SOC2 compliant data architecture",
-      "Complete operational audit trail logging",
-      "Privacy-by-design vector memory isolation",
+      "Model Context Protocol (MCP 1.0) zero-friction gateway",
+      "SOC2 ready architecture with SAML 2.0 & SSO authentication",
+      "Granular role permissions & immutable audit log security",
     ],
-    visualType: "security",
-  },
-  {
-    id: "measurable-roi",
-    badge: "Business Impact",
-    title: "Measurable ROI & Performance Analytics",
-    description:
-      "Track operational savings and execution accuracy in real time with built-in analytics dashboards and continuous human-in-the-loop feedback.",
-    bullets: [
-      "Real-time cost savings & hour tracking",
-      "Human-in-the-loop accuracy scoring",
-      "Executive summary performance export",
-    ],
-    visualType: "stat",
+    visualType: "enterprise",
   },
 ];
 
-const FeatureVisual = ({ type }: { type: Feature["visualType"] }) => {
-  if (type === "nodes") {
+/* 3D Isometric Visual Component matching SDI Presence reference style */
+const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
+  if (type === "transportation") {
     return (
-      <div className="rounded-lg bg-bg-surface border border-border-subtle p-8 shadow-raised w-full max-w-md mx-auto">
-        <div className="text-xs font-mono text-fg-dim border-b border-border-subtle pb-3 mb-6 flex justify-between">
-          <span>ORCHESTRATOR NODE</span>
-          <span className="text-accent font-semibold">Active Mesh</span>
-        </div>
-        <div className="space-y-4">
-          <div className="flex items-center justify-center p-3 rounded-md bg-accent text-white font-mono text-sm font-semibold shadow-flat">
-            Dispatch Master Agent
-          </div>
-          <div className="flex justify-center">
-            <div className="h-6 w-0.5 bg-accent/40" />
-          </div>
-          <div className="grid grid-cols-3 gap-3 text-center text-xs font-mono">
-            <div className="p-2.5 rounded-md bg-bg-muted border border-border-subtle text-fg-default font-medium">
-              Route AI
-            </div>
-            <div className="p-2.5 rounded-md bg-accent-dim text-accent border border-accent/20 font-semibold">
-              Rate AI
-            </div>
-            <div className="p-2.5 rounded-md bg-bg-muted border border-border-subtle text-fg-default font-medium">
-              Fuel AI
-            </div>
-          </div>
-        </div>
+      <div className="relative w-full max-w-lg mx-auto h-[380px] flex items-center justify-center">
+        <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 500 380" fill="none">
+          <defs>
+            <linearGradient id="basePlateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#2E5EFF" />
+              <stop offset="100%" stopColor="#16214F" />
+            </linearGradient>
+            <linearGradient id="busBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#FFFFFF" />
+              <stop offset="100%" stopColor="#E7E5DE" />
+            </linearGradient>
+          </defs>
+
+          {/* Gear Base Teeth (SDI Style) */}
+          <path
+            d="M 120 280 L 150 265 L 180 280 L 210 265 L 240 280 L 270 265 L 300 280 L 330 265 L 360 280 L 380 270 L 380 295 L 120 295 Z"
+            fill="#F2F1EC"
+            stroke="#2E5EFF"
+            strokeWidth="1.5"
+          />
+
+          {/* Isometric Blue Road Base Platform */}
+          <path d="M 60 250 L 250 150 L 440 250 L 250 350 Z" fill="url(#basePlateGrad)" stroke="#2E5EFF" strokeWidth="2" />
+          
+          {/* Road Marking Stripes */}
+          <path d="M 140 250 L 360 250" stroke="#FFFFFF" strokeWidth="4" strokeDasharray="16 12" />
+
+          {/* 3D Isometric Bus & Transit Vehicle */}
+          <g transform="translate(100, 140)">
+            {/* Bus Main Chassis */}
+            <path d="M 40 50 L 160 110 L 200 90 L 80 30 Z" fill="#2E5EFF" />
+            <path d="M 40 50 L 160 110 L 160 150 L 40 90 Z" fill="url(#busBodyGrad)" stroke="#2E5EFF" strokeWidth="2" />
+            <path d="M 160 110 L 200 90 L 200 130 L 160 150 Z" fill="#2E5EFF" />
+            
+            {/* Windows */}
+            <path d="M 50 60 L 150 110 L 150 75 L 50 25 Z" fill="#16214F" fillOpacity="0.85" />
+            <path d="M 55 65 L 85 80 L 85 70 L 55 55 Z" fill="#7C97FF" />
+            <path d="M 95 85 L 125 100 L 125 90 L 95 75 Z" fill="#7C97FF" />
+            <path d="M 130 102 L 148 111 L 148 101 L 130 92 Z" fill="#7C97FF" />
+
+            {/* Wheels */}
+            <ellipse cx="75" cy="98" rx="14" ry="14" fill="#14171F" stroke="#FFFFFF" strokeWidth="2" />
+            <ellipse cx="140" cy="130" rx="14" ry="14" fill="#14171F" stroke="#FFFFFF" strokeWidth="2" />
+          </g>
+
+          {/* 3D Solar Streetlight & Camera Terminal */}
+          <g transform="translate(310, 80)">
+            <rect x="20" y="40" width="8" height="130" rx="4" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1.5" />
+            {/* Solar Panel Top */}
+            <path d="M 0 30 L 40 10 L 55 25 L 15 45 Z" fill="#2E5EFF" stroke="#FFFFFF" strokeWidth="1.5" />
+            {/* Camera */}
+            <rect x="24" y="65" width="22" height="12" rx="3" fill="#FF6A3D" />
+          </g>
+
+          {/* Transit Shelter Box */}
+          <g transform="translate(260, 150)">
+            <path d="M 0 30 L 70 0 L 110 20 L 40 50 Z" fill="#EEF1FF" stroke="#2E5EFF" strokeWidth="1.5" />
+            <line x1="10" y1="35" x2="10" y2="85" stroke="#2E5EFF" strokeWidth="2" />
+            <line x1="105" y1="22" x2="105" y2="72" stroke="#2E5EFF" strokeWidth="2" />
+          </g>
+        </svg>
       </div>
     );
   }
 
-  if (type === "stat") {
+  if (type === "retail") {
     return (
-      <div className="rounded-lg bg-bg-surface border border-border-subtle p-8 shadow-raised w-full max-w-md mx-auto text-center space-y-4">
-        <div className="inline-flex items-center gap-2 rounded-full bg-signal-warm-dim px-3 py-1 text-xs font-semibold text-signal-warm">
-          REAL-TIME OUTCOME
-        </div>
-        <div className="text-5xl font-extrabold text-fg-default font-display tracking-tight">
-          $1.2M+
-        </div>
-        <p className="text-sm font-medium text-fg-dim">
-          Annual operational savings verified across enterprise fleet deployments
-        </p>
-        <div className="pt-4 border-t border-border-subtle flex justify-around text-xs font-mono text-fg-dim">
-          <div>
-            <span className="block text-fg-default font-bold text-base">94%</span>
-            Auto-Processed
-          </div>
-          <div className="w-px bg-border-subtle" />
-          <div>
-            <span className="block text-fg-default font-bold text-base">4.2x</span>
-            Speed Increase
-          </div>
-        </div>
+      <div className="relative w-full max-w-lg mx-auto h-[380px] flex items-center justify-center">
+        <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 500 380" fill="none">
+          <defs>
+            <linearGradient id="retailPlateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FF6A3D" />
+              <stop offset="100%" stopColor="#16214F" />
+            </linearGradient>
+          </defs>
+
+          {/* Base Platform */}
+          <path d="M 60 250 L 250 150 L 440 250 L 250 350 Z" fill="url(#retailPlateGrad)" stroke="#FF6A3D" strokeWidth="2" />
+
+          {/* 3D Storefront Building */}
+          <g transform="translate(140, 110)">
+            <path d="M 110 0 L 0 55 L 0 170 L 110 115 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2" />
+            <path d="M 110 0 L 220 55 L 220 170 L 110 115 Z" fill="#EEF1FF" stroke="#2E5EFF" strokeWidth="2" />
+            <path d="M 110 0 L 220 55 L 110 110 L 0 55 Z" fill="#2E5EFF" />
+            
+            {/* Awning Stripes */}
+            <path d="M 20 75 L 100 115 L 100 135 L 20 95 Z" fill="#FF6A3D" />
+            <path d="M 120 125 L 200 165 L 200 170 L 120 130 Z" fill="#2E5EFF" />
+
+            {/* Shopping Bag Icon Badge */}
+            <g transform="translate(90, -30)">
+              <circle cx="20" cy="20" r="22" fill="#FFFFFF" stroke="#FF6A3D" strokeWidth="3" />
+              <ShoppingBag className="h-6 w-6 text-[#FF6A3D] translate-x-2 translate-y-2" />
+            </g>
+          </g>
+        </svg>
       </div>
     );
   }
 
-  if (type === "timeline") {
+  if (type === "agriculture") {
     return (
-      <div className="rounded-lg bg-bg-surface border border-border-subtle p-6 shadow-raised w-full max-w-md mx-auto space-y-3 font-sans">
-        <div className="text-xs font-mono text-fg-dim uppercase tracking-wider mb-4 border-b border-border-subtle pb-2">
-          Deployment Lifecycle (Day 1 - Day 3)
-        </div>
-        {[
-          { day: "Day 1", title: "Select Pre-Built Template", status: "Done" },
-          { day: "Day 2", title: "Connect MCP Data Connectors", status: "Done" },
-          { day: "Day 3", title: "Go Live in Production", status: "Active" },
-        ].map((item, idx) => (
-          <div
-            key={item.day}
-            className={`flex items-center justify-between p-3 rounded-md text-xs border ${
-              item.status === "Active"
-                ? "bg-accent-dim border-accent/40 font-semibold text-fg-default"
-                : "bg-bg-base border-border-subtle text-fg-dim"
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-accent font-bold">{item.day}</span>
-              <span>{item.title}</span>
-            </div>
-            <CheckCircle2
-              className={`h-4 w-4 ${
-                item.status === "Active" ? "text-accent" : "text-fg-dimmer"
-              }`}
-            />
-          </div>
-        ))}
+      <div className="relative w-full max-w-lg mx-auto h-[380px] flex items-center justify-center">
+        <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 500 380" fill="none">
+          <defs>
+            <linearGradient id="farmPlateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#1FAA59" />
+              <stop offset="100%" stopColor="#16214F" />
+            </linearGradient>
+          </defs>
+
+          {/* Base Field Platform */}
+          <path d="M 60 250 L 250 150 L 440 250 L 250 350 Z" fill="url(#farmPlateGrad)" stroke="#1FAA59" strokeWidth="2" />
+          
+          {/* Crop Rows */}
+          <path d="M 120 220 L 250 285" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="8 8" opacity="0.8" />
+          <path d="M 160 200 L 290 265" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="8 8" opacity="0.8" />
+          <path d="M 200 180 L 330 245" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="8 8" opacity="0.8" />
+
+          {/* 3D Silo & Drone Node */}
+          <g transform="translate(210, 100)">
+            <rect x="30" y="40" width="60" height="120" rx="30" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2" />
+            <path d="M 30 60 L 90 60 L 60 20 Z" fill="#2E5EFF" />
+            
+            {/* Sprout Icon Badge */}
+            <g transform="translate(10, -20)">
+              <circle cx="20" cy="20" r="22" fill="#FFFFFF" stroke="#1FAA59" strokeWidth="3" />
+              <Sprout className="h-6 w-6 text-[#1FAA59] translate-x-2 translate-y-2" />
+            </g>
+          </g>
+        </svg>
       </div>
     );
   }
 
-  if (type === "security") {
-    return (
-      <div className="rounded-lg bg-bg-surface border border-border-subtle p-8 shadow-raised w-full max-w-md mx-auto space-y-4">
-        <div className="flex items-center gap-3 text-fg-default border-b border-border-subtle pb-4">
-          <Shield className="h-6 w-6 text-accent" />
-          <div>
-            <h4 className="font-semibold text-sm font-display">Zero-Trust Agent Runtime</h4>
-            <p className="text-xs text-fg-dim">Isolated execution & encrypted memory</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-3 text-xs">
-          <div className="p-3 rounded-md bg-bg-base border border-border-subtle">
-            <span className="text-fg-dimmer block text-[10px] uppercase font-mono">AUTH</span>
-            <span className="font-semibold text-fg-default">SAML 2.0 / SSO</span>
-          </div>
-          <div className="p-3 rounded-md bg-bg-base border border-border-subtle">
-            <span className="text-fg-dimmer block text-[10px] uppercase font-mono">AUDIT</span>
-            <span className="font-semibold text-fg-default">Immutable Logs</span>
-          </div>
-          <div className="p-3 rounded-md bg-bg-base border border-border-subtle">
-            <span className="text-fg-dimmer block text-[10px] uppercase font-mono">ENCRYPTION</span>
-            <span className="font-semibold text-fg-default">AES-256 Bit</span>
-          </div>
-          <div className="p-3 rounded-md bg-bg-base border border-border-subtle">
-            <span className="text-fg-dimmer block text-[10px] uppercase font-mono">COMPLIANCE</span>
-            <span className="font-semibold text-fg-default">SOC2 Ready</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Integrations
+  // Enterprise Security
   return (
-    <div className="rounded-lg bg-bg-surface border border-border-subtle p-8 shadow-raised w-full max-w-md mx-auto font-mono text-xs space-y-3">
-      <div className="flex items-center justify-between text-fg-dim border-b border-border-subtle pb-3">
-        <span>MCP GATEWAY</span>
-        <span className="text-accent">CONNECTED</span>
-      </div>
-      <div className="grid grid-cols-2 gap-3 pt-2">
-        {["SAP ERP", "Oracle TMS", "Salesforce", "Google Maps", "OpenAI", "PostgreSQL"].map((sys) => (
-          <div
-            key={sys}
-            className="p-3 rounded-md bg-bg-base border border-border-subtle flex items-center justify-between"
-          >
-            <span className="text-fg-default font-medium">{sys}</span>
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-          </div>
-        ))}
-      </div>
+    <div className="relative w-full max-w-lg mx-auto h-[380px] flex items-center justify-center">
+      <svg className="w-full h-full drop-shadow-2xl" viewBox="0 0 500 380" fill="none">
+        <defs>
+          <linearGradient id="secPlateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#2E5EFF" />
+            <stop offset="100%" stopColor="#16214F" />
+          </linearGradient>
+        </defs>
+
+        <path d="M 60 250 L 250 150 L 440 250 L 250 350 Z" fill="url(#secPlateGrad)" stroke="#2E5EFF" strokeWidth="2" />
+
+        {/* 3D Data Center Server Rack */}
+        <g transform="translate(170, 90)">
+          <path d="M 80 0 L 0 40 L 0 160 L 80 120 Z" fill="#14171F" stroke="#2E5EFF" strokeWidth="2" />
+          <path d="M 80 0 L 160 40 L 160 160 L 80 120 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2" />
+          <path d="M 80 0 L 160 40 L 80 80 L 0 40 Z" fill="#2E5EFF" />
+
+          {/* Server LEDs */}
+          <circle cx="30" cy="65" r="4" fill="#1FAA59" />
+          <circle cx="45" cy="65" r="4" fill="#2E5EFF" />
+          <circle cx="30" cy="95" r="4" fill="#FF6A3D" />
+          <circle cx="45" cy="95" r="4" fill="#1FAA59" />
+
+          {/* Shield Badge */}
+          <g transform="translate(60, -30)">
+            <circle cx="20" cy="20" r="22" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="3" />
+            <ShieldCheck className="h-6 w-6 text-[#2E5EFF] translate-x-2 translate-y-2" />
+          </g>
+        </g>
+      </svg>
     </div>
   );
 };
 
 const SpotlightFeatures = () => {
   return (
-    <section className="border-b border-border-subtle">
-      {FEATURES.map((feature, idx) => {
+    <section className="border-b border-[#E7E5DE] bg-[#FAF9F6]">
+      {INDUSTRY_FEATURES.map((feature, idx) => {
         const isEven = idx % 2 === 0;
-        const bgClass = isEven ? "bg-bg-base" : "bg-bg-muted";
+        const bgClass = isEven ? "bg-[#FAF9F6]" : "bg-[#FFFFFF]";
 
         return (
-          <div key={feature.id} className={`${bgClass} py-16 md:py-24 border-b border-border-subtle last:border-b-0`}>
-            <div className="container">
-              <div
-                className={`grid items-center gap-12 lg:grid-cols-12 ${
-                  isEven ? "" : "lg:flex-row-reverse"
-                }`}
-              >
-                {/* Text Content Column */}
+          <div key={feature.id} className={`${bgClass} py-20 md:py-28 border-b border-[#E7E5DE] last:border-b-0 text-[#14171F]`}>
+            <div className="container max-w-7xl mx-auto px-4 sm:px-6">
+              <div className="grid items-center gap-12 lg:grid-cols-12">
+                
+                {/* Text Content Column (Exact SDI Presence Headline Style) */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.5 }}
-                  className={`lg:col-span-6 ${isEven ? "lg:order-1" : "lg:order-2"}`}
+                  className={`lg:col-span-6 ${isEven ? "lg:order-1" : "lg:order-2"} space-y-5`}
                 >
-                  <span className="inline-block rounded-full bg-accent-dim px-3.5 py-1 text-xs font-semibold text-accent mb-4">
-                    {feature.badge}
+                  <span className="text-xs font-mono font-bold tracking-widest text-[#5B616E] uppercase block">
+                    {feature.eyebrow}
                   </span>
 
-                  <h2 className="text-3xl font-extrabold text-fg-default sm:text-4xl leading-tight font-display">
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2E5EFF] font-display tracking-tight leading-tight">
                     {feature.title}
                   </h2>
 
-                  <p className="mt-4 text-base text-fg-dim leading-relaxed">
+                  <p className="text-base sm:text-lg text-[#5B616E] leading-relaxed font-body">
                     {feature.description}
                   </p>
 
-                  <ul className="mt-6 space-y-3">
+                  <ul className="pt-2 space-y-3">
                     {feature.bullets.map((bullet) => (
-                      <li key={bullet} className="flex items-center gap-3 text-sm text-fg-default">
-                        <CheckCircle2 className="h-4 w-4 text-accent shrink-0" />
+                      <li key={bullet} className="flex items-center gap-3 text-sm font-semibold text-[#14171F]">
+                        <CheckCircle2 className="h-5 w-5 text-[#2E5EFF] shrink-0" />
                         <span>{bullet}</span>
                       </li>
                     ))}
                   </ul>
+
+                  <div className="pt-4">
+                    <a
+                      href="/contact"
+                      className="inline-flex items-center gap-2 text-sm font-bold text-[#2E5EFF] hover:underline"
+                    >
+                      Learn more about our {feature.title} solutions <ArrowRight className="h-4 w-4" />
+                    </a>
+                  </div>
                 </motion.div>
 
-                {/* Visual Column */}
+                {/* 3D Isometric Visual Column (SDI Presence Style) */}
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.5, delay: 0.15 }}
                   className={`lg:col-span-6 ${isEven ? "lg:order-2" : "lg:order-1"}`}
                 >
-                  <FeatureVisual type={feature.visualType} />
+                  <IsometricVisual type={feature.visualType} />
                 </motion.div>
               </div>
             </div>
