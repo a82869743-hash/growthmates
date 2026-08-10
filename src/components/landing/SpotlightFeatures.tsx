@@ -1,6 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, Truck, ShoppingBag, Sprout, ShieldCheck, ArrowRight, ChevronDown, Filter, Zap, Plane, Factory, Landmark } from "lucide-react";
+import { motion } from "framer-motion";
+import { CheckCircle2, Truck, ShoppingBag, Sprout, ShieldCheck, ArrowRight, Package, Cpu, Zap, Wifi } from "lucide-react";
 
 interface IndustryFeature {
   id: string;
@@ -10,7 +9,6 @@ interface IndustryFeature {
   description: string;
   bullets: string[];
   visualType: "transportation" | "retail" | "agriculture" | "enterprise";
-  stats: { label: string; value: string }[];
 }
 
 const INDUSTRY_FEATURES: IndustryFeature[] = [
@@ -27,11 +25,6 @@ const INDUSTRY_FEATURES: IndustryFeature[] = [
       "Driver HOS compliance auditing & electronic logging sync",
     ],
     visualType: "transportation",
-    stats: [
-      { label: "Dispatch Efficiency", value: "+94%" },
-      { label: "Fleet Fuel Savings", value: "$1.4M/yr" },
-      { label: "Route Accuracy", value: "99.8%" },
-    ],
   },
   {
     id: "retail",
@@ -46,11 +39,6 @@ const INDUSTRY_FEATURES: IndustryFeature[] = [
       "Multi-channel OMS & ERP synchronization across storefronts",
     ],
     visualType: "retail",
-    stats: [
-      { label: "RMA Processing Time", value: "< 2 mins" },
-      { label: "Stockout Prevention", value: "98.2%" },
-      { label: "LTV Growth", value: "+34%" },
-    ],
   },
   {
     id: "agriculture",
@@ -65,11 +53,6 @@ const INDUSTRY_FEATURES: IndustryFeature[] = [
       "Farm input inventory monitoring & bulk order automation",
     ],
     visualType: "agriculture",
-    stats: [
-      { label: "Harvest Yield Boost", value: "+28%" },
-      { label: "Water Waste Cut", value: "40%" },
-      { label: "Telemetry Uptime", value: "99.9%" },
-    ],
   },
   {
     id: "enterprise",
@@ -84,11 +67,6 @@ const INDUSTRY_FEATURES: IndustryFeature[] = [
       "Granular role permissions & immutable audit log security",
     ],
     visualType: "enterprise",
-    stats: [
-      { label: "Integration Setup", value: "< 48 hrs" },
-      { label: "Audit Compliance", value: "100%" },
-      { label: "ROI Payback", value: "3.2 mos" },
-    ],
   },
 ];
 
@@ -128,6 +106,7 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
           <path d="M 50 250 L 270 360 L 270 380 L 50 270 Z" fill="url(#roadSideGrad)" />
           <path d="M 270 360 L 490 250 L 490 270 L 270 380 Z" fill="#0A0F26" />
 
+          {/* Road Marking Center Stripes */}
           <path d="M 130 250 L 410 250" stroke="#FFFFFF" strokeWidth="4" strokeDasharray="16 14" opacity="0.9" />
 
           {/* 3D Transit Bus Model */}
@@ -153,12 +132,14 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
             <ellipse cx="140" cy="128" rx="14" ry="14" fill="#14171F" stroke="#FFFFFF" strokeWidth="2" />
           </g>
 
+          {/* 3D Solar Streetlight */}
           <g transform="translate(350, 75)">
             <rect x="20" y="40" width="8" height="140" rx="4" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1.5" />
             <path d="M -5 30 L 45 5 L 60 20 L 10 45 Z" fill="#2E5EFF" stroke="#FFFFFF" strokeWidth="1.5" />
             <rect x="24" y="70" width="24" height="12" rx="3" fill="#FF6A3D" />
           </g>
 
+          {/* 3D Transit Shelter */}
           <g transform="translate(280, 140)">
             <path d="M 0 30 L 75 0 L 115 20 L 40 50 Z" fill="#EEF1FF" stroke="#2E5EFF" strokeWidth="1.5" />
             <line x1="12" y1="35" x2="12" y2="95" stroke="#2E5EFF" strokeWidth="2.5" />
@@ -185,6 +166,7 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
             </linearGradient>
           </defs>
 
+          {/* Gear Base Foundation */}
           <g transform="translate(0, 15)">
             <path
               d="M 120 295 L 140 285 L 155 292 L 175 282 L 190 289 L 210 279 L 225 286 L 245 276 L 260 283 L 280 273 L 295 280 L 315 270 L 330 277 L 350 267 L 370 277 L 370 310 L 120 310 Z"
@@ -194,24 +176,39 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
             />
           </g>
 
+          {/* 3D Extruded Retail Platform */}
           <path d="M 50 250 L 270 140 L 490 250 L 270 360 Z" fill="url(#retailTopGrad)" stroke="#FF6A3D" strokeWidth="2" />
           <path d="M 50 250 L 270 360 L 270 380 L 50 270 Z" fill="url(#retailSideGrad)" />
           <path d="M 270 360 L 490 250 L 490 270 L 270 380 Z" fill="#0A0F26" />
 
+          {/* 3D Flagship Retail Store Architecture */}
           <g transform="translate(135, 90)">
+            {/* Main Store Building Left Wall */}
             <path d="M 130 0 L 0 65 L 0 190 L 130 125 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2" />
+            {/* Main Store Building Right Wall */}
             <path d="M 130 0 L 260 65 L 260 190 L 130 125 Z" fill="#EEF1FF" stroke="#2E5EFF" strokeWidth="2" />
+            {/* Roof Top */}
             <path d="M 130 0 L 260 65 L 130 130 L 0 65 Z" fill="#2E5EFF" />
             
+            {/* Striped Entrance Awning Canopy */}
             <path d="M 25 85 L 115 130 L 115 150 L 25 105 Z" fill="#FF6A3D" />
             <path d="M 145 145 L 235 190 L 235 200 L 145 155 Z" fill="#2E5EFF" />
 
+            {/* Display Windows (Upper & Lower) */}
             <rect x="25" y="125" width="80" height="50" rx="3" fill="#16214F" />
             <rect x="35" y="132" width="60" height="36" rx="2" fill="#7C97FF" opacity="0.8" />
             
             <rect x="155" y="155" width="80" height="50" rx="3" fill="#16214F" />
             <rect x="165" y="162" width="60" height="36" rx="2" fill="#7C97FF" opacity="0.8" />
 
+            {/* 3D Delivery Packages Stacked Outside */}
+            <g transform="translate(20, 160)">
+              <path d="M 20 0 L 0 10 L 0 30 L 20 20 Z" fill="#FF6A3D" />
+              <path d="M 20 0 L 40 10 L 40 30 L 20 20 Z" fill="#E7E5DE" stroke="#FF6A3D" strokeWidth="1" />
+              <path d="M 20 0 L 40 10 L 20 20 L 0 10 Z" fill="#FFFFFF" />
+            </g>
+
+            {/* Floating 3D Shopping Bag Node Badge */}
             <g transform="translate(105, -45)">
               <circle cx="25" cy="25" r="28" fill="#FFFFFF" stroke="#FF6A3D" strokeWidth="3" className="drop-shadow-lg" />
               <ShoppingBag className="h-7 w-7 text-[#FF6A3D] translate-x-3 translate-y-3" />
@@ -237,6 +234,7 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
             </linearGradient>
           </defs>
 
+          {/* Gear Base Foundation */}
           <g transform="translate(0, 15)">
             <path
               d="M 120 295 L 140 285 L 155 292 L 175 282 L 190 289 L 210 279 L 225 286 L 245 276 L 260 283 L 280 273 L 295 280 L 315 270 L 330 277 L 350 267 L 370 277 L 370 310 L 120 310 Z"
@@ -246,19 +244,31 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
             />
           </g>
 
+          {/* 3D Extruded Farm Field Platform */}
           <path d="M 50 250 L 270 140 L 490 250 L 270 360 Z" fill="url(#farmTopGrad)" stroke="#1FAA59" strokeWidth="2" />
           <path d="M 50 250 L 270 360 L 270 380 L 50 270 Z" fill="url(#farmSideGrad)" />
           <path d="M 270 360 L 490 250 L 490 270 L 270 380 Z" fill="#0A0F26" />
 
+          {/* Plant Crop Rows */}
           <path d="M 120 230 L 270 305" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="12 10" opacity="0.9" />
           <path d="M 165 205 L 315 280" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="12 10" opacity="0.9" />
           <path d="M 210 180 L 360 255" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="12 10" opacity="0.9" />
 
+          {/* 3D Farm Silo & Telematics Station */}
           <g transform="translate(225, 80)">
+            {/* Silo Body */}
             <rect x="25" y="45" width="70" height="140" rx="35" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2.5" />
             <path d="M 25 80 L 95 80 L 60 20 Z" fill="#2E5EFF" />
+            {/* Silo Ladder */}
             <line x1="80" y1="85" x2="80" y2="175" stroke="#16214F" strokeWidth="2" />
 
+            {/* Greenhouse Box Beside Silo */}
+            <g transform="translate(-70, 70)">
+              <path d="M 40 0 L 0 20 L 0 70 L 40 50 Z" fill="#FFFFFF" fillOpacity="0.8" stroke="#1FAA59" strokeWidth="1.5" />
+              <path d="M 40 0 L 80 20 L 80 70 L 40 50 Z" fill="#EEF1FF" fillOpacity="0.8" stroke="#1FAA59" strokeWidth="1.5" />
+            </g>
+
+            {/* Floating 3D Sprout Node Badge */}
             <g transform="translate(35, -35)">
               <circle cx="25" cy="25" r="28" fill="#FFFFFF" stroke="#1FAA59" strokeWidth="3" className="drop-shadow-lg" />
               <Sprout className="h-7 w-7 text-[#1FAA59] translate-x-3 translate-y-3" />
@@ -297,11 +307,13 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
         <path d="M 50 250 L 270 360 L 270 380 L 50 270 Z" fill="url(#secSideGrad)" />
         <path d="M 270 360 L 490 250 L 490 270 L 270 380 Z" fill="#0A0F26" />
 
+        {/* 3D Data Center Server Rack Cabinet */}
         <g transform="translate(175, 75)">
           <path d="M 95 0 L 0 45 L 0 190 L 95 145 Z" fill="#14171F" stroke="#2E5EFF" strokeWidth="2" />
           <path d="M 95 0 L 190 45 L 190 190 L 95 145 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="2" />
           <path d="M 95 0 L 190 45 L 95 90 L 0 45 Z" fill="#2E5EFF" />
 
+          {/* LED Status Indicators */}
           <circle cx="35" cy="75" r="5" fill="#1FAA59" />
           <circle cx="55" cy="75" r="5" fill="#2E5EFF" />
           <circle cx="35" cy="115" r="5" fill="#FF6A3D" />
@@ -309,6 +321,7 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
           <circle cx="35" cy="155" r="5" fill="#2E5EFF" />
           <circle cx="55" cy="155" r="5" fill="#1FAA59" />
 
+          {/* Shield Badge */}
           <g transform="translate(70, -40)">
             <circle cx="25" cy="25" r="28" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="3" className="drop-shadow-lg" />
             <ShieldCheck className="h-7 w-7 text-[#2E5EFF] translate-x-3 translate-y-3" />
@@ -320,125 +333,14 @@ const IsometricVisual = ({ type }: { type: IndustryFeature["visualType"] }) => {
 };
 
 const SpotlightFeatures = () => {
-  const [activeTab, setActiveTab] = useState<string>("all");
-  const [filterOpen, setFilterOpen] = useState<boolean>(false);
-  const filterRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
-        setFilterOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const displayedFeatures =
-    activeTab === "all"
-      ? INDUSTRY_FEATURES
-      : INDUSTRY_FEATURES.filter((f) => f.id === activeTab);
-
   return (
-    <section className="border-b border-[#E7E5DE] bg-[#FAF9F6]" id="spotlight-features">
-      
-      {/* Interactive Industry Dropdown Dashboard Control Bar */}
-      <div className="py-8 bg-white border-b border-[#E7E5DE] sticky top-16 md:top-20 z-30 backdrop-blur-md bg-white/95">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-4">
-          
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#5B616E]">
-              FILTER SOLUTION DASHBOARD:
-            </span>
-
-            {/* Interactive Dropdown Button (SDI Reference Style) */}
-            <div className="relative" ref={filterRef}>
-              <button
-                onClick={() => setFilterOpen(!filterOpen)}
-                className="inline-flex items-center gap-2 rounded-full bg-[#EEF1FF] px-4 py-2 text-xs font-bold text-[#2E5EFF] border border-[#2E5EFF]/20 hover:bg-[#2E5EFF] hover:text-white transition-all shadow-sm"
-              >
-                <Filter className="h-3.5 w-3.5" />
-                <span>
-                  {activeTab === "all"
-                    ? "All Industry Solutions"
-                    : INDUSTRY_FEATURES.find((f) => f.id === activeTab)?.title}
-                </span>
-                <ChevronDown className={`h-3.5 w-3.5 transition-transform ${filterOpen ? "rotate-180" : ""}`} />
-              </button>
-
-              {/* Floating Dropdown Filter Card */}
-              {filterOpen && (
-                <div className="absolute top-full left-0 mt-2 w-72 rounded-2xl bg-white border border-[#E7E5DE] p-3 shadow-xl z-50 animate-in fade-in slide-in-from-top-2">
-                  <div className="text-[10px] font-mono font-bold text-[#8B8F99] uppercase px-2 py-1 mb-1">
-                    SELECT INDUSTRY
-                  </div>
-                  <button
-                    onClick={() => {
-                      setActiveTab("all");
-                      setFilterOpen(false);
-                    }}
-                    className={`w-full text-left rounded-xl px-3 py-2 text-xs font-semibold transition-colors ${
-                      activeTab === "all" ? "bg-[#2E5EFF] text-white" : "text-[#14171F] hover:bg-[#FAF9F6]"
-                    }`}
-                  >
-                    ✨ All Industry Solutions
-                  </button>
-                  {INDUSTRY_FEATURES.map((f) => (
-                    <button
-                      key={f.id}
-                      onClick={() => {
-                        setActiveTab(f.id);
-                        setFilterOpen(false);
-                      }}
-                      className={`w-full text-left rounded-xl px-3 py-2 text-xs font-semibold transition-colors ${
-                        activeTab === f.id ? "bg-[#2E5EFF] text-white" : "text-[#14171F] hover:bg-[#FAF9F6]"
-                      }`}
-                    >
-                      {f.title}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Quick Pill Tabs */}
-          <div className="hidden sm:flex items-center gap-2">
-            <button
-              onClick={() => setActiveTab("all")}
-              className={`rounded-full px-3 py-1 text-xs font-bold transition-all ${
-                activeTab === "all" ? "bg-[#14171F] text-white" : "bg-[#FAF9F6] text-[#5B616E] hover:text-[#14171F]"
-              }`}
-            >
-              All
-            </button>
-            {INDUSTRY_FEATURES.map((f) => (
-              <button
-                key={f.id}
-                onClick={() => setActiveTab(f.id)}
-                className={`rounded-full px-3 py-1 text-xs font-bold transition-all ${
-                  activeTab === f.id ? "bg-[#2E5EFF] text-white" : "bg-[#FAF9F6] text-[#5B616E] hover:text-[#14171F]"
-                }`}
-              >
-                {f.id.toUpperCase()}
-              </button>
-            ))}
-          </div>
-
-        </div>
-      </div>
-
-      {/* Feature Rows */}
-      {displayedFeatures.map((feature, idx) => {
+    <section className="border-b border-[#E7E5DE] bg-[#FAF9F6]">
+      {INDUSTRY_FEATURES.map((feature, idx) => {
         const isEven = idx % 2 === 0;
         const bgClass = isEven ? "bg-[#FAF9F6]" : "bg-[#FFFFFF]";
 
         return (
-          <div
-            key={feature.id}
-            id={`industry-${feature.id}`}
-            className={`${bgClass} py-20 md:py-28 border-b border-[#E7E5DE] last:border-b-0 text-[#14171F]`}
-          >
+          <div key={feature.id} className={`${bgClass} py-20 md:py-28 border-b border-[#E7E5DE] last:border-b-0 text-[#14171F]`}>
             <div className="container max-w-7xl mx-auto px-4 sm:px-6">
               <div className="grid items-center gap-12 lg:grid-cols-12">
                 
@@ -461,16 +363,6 @@ const SpotlightFeatures = () => {
                   <p className="text-base sm:text-lg text-[#5B616E] leading-relaxed font-body">
                     {feature.description}
                   </p>
-
-                  {/* Live Performance Stats Strip */}
-                  <div className="grid grid-cols-3 gap-3 py-3 border-y border-[#E7E5DE]">
-                    {feature.stats.map((stat) => (
-                      <div key={stat.label} className="space-y-0.5">
-                        <div className="text-xs text-[#5B616E] font-mono">{stat.label}</div>
-                        <div className="text-lg font-extrabold text-[#14171F] font-display">{stat.value}</div>
-                      </div>
-                    ))}
-                  </div>
 
                   <ul className="pt-2 space-y-3">
                     {feature.bullets.map((bullet) => (

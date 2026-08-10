@@ -1,5 +1,6 @@
 import Navbar from "@/components/landing/Navbar";
 import AgentConsoleHero from "@/components/landing/AgentConsoleHero";
+import AgentPromptLauncher from "@/components/landing/AgentPromptLauncher";
 import SpotlightFeatures from "@/components/landing/SpotlightFeatures";
 import AgentDirectory from "@/components/landing/AgentDirectory";
 import SystemTrace from "@/components/landing/SystemTrace";
@@ -15,6 +16,7 @@ const Index = () => {
       <Navbar />
       <main>
         <AgentConsoleHero />
+        <AgentPromptLauncher />
         <SpotlightFeatures />
         <AgentDirectory />
         <SystemTrace />
