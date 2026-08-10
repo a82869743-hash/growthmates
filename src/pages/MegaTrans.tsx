@@ -221,14 +221,6 @@ const MegaTrans = () => {
                   See how our agents act as a decision engine for operations — reasoning over live data instead of running rigid scripts.
                 </p>
               </div>
-
-              {/* Metric Tag */}
-              <div className="pt-4 border-t border-[#E7E5DE] flex items-center justify-between">
-                <span className="text-[10px] font-mono text-[#8B8F99] uppercase">BENCHMARK IMPACT</span>
-                <span className="text-xs font-bold font-mono text-[#1FAA59] bg-[#1FAA59]/10 px-2.5 py-1 rounded-full">
-                  99.4% Decision Accuracy
-                </span>
-              </div>
             </motion.div>
 
             {/* Bento Card 2 */}
@@ -248,14 +240,6 @@ const MegaTrans = () => {
                   Route optimisation, freight tracking, fleet health, and fuel &amp; carbon analytics tailored to future supply chains.
                 </p>
               </div>
-
-              {/* Metric Tag */}
-              <div className="pt-4 border-t border-[#E7E5DE] flex items-center justify-between">
-                <span className="text-[10px] font-mono text-[#8B8F99] uppercase">BENCHMARK IMPACT</span>
-                <span className="text-xs font-bold font-mono text-[#2E5EFF] bg-[#EEF1FF] px-2.5 py-1 rounded-full">
-                  -42km Route Savings
-                </span>
-              </div>
             </motion.div>
 
             {/* Bento Card 3 */}
@@ -274,14 +258,6 @@ const MegaTrans = () => {
                 <p className="text-xs sm:text-sm text-[#5B616E] leading-relaxed font-body">
                   Demand forecasting, inventory intelligence, and last-mile delivery agents that cut waste and lift margins.
                 </p>
-              </div>
-
-              {/* Metric Tag */}
-              <div className="pt-4 border-t border-[#E7E5DE] flex items-center justify-between">
-                <span className="text-[10px] font-mono text-[#8B8F99] uppercase">BENCHMARK IMPACT</span>
-                <span className="text-xs font-bold font-mono text-[#FF6A3D] bg-[#FF6A3D]/10 px-2.5 py-1 rounded-full">
-                  85% Admin Cost Cut
-                </span>
               </div>
             </motion.div>
 

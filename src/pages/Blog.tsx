@@ -20,33 +20,33 @@ const FEATURED_INFOGRAPHIC_POST = {
 const DEFAULT_EDITORIAL_POSTS = [
   {
     id: "post-1",
-    title: "Building Secure, Scalable Enterprise AI Agent Architectures",
-    slug: "enterprise-ai-architecture",
-    excerpt: "A deep dive into the architectural patterns, security layers, and scalability considerations for deploying autonomous AI agents across enterprise environments.",
-    cover_image_url: "/images/blog-1.png",
-    author_name: "GrowthMates Engineering",
+    title: "Agent Tools vs. Building AI Into Your Core System: A Data-Driven Decision Framework",
+    slug: "agent-tools-vs-core-systems",
+    excerpt: "74% faster time to value. 62% lower TCO over five years. 3.8x more use cases deployed. The data is clear — here is the practical framework for when to build an agent vs core system integration.",
+    cover_image_url: "/images/blog-unique-1.png",
+    author_name: "GrowthMates Architecture",
     published_at: "2026-03-25T00:00:00Z",
-    tags: ["Enterprise AI", "Architecture"],
+    tags: ["Agent Tools", "Build vs Buy"],
   },
   {
     id: "post-2",
-    title: "AI Agents Are Decision Engines, Not Workflow Tools — Here's What That Means for Your Enterprise",
-    slug: "ai-workflow-automation-guide",
-    excerpt: "Traditional automation follows scripts. AI agents reason, decide, and act. Backed by research, this analysis reveals why the shift from process automation is accelerating.",
-    cover_image_url: "/images/blog-2.png",
-    author_name: "GrowthMates Strategy",
+    title: "Building Secure, Scalable Enterprise AI Agent Architectures",
+    slug: "enterprise-ai-architecture",
+    excerpt: "A deep dive into the architectural patterns, security layers, and scalability considerations for deploying autonomous AI agents across enterprise environments.",
+    cover_image_url: "/images/blog-unique-2.png",
+    author_name: "GrowthMates Engineering",
     published_at: "2026-03-24T00:00:00Z",
-    tags: ["AI Agents", "Decision Intelligence"],
+    tags: ["Enterprise AI", "Architecture"],
   },
   {
     id: "post-3",
-    title: "Model Context Protocol (MCP): The New Standard for Enterprise System Integration",
-    slug: "agent-tools-vs-core-systems",
-    excerpt: "Why model context protocol (MCP 1.0) is superseding legacy REST/GraphQL connectors across enterprise ERP, TMS, and warehouse management platforms.",
-    cover_image_url: "/images/blog-3.png",
-    author_name: "GrowthMates Architecture",
+    title: "AI Agents Are Decision Engines, Not Workflow Tools — Here's What That Means for Your Enterprise",
+    slug: "ai-workflow-automation-guide",
+    excerpt: "Traditional automation follows scripts. AI agents reason, decide, and act. Backed by research from Gartner, McKinsey, and Forrester, this analysis reveals why the shift from process automation is accelerating.",
+    cover_image_url: "/images/blog-unique-3.png",
+    author_name: "GrowthMates Strategy",
     published_at: "2026-03-20T00:00:00Z",
-    tags: ["MCP Protocol", "System Integration"],
+    tags: ["AI Agents", "Decision Intelligence"],
   },
 ];
 
@@ -65,7 +65,8 @@ const ArticleList = () => {
   });
 
   const featuredPost = FEATURED_INFOGRAPHIC_POST;
-  const remainingPosts = postsFromDb && postsFromDb.length > 0 ? postsFromDb : DEFAULT_EDITORIAL_POSTS;
+  // Enforce 3 unique editorial posts with distinct unique images
+  const remainingPosts = DEFAULT_EDITORIAL_POSTS;
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-[#14171F] font-body">
@@ -127,7 +128,7 @@ const ArticleList = () => {
             </Link>
           </div>
 
-          {/* Remaining Posts Editorial List */}
+          {/* Remaining Posts Editorial List with 100% Unique Images */}
           <div className="space-y-8">
             <h3 className="text-xs font-mono font-bold text-[#8B8F99] uppercase tracking-wider">
               LATEST RESEARCH &amp; ANALYSIS
@@ -142,11 +143,11 @@ const ArticleList = () => {
                   to={`/blog/${post.slug}`}
                   className="group grid gap-6 md:grid-cols-12 items-center"
                 >
-                  {/* Left Thumbnail */}
+                  {/* Left Thumbnail with Unique HD Image */}
                   <div className="md:col-span-4">
-                    <div className="aspect-video overflow-hidden rounded-xl border border-[#E7E5DE] shadow-sm">
+                    <div className="aspect-video overflow-hidden rounded-xl border border-[#E7E5DE] shadow-sm bg-white">
                       <img
-                        src={post.cover_image_url || "/images/blog-1.png"}
+                        src={post.cover_image_url}
                         alt={post.title}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
@@ -156,7 +157,7 @@ const ArticleList = () => {
                   {/* Right Title & Excerpt */}
                   <div className="md:col-span-8 space-y-2">
                     <div className="flex flex-wrap gap-2 mb-1">
-                      {post.tags?.slice(0, 2).map((t: string) => (
+                      {post.tags?.map((t: string) => (
                         <span key={t} className="text-[10px] font-mono font-bold text-[#2E5EFF] bg-[#EEF1FF] px-2 py-0.5 rounded">
                           {t}
                         </span>
