@@ -1,10 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Calendar, Tag } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { format } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
+
+const DEFAULT_BLOG_IMAGES = [
+  "/images/blog-1.png",
+  "/images/blog-2.png",
+  "/images/blog-3.png",
+  "/images/blog-4.png",
+];
 
 const ArticleList = () => {
   const { data: posts, isLoading } = useQuery({
@@ -60,15 +67,13 @@ const ArticleList = () => {
                     FEATURED ARTICLE
                   </span>
                   <Link to={`/blog/${featuredPost.slug}`} className="group block space-y-4">
-                    {featuredPost.cover_image_url && (
-                      <div className="aspect-[21/9] overflow-hidden rounded-md border border-border-subtle mb-4">
-                        <img
-                          src={featuredPost.cover_image_url}
-                          alt={featuredPost.title}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-102"
-                        />
-                      </div>
-                    )}
+                    <div className="aspect-[21/9] overflow-hidden rounded-xl border border-border-subtle mb-4 shadow-raised">
+                      <img
+                        src={featuredPost.cover_image_url || DEFAULT_BLOG_IMAGES[0]}
+                        alt={featuredPost.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-102"
+                      />
+                    </div>
                     <h2 className="text-2xl md:text-3xl font-extrabold text-fg-default font-display group-hover:text-accent transition-colors">
                       {featuredPost.title}
                     </h2>
@@ -76,12 +81,12 @@ const ArticleList = () => {
                       {featuredPost.excerpt}
                     </p>
                     <div className="flex items-center gap-4 text-xs text-fg-dimmer font-mono pt-1">
-                      <span>{featuredPost.author_name}</span>
+                      <span>{featuredPost.author_name || "GrowthMates AI Research"}</span>
                       <span>•</span>
                       <span>
                         {featuredPost.published_at
                           ? format(new Date(featuredPost.published_at), "MMM d, yyyy")
-                          : "Draft"}
+                          : "March 2026"}
                       </span>
                     </div>
                   </Link>
@@ -90,61 +95,60 @@ const ArticleList = () => {
 
               {/* Remaining Posts Editorial List */}
               <div className="space-y-8">
-                {remainingPosts.map((post) => (
-                  <article
-                    key={post.id}
-                    className="border-b border-border-subtle pb-8 last:border-b-0 last:pb-0"
-                  >
-                    <Link
-                      to={`/blog/${post.slug}`}
-                      className="group grid gap-6 md:grid-cols-12 items-center"
+                {remainingPosts.map((post, idx) => {
+                  const fallbackImg = DEFAULT_BLOG_IMAGES[(idx + 1) % DEFAULT_BLOG_IMAGES.length];
+                  const imgSrc = post.cover_image_url || fallbackImg;
+
+                  return (
+                    <article
+                      key={post.id}
+                      className="border-b border-border-subtle pb-8 last:border-b-0 last:pb-0"
                     >
-                      {/* Left Thumbnail (4 cols) */}
-                      <div className="md:col-span-4">
-                        {post.cover_image_url ? (
-                          <div className="aspect-video overflow-hidden rounded-md border border-border-subtle">
+                      <Link
+                        to={`/blog/${post.slug}`}
+                        className="group grid gap-6 md:grid-cols-12 items-center"
+                      >
+                        {/* Left Thumbnail (4 cols) */}
+                        <div className="md:col-span-4">
+                          <div className="aspect-video overflow-hidden rounded-xl border border-border-subtle shadow-sm">
                             <img
-                              src={post.cover_image_url}
+                              src={imgSrc}
                               alt={post.title}
                               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                             />
                           </div>
-                        ) : (
-                          <div className="aspect-video rounded-md bg-accent-dim flex items-center justify-center text-accent font-bold text-xl font-display">
-                            GM AI
-                          </div>
-                        )}
-                      </div>
+                        </div>
 
-                      {/* Right Title & Excerpt (8 cols) */}
-                      <div className="md:col-span-8 space-y-2">
-                        <div className="flex flex-wrap gap-2 mb-1">
-                          {post.tags?.slice(0, 2).map((t: string) => (
-                            <span key={t} className="text-[10px] font-mono text-accent bg-accent-dim px-2 py-0.5 rounded">
-                              {t}
+                        {/* Right Title & Excerpt (8 cols) */}
+                        <div className="md:col-span-8 space-y-2">
+                          <div className="flex flex-wrap gap-2 mb-1">
+                            {post.tags?.slice(0, 2).map((t: string) => (
+                              <span key={t} className="text-[10px] font-mono font-bold text-accent bg-accent-dim px-2 py-0.5 rounded">
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                          <h3 className="text-lg md:text-xl font-bold text-fg-default font-display group-hover:text-accent transition-colors leading-snug">
+                            {post.title}
+                          </h3>
+                          <p className="text-xs text-fg-dim line-clamp-2 leading-relaxed">
+                            {post.excerpt}
+                          </p>
+                          <div className="flex items-center justify-between text-xs text-fg-dimmer pt-2 font-mono">
+                            <span>
+                              {post.published_at
+                                ? format(new Date(post.published_at), "MMM d, yyyy")
+                                : "March 2026"}
                             </span>
-                          ))}
+                            <span className="text-accent font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                              Read Article <ArrowUpRight className="h-3.5 w-3.5" />
+                            </span>
+                          </div>
                         </div>
-                        <h3 className="text-lg md:text-xl font-bold text-fg-default font-display group-hover:text-accent transition-colors leading-snug">
-                          {post.title}
-                        </h3>
-                        <p className="text-xs text-fg-dim line-clamp-2 leading-relaxed">
-                          {post.excerpt}
-                        </p>
-                        <div className="flex items-center justify-between text-xs text-fg-dimmer pt-2 font-mono">
-                          <span>
-                            {post.published_at
-                              ? format(new Date(post.published_at), "MMM d, yyyy")
-                              : "Draft"}
-                          </span>
-                          <span className="text-accent font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                            Read Article <ArrowUpRight className="h-3.5 w-3.5" />
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  </article>
-                ))}
+                      </Link>
+                    </article>
+                  );
+                })}
               </div>
 
               {!posts || posts.length === 0 ? (
