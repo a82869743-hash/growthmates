@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import {
-  ArrowUpRight, CalendarDays, Clock, MapPin, Sparkles, Truck, Store, BrainCircuit, ShieldCheck, Cpu, Zap, BarChart3
+  ArrowUpRight, CalendarDays, Clock, MapPin, Sparkles, Truck, Store, BrainCircuit, ShieldCheck, Cpu, BarChart3
 } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
@@ -23,94 +23,90 @@ const MegaTrans = () => {
     <div className="min-h-screen bg-bg-base text-fg-default font-body">
       <Navbar />
 
-      {/* Main Hero Container (SDI Presence Inspired Rounded Dark Banner Card) */}
+      {/* Main Hero Container (SDI Style Rounded Banner Card with Multi-Modal Logistics Background) */}
       <section className="py-12 md:py-20 bg-bg-base">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6">
           
-          {/* Large SDI Style Hero Banner Box */}
-          <div className="relative overflow-hidden rounded-3xl bg-[#16214F] text-white p-8 md:p-14 shadow-2xl min-h-[540px] flex flex-col justify-between">
-            
-            {/* Background Highway Motion Light Trails SVG Overlay */}
-            <div className="absolute inset-0 pointer-events-none opacity-30">
-              <svg className="w-full h-full object-cover" viewBox="0 0 1200 600" fill="none">
-                {/* Light Trails Lines */}
-                <path d="M-100 500 C 300 450, 700 350, 1300 200" stroke="#2E5EFF" strokeWidth="12" opacity="0.6" />
-                <path d="M-100 520 C 300 470, 700 370, 1300 220" stroke="#FF6A3D" strokeWidth="8" opacity="0.8" />
-                <path d="M-100 540 C 300 490, 700 390, 1300 240" stroke="#FFFFFF" strokeWidth="4" opacity="0.5" />
-                <ellipse cx="950" cy="220" rx="350" ry="180" stroke="#2E5EFF" strokeWidth="2" strokeDasharray="8 8" />
-              </svg>
-            </div>
-
+          {/* Large SDI Style Hero Banner Box with Logistics Background */}
+          <div
+            className="relative overflow-hidden rounded-3xl text-white p-8 md:p-14 shadow-2xl min-h-[580px] flex flex-col justify-between border border-[#2E5EFF]/30"
+            style={{
+              backgroundImage: `linear-gradient(to right, rgba(22, 33, 79, 0.95) 0%, rgba(22, 33, 79, 0.85) 55%, rgba(22, 33, 79, 0.55) 100%), url('/images/megatrans-bg.png')`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
             {/* Top Text Content inside Banner */}
-            <div className="relative z-10 max-w-3xl space-y-4">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-white">
+            <div className="relative z-10 max-w-3xl space-y-5">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-white">
                 <Sparkles className="h-3.5 w-3.5 text-[#FF6A3D]" /> WE DELIVER · MEGATRANS 2026 STARTUP POD
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-display tracking-tight leading-[1.08] text-white">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-display tracking-tight leading-[1.08] text-white drop-shadow-md">
                 Why Transportation Leaders Choose GrowthMates AI
               </h1>
               
-              <p className="text-base md:text-lg text-white/80 max-w-2xl font-body leading-relaxed">
+              <p className="text-base md:text-lg text-white/90 max-w-2xl font-body leading-relaxed drop-shadow-sm">
                 Come meet us at Australia’s largest integrated logistics and supply chain expo. Visit our Startup POD at MCEC Melbourne to see live agentic decision execution.
               </p>
             </div>
 
-            {/* Bottom 4 Glassmorphism Frosted Cards Grid (SDI Presence Screenshot Composition) */}
+            {/* Bottom 4 Glassmorphism Frosted Cards Grid (SDI Presence Style Composition) */}
             <div className="relative z-10 mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               
               {/* Card 1 */}
-              <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 p-6 hover:bg-white/15 transition-all duration-300">
+              <div className="rounded-2xl bg-[#16214F]/70 backdrop-blur-lg border border-white/20 p-6 hover:bg-[#16214F]/85 hover:border-white/40 transition-all duration-300 shadow-xl">
                 <div className="flex items-center gap-3 mb-3 text-[#7C97FF]">
                   <Truck className="h-5 w-5" />
-                  <span className="text-xs font-mono uppercase font-bold text-white/70">FLEET DISPATCH</span>
+                  <span className="text-xs font-mono uppercase font-bold text-white/80">FLEET DISPATCH</span>
                 </div>
                 <h3 className="text-lg font-bold font-display text-white mb-2">
                   Autonomous Fleet Dispatch
                 </h3>
-                <p className="text-xs text-white/70 leading-relaxed">
+                <p className="text-xs text-white/80 leading-relaxed">
                   Multi-stop route optimisation, real-time traffic rerouting, and lane margin enforcement.
                 </p>
               </div>
 
               {/* Card 2 */}
-              <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 p-6 hover:bg-white/15 transition-all duration-300">
+              <div className="rounded-2xl bg-[#16214F]/70 backdrop-blur-lg border border-white/20 p-6 hover:bg-[#16214F]/85 hover:border-white/40 transition-all duration-300 shadow-xl">
                 <div className="flex items-center gap-3 mb-3 text-[#FF6A3D]">
                   <ShieldCheck className="h-5 w-5" />
-                  <span className="text-xs font-mono uppercase font-bold text-white/70">GOVERNANCE</span>
+                  <span className="text-xs font-mono uppercase font-bold text-white/80">GOVERNANCE</span>
                 </div>
                 <h3 className="text-lg font-bold font-display text-white mb-2">
                   Security-First Design
                 </h3>
-                <p className="text-xs text-white/70 leading-relaxed">
+                <p className="text-xs text-white/80 leading-relaxed">
                   SOC2 compliant runtime, zero-trust memory isolation, and SAML 2.0 SSO enterprise authentication.
                 </p>
               </div>
 
               {/* Card 3 */}
-              <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 p-6 hover:bg-white/15 transition-all duration-300">
+              <div className="rounded-2xl bg-[#16214F]/70 backdrop-blur-lg border border-white/20 p-6 hover:bg-[#16214F]/85 hover:border-white/40 transition-all duration-300 shadow-xl">
                 <div className="flex items-center gap-3 mb-3 text-[#7C97FF]">
                   <Cpu className="h-5 w-5" />
-                  <span className="text-xs font-mono uppercase font-bold text-white/70">PARTNERSHIP</span>
+                  <span className="text-xs font-mono uppercase font-bold text-white/80">PARTNERSHIP</span>
                 </div>
                 <h3 className="text-lg font-bold font-display text-white mb-2">
                   Hands-On Partnership
                 </h3>
-                <p className="text-xs text-white/70 leading-relaxed">
+                <p className="text-xs text-white/80 leading-relaxed">
                   Embedded collaboration with engineering teams to deploy pre-built transport agents in days.
                 </p>
               </div>
 
               {/* Card 4 */}
-              <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 p-6 hover:bg-white/15 transition-all duration-300">
+              <div className="rounded-2xl bg-[#16214F]/70 backdrop-blur-lg border border-white/20 p-6 hover:bg-[#16214F]/85 hover:border-white/40 transition-all duration-300 shadow-xl">
                 <div className="flex items-center gap-3 mb-3 text-[#1FAA59]">
                   <BarChart3 className="h-5 w-5" />
-                  <span className="text-xs font-mono uppercase font-bold text-white/70">PROVEN ROI</span>
+                  <span className="text-xs font-mono uppercase font-bold text-white/80">PROVEN ROI</span>
                 </div>
                 <h3 className="text-lg font-bold font-display text-white mb-2">
                   Proven Methodologies
                 </h3>
-                <p className="text-xs text-white/70 leading-relaxed">
+                <p className="text-xs text-white/80 leading-relaxed">
                   Frameworks for high-volume, mission-critical transport operations with 85% cost reduction.
                 </p>
               </div>
