@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Search, Sparkles, CheckCircle2, ShieldCheck, ArrowRight, Layers, Database, Cpu, Globe, Truck, MapPin, DollarSign, Bot, Zap, Lock, Terminal, X, Activity
+  Search, Sparkles, CheckCircle2, ShieldCheck, ArrowRight, Layers, Database, Cpu, Globe, Truck, MapPin, DollarSign, Bot, Zap, Lock, Terminal, X, Activity, RefreshCw
 } from "lucide-react";
 
 interface IntegrationItem {
@@ -58,10 +58,56 @@ const CATEGORIES = [
   { id: "commerce", label: "E-Commerce", count: 4 },
 ];
 
+const SYSTEM_TO_AGENT_NODES = [
+  {
+    toolName: "SAP ERP & TruckMate",
+    toolType: "Enterprise TMS",
+    icon: Truck,
+    agentName: "Autonomous Dispatch Agent",
+    agentAction: "Reroutes 42 vehicles based on live GPS data",
+    latency: "14ms",
+  },
+  {
+    toolName: "Xero & QuickBooks",
+    toolType: "Financial Ledger",
+    icon: DollarSign,
+    agentName: "Freight Rate Quoter Agent",
+    agentAction: "Calculates lane margins & generates live invoice",
+    latency: "9ms",
+  },
+  {
+    toolName: "Shopify & WooCommerce",
+    toolType: "E-Commerce Gateway",
+    icon: Globe,
+    agentName: "Stock & Order Agent",
+    agentAction: "Triggers automated 500 unit warehouse restock",
+    latency: "11ms",
+  },
+  {
+    toolName: "Snowflake & PostgreSQL",
+    toolType: "Cloud Database",
+    icon: Database,
+    agentName: "Compliance Audit Agent",
+    agentAction: "Verifies driver HOS hours & logs SOC2 trace",
+    latency: "16ms",
+  },
+];
+
 const ConnectGrid = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeModalItem, setActiveModalItem] = useState<IntegrationItem | null>(null);
+  const [activeBridgeIdx, setActiveBridgeIdx] = useState(0);
+
+  // Auto-cycle through the live gateway connection flow demo
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveBridgeIdx((prev) => (prev + 1) % SYSTEM_TO_AGENT_NODES.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
+
+  const currentBridge = SYSTEM_TO_AGENT_NODES[activeBridgeIdx];
 
   const filteredIntegrations = INTEGRATIONS.filter((item) => {
     const matchesCat = selectedCategory === "all" || item.category === selectedCategory;
@@ -87,9 +133,105 @@ const ConnectGrid = () => {
             Connect Tools. <span className="text-[#2E5EFF]">Scale Agents.</span>
           </h2>
           <p className="text-base sm:text-lg text-[#5B616E] max-w-xl mx-auto font-body">
-            GrowthMates integrates natively with 100+ ERP, TMS, cloud infrastructure, and AI model providers. Click any connector below to inspect live MCP 1.0 telemetry.
+            GrowthMates integrates natively with 100+ ERP, TMS, cloud infrastructure, and AI model providers. Inspect our live MCP 1.0 System-to-Agent Gateway Bridge below.
           </p>
         </motion.div>
+
+        {/* VISUAL INTERACTIVE GATEWAY BRIDGE COMPONENT */}
+        <div className="max-w-5xl mx-auto mb-16 rounded-3xl bg-white border-2 border-[#2E5EFF]/25 p-6 sm:p-8 shadow-xl relative overflow-hidden">
+          
+          <div className="flex items-center justify-between border-b border-[#E7E5DE] pb-4 mb-6">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-bold text-[#2E5EFF] uppercase tracking-wider">
+                LIVE MCP 1.0 SYSTEM-TO-AGENT GATEWAY PIPELINE
+              </span>
+              <span className="h-2 w-2 rounded-full bg-[#1FAA59] animate-ping" />
+            </div>
+            <div className="flex items-center gap-2 text-xs font-mono text-[#5B616E]">
+              <span>ACTIVE BRIDGE: {activeBridgeIdx + 1}/4</span>
+              <RefreshCw className="h-3.5 w-3.5 text-[#2E5EFF] animate-spin" />
+            </div>
+          </div>
+
+          {/* 3-Column Node Flow Architecture */}
+          <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
+            
+            {/* Left Box: Enterprise Systems */}
+            <div className="md:col-span-4 space-y-2">
+              <span className="text-[10px] font-mono font-bold text-[#8B8F99] uppercase tracking-wider block">
+                1. ENTERPRISE SYSTEM DATA
+              </span>
+              <div className="rounded-2xl bg-[#FAF9F6] border border-[#E7E5DE] p-4 shadow-sm hover:border-[#2E5EFF] transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-xl bg-[#2E5EFF] text-white flex items-center justify-center shadow-md">
+                    <currentBridge.icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm font-display text-[#14171F]">{currentBridge.toolName}</h4>
+                    <span className="text-xs text-[#5B616E] font-mono">{currentBridge.toolType}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Center Box: GrowthMates MCP Core Hub with Data Beams */}
+            <div className="md:col-span-3 text-center py-4 space-y-2 relative">
+              <div className="hidden md:flex items-center justify-center relative">
+                {/* Horizontal Connection Beam */}
+                <div className="w-full h-1 bg-gradient-to-r from-[#2E5EFF] via-[#7C97FF] to-[#FF6A3D] rounded-full relative overflow-hidden">
+                  <div className="absolute inset-0 bg-white/60 animate-pulse" />
+                </div>
+              </div>
+
+              <div className="inline-flex flex-col items-center justify-center rounded-2xl bg-[#16214F] text-white p-3.5 border border-[#2E5EFF]/40 shadow-lg relative z-10 w-full">
+                <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#7C97FF] mb-1">
+                  <ShieldCheck className="h-3.5 w-3.5 text-[#FF6A3D]" /> MCP 1.0 GATEWAY
+                </div>
+                <p className="text-[11px] font-mono text-white/90 font-bold">Latency: {currentBridge.latency}</p>
+                <span className="text-[10px] text-[#1FAA59] font-mono font-bold">Zero-Trust JSON Stream</span>
+              </div>
+            </div>
+
+            {/* Right Box: Autonomous AI Agents */}
+            <div className="md:col-span-4 space-y-2">
+              <span className="text-[10px] font-mono font-bold text-[#8B8F99] uppercase tracking-wider block">
+                2. AUTONOMOUS AGENT EXECUTION
+              </span>
+              <div className="rounded-2xl bg-[#EEF1FF] border border-[#2E5EFF]/40 p-4 shadow-sm">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-xl bg-[#FF6A3D] text-white flex items-center justify-center shadow-md">
+                    <Bot className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm font-display text-[#14171F]">{currentBridge.agentName}</h4>
+                    <p className="text-xs text-[#2E5EFF] font-mono font-bold leading-tight mt-0.5">
+                      {currentBridge.agentAction}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Interactive Flow Switcher Pills */}
+          <div className="mt-6 pt-4 border-t border-[#E7E5DE] flex flex-wrap items-center justify-center gap-2">
+            {SYSTEM_TO_AGENT_NODES.map((node, idx) => (
+              <button
+                key={node.agentName}
+                onClick={() => setActiveBridgeIdx(idx)}
+                className={`rounded-full px-3 py-1 text-xs font-mono font-bold transition-all ${
+                  activeBridgeIdx === idx
+                    ? "bg-[#2E5EFF] text-white shadow-sm"
+                    : "bg-[#FAF9F6] border border-[#E7E5DE] text-[#5B616E] hover:border-[#2E5EFF]"
+                }`}
+              >
+                Pipeline #{idx + 1}: {node.agentName}
+              </button>
+            ))}
+          </div>
+
+        </div>
 
         {/* Search & Category Filter Control Bar */}
         <div className="max-w-4xl mx-auto mb-10 space-y-4">
