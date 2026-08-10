@@ -6,15 +6,52 @@ import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 
-const DEFAULT_BLOG_IMAGES = [
-  "/images/blog-1.png",
-  "/images/blog-2.png",
-  "/images/blog-3.png",
-  "/images/blog-4.png",
+const FEATURED_INFOGRAPHIC_POST = {
+  id: "post-featured-infographic",
+  title: "AI AGENT vs AGENTIC AI: Understanding the Difference for Enterprise Operations",
+  slug: "ai-agent-vs-agentic-ai",
+  excerpt: "Understanding the fundamental shift from rule-based AI agents with limited memory to goal-driven Agentic AI that plans, reasons, and executes autonomous end-to-end enterprise workflows.",
+  cover_image_url: "/images/ai-agent-vs-agentic-ai.png",
+  author_name: "GrowthMates AI Research",
+  published_at: "2026-03-28T00:00:00Z",
+  tags: ["Agentic AI", "AI Architecture", "Decision Intelligence"],
+};
+
+const DEFAULT_EDITORIAL_POSTS = [
+  {
+    id: "post-1",
+    title: "Building Secure, Scalable Enterprise AI Agent Architectures",
+    slug: "enterprise-ai-architecture",
+    excerpt: "A deep dive into the architectural patterns, security layers, and scalability considerations for deploying autonomous AI agents across enterprise environments.",
+    cover_image_url: "/images/blog-1.png",
+    author_name: "GrowthMates Engineering",
+    published_at: "2026-03-25T00:00:00Z",
+    tags: ["Enterprise AI", "Architecture"],
+  },
+  {
+    id: "post-2",
+    title: "AI Agents Are Decision Engines, Not Workflow Tools — Here's What That Means for Your Enterprise",
+    slug: "ai-workflow-automation-guide",
+    excerpt: "Traditional automation follows scripts. AI agents reason, decide, and act. Backed by research, this analysis reveals why the shift from process automation is accelerating.",
+    cover_image_url: "/images/blog-2.png",
+    author_name: "GrowthMates Strategy",
+    published_at: "2026-03-24T00:00:00Z",
+    tags: ["AI Agents", "Decision Intelligence"],
+  },
+  {
+    id: "post-3",
+    title: "Model Context Protocol (MCP): The New Standard for Enterprise System Integration",
+    slug: "agent-tools-vs-core-systems",
+    excerpt: "Why model context protocol (MCP 1.0) is superseding legacy REST/GraphQL connectors across enterprise ERP, TMS, and warehouse management platforms.",
+    cover_image_url: "/images/blog-3.png",
+    author_name: "GrowthMates Architecture",
+    published_at: "2026-03-20T00:00:00Z",
+    tags: ["MCP Protocol", "System Integration"],
+  },
 ];
 
 const ArticleList = () => {
-  const { data: posts, isLoading } = useQuery({
+  const { data: postsFromDb } = useQuery({
     queryKey: ["blog-posts"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -27,23 +64,23 @@ const ArticleList = () => {
     },
   });
 
-  const featuredPost = posts && posts.length > 0 ? posts[0] : null;
-  const remainingPosts = posts && posts.length > 1 ? posts.slice(1) : [];
+  const featuredPost = FEATURED_INFOGRAPHIC_POST;
+  const remainingPosts = postsFromDb && postsFromDb.length > 0 ? postsFromDb : DEFAULT_EDITORIAL_POSTS;
 
   return (
-    <div className="min-h-screen bg-bg-base text-fg-default font-body">
+    <div className="min-h-screen bg-[#FAF9F6] text-[#14171F] font-body">
       <Navbar />
 
       {/* Hero Header */}
-      <section className="border-b border-border-subtle bg-bg-surface py-16 md:py-24">
-        <div className="container max-w-4xl text-center">
-          <span className="inline-block rounded-full bg-accent-dim px-3.5 py-1 text-xs font-semibold text-accent mb-3">
+      <section className="border-b border-[#E7E5DE] bg-white py-16 md:py-24">
+        <div className="container max-w-4xl text-center px-4 sm:px-6">
+          <span className="inline-block rounded-full bg-[#EEF1FF] border border-[#2E5EFF]/20 px-3.5 py-1 text-xs font-mono font-bold uppercase text-[#2E5EFF] mb-3">
             GrowthMates Publication
           </span>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display text-[#14171F]">
             Perspectives &amp; Insights
           </h1>
-          <p className="mt-3 text-base text-fg-dim max-w-xl mx-auto">
+          <p className="mt-3 text-base text-[#5B616E] max-w-xl mx-auto font-body">
             Deep-dive articles on Agentic AI, supply chain decision engines, and enterprise workflow automation.
           </p>
         </div>
@@ -51,113 +88,102 @@ const ArticleList = () => {
 
       {/* Editorial Article List Section */}
       <section className="py-16 md:py-24">
-        <div className="container max-w-4xl">
-          {isLoading ? (
-            <div className="space-y-6">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="h-32 bg-bg-muted animate-pulse rounded-md" />
-              ))}
+        <div className="container max-w-4xl px-4 sm:px-6 space-y-12">
+          
+          {/* FEATURED ARTICLE: AI AGENT vs AGENTIC AI */}
+          <div className="border-b border-[#E7E5DE] pb-12">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-[10px] font-mono font-bold text-[#FF6A3D] bg-[#FF6A3D]/10 px-2.5 py-0.5 rounded uppercase tracking-wider">
+                FEATURED ARTICLE
+              </span>
+              <span className="text-[10px] font-mono text-[#2E5EFF] bg-[#EEF1FF] px-2.5 py-0.5 rounded font-bold">
+                Agentic AI
+              </span>
             </div>
-          ) : (
-            <div className="space-y-12">
-              {/* Featured / Most Recent Post Top Treatment */}
-              {featuredPost && (
-                <div className="border-b border-border-subtle pb-12">
-                  <span className="text-[10px] font-mono font-bold text-accent uppercase tracking-wider block mb-3">
-                    FEATURED ARTICLE
-                  </span>
-                  <Link to={`/blog/${featuredPost.slug}`} className="group block space-y-4">
-                    <div className="aspect-[21/9] overflow-hidden rounded-xl border border-border-subtle mb-4 shadow-raised">
+
+            <Link to={`/blog/${featuredPost.slug}`} className="group block space-y-4">
+              <div className="aspect-[21/9] sm:aspect-[2.2/1] overflow-hidden rounded-2xl border border-[#E7E5DE] mb-4 shadow-xl bg-white p-1">
+                <img
+                  src={featuredPost.cover_image_url}
+                  alt={featuredPost.title}
+                  className="h-full w-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#14171F] font-display group-hover:text-[#2E5EFF] transition-colors leading-tight">
+                {featuredPost.title}
+              </h2>
+              <p className="text-sm text-[#5B616E] leading-relaxed line-clamp-2 font-body">
+                {featuredPost.excerpt}
+              </p>
+              <div className="flex items-center gap-4 text-xs text-[#8B8F99] font-mono pt-1">
+                <span>{featuredPost.author_name}</span>
+                <span>•</span>
+                <span>March 28, 2026</span>
+                <span>•</span>
+                <span className="text-[#2E5EFF] font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                  Read Full Article &rarr;
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* Remaining Posts Editorial List */}
+          <div className="space-y-8">
+            <h3 className="text-xs font-mono font-bold text-[#8B8F99] uppercase tracking-wider">
+              LATEST RESEARCH &amp; ANALYSIS
+            </h3>
+
+            {remainingPosts.map((post) => (
+              <article
+                key={post.id}
+                className="border-b border-[#E7E5DE] pb-8 last:border-b-0 last:pb-0"
+              >
+                <Link
+                  to={`/blog/${post.slug}`}
+                  className="group grid gap-6 md:grid-cols-12 items-center"
+                >
+                  {/* Left Thumbnail */}
+                  <div className="md:col-span-4">
+                    <div className="aspect-video overflow-hidden rounded-xl border border-[#E7E5DE] shadow-sm">
                       <img
-                        src={featuredPost.cover_image_url || DEFAULT_BLOG_IMAGES[0]}
-                        alt={featuredPost.title}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-102"
+                        src={post.cover_image_url || "/images/blog-1.png"}
+                        alt={post.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
-                    <h2 className="text-2xl md:text-3xl font-extrabold text-fg-default font-display group-hover:text-accent transition-colors">
-                      {featuredPost.title}
-                    </h2>
-                    <p className="text-sm text-fg-dim leading-relaxed line-clamp-2">
-                      {featuredPost.excerpt}
+                  </div>
+
+                  {/* Right Title & Excerpt */}
+                  <div className="md:col-span-8 space-y-2">
+                    <div className="flex flex-wrap gap-2 mb-1">
+                      {post.tags?.slice(0, 2).map((t: string) => (
+                        <span key={t} className="text-[10px] font-mono font-bold text-[#2E5EFF] bg-[#EEF1FF] px-2 py-0.5 rounded">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="text-lg md:text-xl font-bold text-[#14171F] font-display group-hover:text-[#2E5EFF] transition-colors leading-snug">
+                      {post.title}
+                    </h3>
+                    <p className="text-xs text-[#5B616E] line-clamp-2 leading-relaxed font-body">
+                      {post.excerpt}
                     </p>
-                    <div className="flex items-center gap-4 text-xs text-fg-dimmer font-mono pt-1">
-                      <span>{featuredPost.author_name || "GrowthMates AI Research"}</span>
-                      <span>•</span>
+                    <div className="flex items-center justify-between text-xs text-[#8B8F99] pt-2 font-mono">
                       <span>
-                        {featuredPost.published_at
-                          ? format(new Date(featuredPost.published_at), "MMM d, yyyy")
+                        {post.published_at
+                          ? format(new Date(post.published_at), "MMM d, yyyy")
                           : "March 2026"}
                       </span>
+                      <span className="text-[#2E5EFF] font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                        Read Article <ArrowUpRight className="h-3.5 w-3.5" />
+                      </span>
                     </div>
-                  </Link>
-                </div>
-              )}
+                  </div>
+                </Link>
+              </article>
+            ))}
+          </div>
 
-              {/* Remaining Posts Editorial List */}
-              <div className="space-y-8">
-                {remainingPosts.map((post, idx) => {
-                  const fallbackImg = DEFAULT_BLOG_IMAGES[(idx + 1) % DEFAULT_BLOG_IMAGES.length];
-                  const imgSrc = post.cover_image_url || fallbackImg;
-
-                  return (
-                    <article
-                      key={post.id}
-                      className="border-b border-border-subtle pb-8 last:border-b-0 last:pb-0"
-                    >
-                      <Link
-                        to={`/blog/${post.slug}`}
-                        className="group grid gap-6 md:grid-cols-12 items-center"
-                      >
-                        {/* Left Thumbnail (4 cols) */}
-                        <div className="md:col-span-4">
-                          <div className="aspect-video overflow-hidden rounded-xl border border-border-subtle shadow-sm">
-                            <img
-                              src={imgSrc}
-                              alt={post.title}
-                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Right Title & Excerpt (8 cols) */}
-                        <div className="md:col-span-8 space-y-2">
-                          <div className="flex flex-wrap gap-2 mb-1">
-                            {post.tags?.slice(0, 2).map((t: string) => (
-                              <span key={t} className="text-[10px] font-mono font-bold text-accent bg-accent-dim px-2 py-0.5 rounded">
-                                {t}
-                              </span>
-                            ))}
-                          </div>
-                          <h3 className="text-lg md:text-xl font-bold text-fg-default font-display group-hover:text-accent transition-colors leading-snug">
-                            {post.title}
-                          </h3>
-                          <p className="text-xs text-fg-dim line-clamp-2 leading-relaxed">
-                            {post.excerpt}
-                          </p>
-                          <div className="flex items-center justify-between text-xs text-fg-dimmer pt-2 font-mono">
-                            <span>
-                              {post.published_at
-                                ? format(new Date(post.published_at), "MMM d, yyyy")
-                                : "March 2026"}
-                            </span>
-                            <span className="text-accent font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                              Read Article <ArrowUpRight className="h-3.5 w-3.5" />
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                    </article>
-                  );
-                })}
-              </div>
-
-              {!posts || posts.length === 0 ? (
-                <div className="text-center py-16 text-fg-dim">
-                  No articles published yet. Check back soon.
-                </div>
-              ) : null}
-            </div>
-          )}
         </div>
       </section>
 
