@@ -1,6 +1,7 @@
 import Navbar from "@/components/landing/Navbar";
 import AgentConsoleHero from "@/components/landing/AgentConsoleHero";
 import AgentPromptLauncher from "@/components/landing/AgentPromptLauncher";
+import PoweredByPlatformGrid from "@/components/landing/PoweredByPlatformGrid";
 import SpotlightFeatures from "@/components/landing/SpotlightFeatures";
 import AgentDirectory from "@/components/landing/AgentDirectory";
 import SystemTrace from "@/components/landing/SystemTrace";
@@ -17,6 +18,7 @@ const Index = () => {
       <main>
         <AgentConsoleHero />
         <AgentPromptLauncher />
+        <PoweredByPlatformGrid />
         <SpotlightFeatures />
         <AgentDirectory />
         <SystemTrace />
