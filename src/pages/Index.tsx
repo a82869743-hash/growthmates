@@ -6,6 +6,7 @@ import SpotlightFeatures from "@/components/landing/SpotlightFeatures";
 import AgentDirectory from "@/components/landing/AgentDirectory";
 import SystemTrace from "@/components/landing/SystemTrace";
 import InteractivePlatformStack from "@/components/landing/InteractivePlatformStack";
+import IsGrowthMatesRightForMe from "@/components/landing/IsGrowthMatesRightForMe";
 import ConnectGrid from "@/components/landing/ConnectGrid";
 import ProofBlobs from "@/components/landing/ProofBlobs";
 import LiveCTA from "@/components/landing/LiveCTA";
@@ -23,6 +24,7 @@ const Index = () => {
         <AgentDirectory />
         <SystemTrace />
         <InteractivePlatformStack />
+        <IsGrowthMatesRightForMe />
         <ConnectGrid />
         <ProofBlobs />
         <LiveCTA />
