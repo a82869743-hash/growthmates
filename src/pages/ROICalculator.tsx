@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { BarChart3, Bot, CheckCircle2, User, Sparkles, Truck, DollarSign, Calculator, ArrowRight, ShieldCheck } from "lucide-react";
+import { motion } from "framer-motion";
+import { Bot, CheckCircle2, User, Sparkles, Truck, Calculator, ArrowRight, ShieldCheck } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import ROIResultsDashboard from "@/components/roi/ROIResultsDashboard";
@@ -62,6 +62,7 @@ const ROICalculator = () => {
 
   const inputs: ROIInputs = { business, operations, painPoints, automation };
   const results = useROICalculations(inputs);
+  const annualSavings = (results?.monthlyCostSavings || 0) * 12;
 
   const togglePainPoint = (key: PainPoint) => {
     setPainPoints((prev) =>
@@ -124,7 +125,7 @@ const ROICalculator = () => {
             <div className="mt-6 pt-4 border-t border-[#E7E5DE] text-center space-y-1">
               <span className="text-[10px] font-mono text-[#8B8F99] uppercase">ESTIMATED ANNUAL SAVINGS</span>
               <div className="text-xl font-extrabold text-[#1FAA59] font-display">
-                ${results.annualSavings.toLocaleString()}
+                ${annualSavings.toLocaleString()}
               </div>
             </div>
           </div>
