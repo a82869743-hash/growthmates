@@ -1,203 +1,253 @@
 import { useState, useEffect } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Cpu, CheckCircle2, BarChart3, Lock, Sparkles, Navigation } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 
-const AGENT_TASKS = [
-  { action: "Optimizing route for 12 stops", details: "Traffic cleared · ETA updated to 14:15", status: "Completed in 1.2s", badge: "Route AI" },
-  { action: "Freight rate quoted: $2,340", details: "Lanes: MEL → SYD · Margin +18%", status: "Quoted Live", badge: "Rate Engine" },
-  { action: "Inventory reorder triggered", details: "SKU #8841-B · Reorder qty: 450 units", status: "Supplier Synced", badge: "Inventory AI" },
-  { action: "HOS compliance audit verified", details: "24 drivers checked · 0 violations", status: "Audit Logged", badge: "Compliance AI" },
+const AGENT_STREAM = [
+  { action: "Optimizing 12 multi-stop routes", badge: "Route AI", time: "1.2s" },
+  { action: "Quoted freight lane MEL → SYD: $2,340", badge: "Rate Engine", time: "Live" },
+  { action: "Inventory reorder triggered: 450 units", badge: "Inventory AI", time: "Synced" },
+  { action: "Driver HOS compliance audit verified", badge: "Compliance AI", time: "Passed" },
 ];
 
 const AgentConsoleHero = () => {
-  const [taskIndex, setTaskIndex] = useState(0);
+  const [streamIdx, setStreamIdx] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
-    const currentFullText = AGENT_TASKS[taskIndex].action;
+    const currentFullText = AGENT_STREAM[streamIdx].action;
 
     if (isTyping) {
       if (displayText.length < currentFullText.length) {
         timeout = setTimeout(() => {
           setDisplayText(currentFullText.slice(0, displayText.length + 1));
-        }, 40);
+        }, 35);
       } else {
         timeout = setTimeout(() => {
           setIsTyping(false);
-        }, 2500);
+        }, 2200);
       }
     } else {
       timeout = setTimeout(() => {
         setDisplayText("");
         setIsTyping(true);
-        setTaskIndex((prev) => (prev + 1) % AGENT_TASKS.length);
-      }, 400);
+        setStreamIdx((prev) => (prev + 1) % AGENT_STREAM.length);
+      }, 350);
     }
 
     return () => clearTimeout(timeout);
-  }, [displayText, isTyping, taskIndex]);
+  }, [displayText, isTyping, streamIdx]);
 
-  const activeTask = AGENT_TASKS[taskIndex];
+  const activeStream = AGENT_STREAM[streamIdx];
 
   return (
-    <section className="relative bg-bg-base py-16 md:py-24 lg:py-32 overflow-hidden border-b border-border-subtle">
-      <div className="container relative z-10">
+    <section className="relative bg-[#FAF9F6] py-16 md:py-24 lg:py-32 overflow-hidden border-b border-[#E7E5DE] text-[#14171F]">
+      <div className="container relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid items-center gap-12 lg:grid-cols-12">
-          {/* Left Column (40% width ~ 5 cols) */}
+          
+          {/* Left Column (5 cols ~ SDI Presence layout) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-5"
+            className="lg:col-span-6 space-y-6"
           >
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent-dim px-3.5 py-1.5 text-xs font-semibold text-accent mb-6">
-              <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#EEF1FF] px-4 py-1.5 text-xs font-bold text-[#2E5EFF]">
+              <span className="h-2 w-2 rounded-full bg-[#2E5EFF] animate-pulse" />
               Enterprise Agentic AI Platform
             </div>
 
-            <h1 className="text-4xl font-extrabold tracking-tight text-fg-default sm:text-5xl lg:text-6xl leading-[1.08] font-display">
-              Build Smarter. Scale Faster.{" "}
-              <span className="text-accent">Powered by Agentic AI.</span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#14171F] font-display leading-[1.08]">
+              Empowering Your Business with <span className="text-[#2E5EFF]">Modern Agentic AI</span>
             </h1>
 
-            <p className="mt-6 text-base text-fg-dim leading-relaxed sm:text-lg">
-              The enterprise platform that empowers organizations to build custom AI agents,
-              automate intelligent workflows, and unlock data-driven growth with complete security and control.
+            <p className="text-base sm:text-lg text-[#5B616E] leading-relaxed max-w-2xl font-body">
+              GrowthMates AI helps organizations modernize operational workflows, cut costs by up to 85%, and achieve sustainable growth through proven AI agent strategies across Transportation, Retail, Agriculture, and Education. Transform your tech landscape into a powerful asset for growth.
             </p>
 
-            {/* CTAs - Cut down to 2 max */}
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            {/* Pill-Shaped SDI Presence Style Glassmorphism CTAs */}
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <button
                 onClick={() =>
                   (window as any).Calendly?.initPopupWidget({
                     url: "https://calendly.com/d-bstsolutions/book-your-free-consultation",
                   })
                 }
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-95 shadow-raised"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#2E5EFF] px-8 py-4 text-sm font-bold text-white transition-transform hover:scale-105 shadow-[0_10px_25px_-5px_rgba(46,94,255,0.4)]"
               >
-                Book a Demo <ArrowUpRight className="h-4 w-4" />
+                Talk to an Expert <ArrowUpRight className="h-4 w-4" />
               </button>
 
               <a
-                href="#usecases"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-transparent px-6 py-3.5 text-base font-semibold text-fg-default hover:text-accent transition-colors"
+                href="/roi-calculator"
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#2E5EFF]/30 bg-white px-7 py-3.5 text-sm font-bold text-[#2E5EFF] hover:bg-[#EEF1FF] transition-colors shadow-sm"
               >
-                Explore Use Cases <ArrowUpRight className="h-4 w-4" />
+                Calculate ROI <ArrowUpRight className="h-4 w-4" />
               </a>
             </div>
 
-            {/* Quick stats inline below CTAs */}
-            <div className="mt-12 flex items-center gap-8 border-t border-border-subtle pt-6">
+            {/* SDI Style Stat Indicators */}
+            <div className="pt-8 flex items-center gap-8 border-t border-[#E7E5DE]">
               <div>
-                <p className="text-2xl font-bold text-fg-default font-display">85%</p>
-                <p className="text-xs text-fg-dim">Cost Reduction</p>
+                <p className="text-3xl font-extrabold text-[#14171F] font-display">85%</p>
+                <p className="text-xs text-[#5B616E] font-semibold">Cost Reduction</p>
               </div>
-              <div className="h-8 w-px bg-border-subtle" />
+              <div className="h-8 w-px bg-[#E7E5DE]" />
               <div>
-                <p className="text-2xl font-bold text-fg-default font-display">92%</p>
-                <p className="text-xs text-fg-dim">Efficiency Gain</p>
+                <p className="text-3xl font-extrabold text-[#2E5EFF] font-display">92%</p>
+                <p className="text-xs text-[#5B616E] font-semibold">Efficiency Gains</p>
               </div>
-              <div className="h-8 w-px bg-border-subtle" />
+              <div className="h-8 w-px bg-[#E7E5DE]" />
               <div>
-                <p className="text-2xl font-bold text-fg-default font-display">98%</p>
-                <p className="text-xs text-fg-dim">Accuracy Rate</p>
+                <p className="text-3xl font-extrabold text-[#FF6A3D] font-display">98%</p>
+                <p className="text-xs text-[#5B616E] font-semibold">Workflow Accuracy</p>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column - Live Floating Console Panel (7 cols) */}
+          {/* Right Column — SDI Presence Inspired 3D Connected Ecosystem Graphic (6 cols) */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative lg:col-span-7"
+            className="relative lg:col-span-6 flex flex-col items-center justify-center"
           >
-            {/* Subtle dot grid behind console only */}
-            <div
-              className="absolute -inset-6 opacity-[0.03] rounded-3xl pointer-events-none"
-              style={{
-                backgroundImage: `radial-gradient(#14171F 1px, transparent 1px)`,
-                backgroundSize: "16px 16px",
-              }}
-            />
-
-            <div className="relative rounded-lg bg-bg-surface border border-border-subtle p-6 md:p-8 shadow-floating">
-              {/* Console Header Bar */}
-              <div className="flex items-center justify-between border-b border-border-subtle pb-4 mb-6">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-3 w-3 rounded-full bg-red-400/80" />
-                    <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
-                    <span className="h-3 w-3 rounded-full bg-green-400/80" />
-                  </div>
-                  <span className="text-xs font-mono text-fg-dim uppercase tracking-wider pl-2">
-                    GrowthMates AI Console
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2 rounded-full bg-signal-warm-dim px-3 py-1 text-xs font-semibold text-signal-warm">
-                  <span className="h-2 w-2 rounded-full bg-signal-warm animate-pulse" />
-                  LIVE DEMO
-                </div>
+            {/* 3D Smart Ecosystem Canvas Container */}
+            <div className="relative w-full max-w-[600px] h-[480px] flex items-center justify-center">
+              
+              {/* Outer Orbit Base Track (SDI Style) */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-60">
+                <svg className="w-full h-full max-w-[560px] max-h-[460px]" viewBox="0 0 560 460" fill="none">
+                  <ellipse cx="280" cy="360" rx="260" ry="85" stroke="#2E5EFF" strokeWidth="3" strokeDasharray="8 8" className="animate-spin-slow" />
+                  <ellipse cx="280" cy="360" rx="200" ry="60" stroke="#FF6A3D" strokeWidth="1.5" opacity="0.6" />
+                </svg>
               </div>
 
-              {/* Active Typewriter Stream Box */}
-              <div className="rounded-md bg-bg-base border border-border-subtle p-5 font-mono text-sm space-y-3 min-h-[140px] flex flex-col justify-center">
-                <div className="flex items-center justify-between text-xs text-fg-dimmer border-b border-border-subtle pb-2">
-                  <span className="text-accent font-semibold">[{activeTask.badge}]</span>
-                  <span>Agent Stream #0492</span>
-                </div>
+              {/* 3D Isometric Buildings & Connected Hubs SVG */}
+              <svg className="w-full h-full drop-shadow-2xl z-10" viewBox="0 0 600 480" fill="none">
+                <defs>
+                  <linearGradient id="sdiBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#2E5EFF" />
+                    <stop offset="100%" stopColor="#16214F" />
+                  </linearGradient>
+                  <linearGradient id="sdiWhiteGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#FFFFFF" />
+                    <stop offset="100%" stopColor="#F2F1EC" />
+                  </linearGradient>
+                  <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#4171FF" />
+                    <stop offset="100%" stopColor="#2E5EFF" />
+                  </linearGradient>
+                </defs>
 
-                <div className="text-fg-default font-medium text-base md:text-lg flex items-center gap-1 min-h-[28px]">
+                {/* Ground Base Platform */}
+                <ellipse cx="300" cy="380" rx="240" ry="70" fill="url(#sdiWhiteGrad)" stroke="#2E5EFF" strokeWidth="2" />
+                <ellipse cx="300" cy="380" rx="190" ry="50" fill="#EEF1FF" opacity="0.7" />
+
+                {/* 3D Tower 1 (Main AI Core Hub - Center High Tower) */}
+                <g transform="translate(260, 110)">
+                  {/* Left Facet */}
+                  <path d="M40 0 L0 25 L0 210 L40 185 Z" fill="#2E5EFF" />
+                  {/* Right Facet */}
+                  <path d="M40 0 L80 25 L80 210 L40 185 Z" fill="#16214F" />
+                  {/* Top Facet */}
+                  <path d="M40 0 L80 25 L40 50 L0 25 Z" fill="#7C97FF" />
+                  {/* Glass Lines */}
+                  <line x1="20" y1="50" x2="20" y2="190" stroke="#FFFFFF" strokeWidth="1.5" strokeOpacity="0.4" />
+                  <line x1="60" y1="50" x2="60" y2="190" stroke="#FFFFFF" strokeWidth="1.5" strokeOpacity="0.3" />
+                </g>
+
+                {/* 3D Building 2 (Left Transport Terminal) */}
+                <g transform="translate(140, 210)">
+                  <path d="M35 0 L0 20 L0 140 L35 120 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
+                  <path d="M35 0 L70 20 L70 140 L35 120 Z" fill="#EEF1FF" stroke="#2E5EFF" strokeWidth="1" />
+                  <path d="M35 0 L70 20 L35 40 L0 20 Z" fill="#4171FF" />
+                </g>
+
+                {/* 3D Building 3 (Right Logistics Hub) */}
+                <g transform="translate(380, 200)">
+                  <path d="M40 0 L0 22 L0 150 L40 128 Z" fill="#2E5EFF" />
+                  <path d="M40 0 L80 22 L80 150 L40 128 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
+                  <path d="M40 0 L80 22 L40 44 L0 22 Z" fill="#7C97FF" />
+                </g>
+
+                {/* Front Low Buildings */}
+                <g transform="translate(200, 290)">
+                  <path d="M30 0 L0 15 L0 80 L30 65 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
+                  <path d="M30 0 L60 15 L60 80 L30 65 Z" fill="#2E5EFF" />
+                </g>
+                <g transform="translate(330, 290)">
+                  <path d="M30 0 L0 15 L0 80 L30 65 Z" fill="#2E5EFF" />
+                  <path d="M30 0 L60 15 L60 80 L30 65 Z" fill="#FFFFFF" stroke="#2E5EFF" strokeWidth="1" />
+                </g>
+              </svg>
+
+              {/* Floating SDI Style 3D Badge Nodes (Hovering above buildings) */}
+              
+              {/* Badge 1: Security Shield Node (Top Left) */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-16 left-12 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
+              >
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#2E5EFF] text-white">
+                  <ShieldCheck className="h-4 w-4" />
+                </div>
+                <span className="text-xs font-bold text-[#14171F]">SOC2 Security</span>
+              </motion.div>
+
+              {/* Badge 2: Route AI Node (Top Right) */}
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-12 right-10 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
+              >
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FF6A3D] text-white">
+                  <Navigation className="h-4 w-4" />
+                </div>
+                <span className="text-xs font-bold text-[#14171F]">Route Optimization</span>
+              </motion.div>
+
+              {/* Badge 3: Real-Time Analytics Node (Middle Left) */}
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-44 left-6 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
+              >
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#2E5EFF] text-white">
+                  <BarChart3 className="h-4 w-4" />
+                </div>
+                <span className="text-xs font-bold text-[#14171F]">Live Analytics</span>
+              </motion.div>
+
+              {/* Badge 4: Verified Check Node (Middle Right) */}
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-48 right-6 z-20 flex items-center gap-2 rounded-full bg-white px-3.5 py-2 shadow-raised border border-[#2E5EFF]/30"
+              >
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1FAA59] text-white">
+                  <CheckCircle2 className="h-4 w-4" />
+                </div>
+                <span className="text-xs font-bold text-[#14171F]">Zero Downtime</span>
+              </motion.div>
+
+              {/* Embedded Live Agent Prompt Pill Overlay (Bottom Center) */}
+              <div className="absolute bottom-4 z-30 w-full max-w-sm rounded-xl bg-white/95 backdrop-blur-md border border-[#2E5EFF]/40 p-4 shadow-floating">
+                <div className="flex items-center justify-between text-[11px] font-mono text-[#5B616E] mb-1">
+                  <span className="text-[#2E5EFF] font-bold">[{activeStream.badge}]</span>
+                  <span className="text-[#FF6A3D] font-bold">● {activeStream.time}</span>
+                </div>
+                <div className="text-xs font-mono font-bold text-[#14171F] flex items-center gap-1">
                   <span>&gt; {displayText}</span>
-                  <span className="inline-block h-5 w-2 bg-accent animate-pulse" />
+                  <span className="inline-block h-3.5 w-1.5 bg-[#2E5EFF] animate-pulse" />
                 </div>
-
-                <p className="text-xs text-fg-dim font-sans">{activeTask.details}</p>
               </div>
 
-              {/* Console Task Feed */}
-              <div className="mt-6 space-y-3">
-                <p className="text-xs font-semibold text-fg-dimmer uppercase tracking-wider">
-                  Recent Agent Executions
-                </p>
-                {AGENT_TASKS.map((task, idx) => {
-                  const isCurrent = idx === taskIndex;
-                  return (
-                    <div
-                      key={task.action}
-                      className={`flex items-center justify-between p-3.5 rounded-md text-xs transition-colors border ${
-                        isCurrent
-                          ? "bg-accent-dim/60 border-accent/30 font-medium"
-                          : "bg-bg-surface border-border-subtle text-fg-dim"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <span
-                          className={`h-2 w-2 rounded-full ${
-                            isCurrent ? "bg-accent" : "bg-fg-dimmer/40"
-                          }`}
-                        />
-                        <span className={isCurrent ? "text-fg-default font-semibold" : ""}>
-                          {task.action}
-                        </span>
-                      </div>
-                      <span
-                        className={`font-mono text-[11px] ${
-                          isCurrent ? "text-accent font-semibold" : "text-fg-dimmer"
-                        }`}
-                      >
-                        {task.status}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>
