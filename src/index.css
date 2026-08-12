@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@500;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,99 +6,69 @@
 
 @layer base {
   :root {
-    --bg-base: #FAF9F6;
-    --bg-surface: #FFFFFF;
-    --bg-muted: #F2F1EC;
+    /* Backgrounds */
+    --bg-base: #FFFFFF;
+    --bg-surface: #FAFAF9;      /* subtly warm off-white for cards/panels */
+    --bg-muted: #F2F1EE;
 
-    --fg-default: #14171F;
-    --fg-dim: #5B616E;
-    --fg-dimmer: #8B8F99;
+    /* Foreground */
+    --fg-default: #1A1A1A;
+    --fg-dim: #525252;
+    --fg-dimmer: #8A8A8A;
 
-    --border-subtle: #E7E5DE;
+    --border-subtle: #E3E1DC;
 
-    --accent: #2E5EFF;
-    --accent-dim: #EEF1FF;
-    --accent-deep: #16214F;
-    --accent-on-dark: #7C97FF;
+    /* Accent — tonal orange ramp */
+    --accent-tint: #FFF1ED;     /* badges, hover backgrounds */
+    --accent: #E8622E;          /* primary CTA, links, active states */
+    --accent-deep: #C24417;     /* hover/pressed states */
 
-    --signal-warm: #FF6A3D;
-    --signal-warm-dim: #FFF1EC;
+    /* Contrast / dark sections — deep charcoal-navy */
+    --ink-deep: #14181F;
+    --ink-deep-fg: #F2F1EE;
+    --ink-accent-on-dark: #FF8A5C;
 
-    --success: #1FAA59;
+    --success: #027A48;
 
-    --radius-sm: 8px;
-    --radius-md: 14px;
-    --radius-lg: 24px;
-    --radius-full: 999px;
+    /* Radius — engineering-precise */
+    --radius-sm: 4px;    /* inputs, tags */
+    --radius-md: 8px;    /* standard cards */
+    --radius-lg: 16px;   /* large panels */
+    --radius-full: 999px; /* pills only */
 
-    --shadow-flat: 0 1px 2px rgba(20,23,31,0.04);
-    --shadow-raised: 0 2px 8px rgba(20,23,31,0.06), 0 8px 24px rgba(20,23,31,0.04);
-    --shadow-floating: 0 4px 16px rgba(20,23,31,0.08), 0 16px 40px rgba(20,23,31,0.06);
-
-    /* shadcn map */
-    --background: 40 20% 97%;
-    --foreground: 222 22% 10%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 22% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 22% 10%;
-    --primary: 226 100% 59%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 40 14% 93%;
-    --secondary-foreground: 222 22% 10%;
-    --muted: 40 14% 93%;
-    --muted-foreground: 221 9% 40%;
-    --accent-shadcn: 226 100% 97%;
-    --accent-foreground: 226 100% 59%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 43 14% 88%;
-    --input: 43 14% 88%;
-    --ring: 226 100% 59%;
-    --radius: 0.875rem;
-  }
-}
-
-@layer base {
-  * {
-    border-color: var(--border-subtle);
+    /* Elevation */
+    --shadow-flat: 0 1px 2px rgba(26,26,26,0.04);
+    --shadow-raised: 0 4px 12px rgba(26,26,26,0.06);
+    --shadow-floating: 0 12px 32px rgba(26,26,26,0.08);
   }
 
   body {
     background-color: var(--bg-base);
     color: var(--fg-default);
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
-    letter-spacing: -0.02em;
-  }
-
-  code, pre, kbd, samp {
-    font-family: 'JetBrains Mono', monospace;
+  * {
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
   }
 }
 
-/* Custom Utilities */
-.font-display {
-  font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
-}
-.font-body {
-  font-family: 'Inter', sans-serif;
-}
-.font-mono {
-  font-family: 'JetBrains Mono', monospace;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-.shadow-flat {
-  box-shadow: var(--shadow-flat);
+::-webkit-scrollbar-track {
+  background: var(--bg-surface);
 }
-.shadow-raised {
-  box-shadow: var(--shadow-raised);
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 999px;
 }
-.shadow-floating {
-  box-shadow: var(--shadow-floating);
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fg-dimmer);
 }

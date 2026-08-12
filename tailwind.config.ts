@@ -7,16 +7,21 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "1.5rem",
+      padding: {
+        DEFAULT: "1.5rem",
+        md: "2.5rem",
+        lg: "4rem",
+      },
       screens: {
         "2xl": "1280px",
       },
     },
     extend: {
       fontFamily: {
-        display: ["Cabinet Grotesk", "Space Grotesk", "system-ui", "sans-serif"],
-        body: ["Inter", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        display: ["Manrope", "system-ui", "sans-serif"],
+        body: ["Manrope", "system-ui", "sans-serif"],
+        sans: ["Manrope", "system-ui", "sans-serif"],
+        mono: ["Manrope", "system-ui", "sans-serif"],
       },
       colors: {
         "bg-base": "var(--bg-base)",
@@ -28,13 +33,14 @@ export default {
         "border-subtle": "var(--border-subtle)",
         accent: {
           DEFAULT: "var(--accent)",
-          dim: "var(--accent-dim)",
+          tint: "var(--accent-tint)",
           deep: "var(--accent-deep)",
-          "on-dark": "var(--accent-on-dark)",
+          "on-dark": "var(--ink-accent-on-dark)",
         },
-        signal: {
-          warm: "var(--signal-warm)",
-          "warm-dim": "var(--signal-warm-dim)",
+        ink: {
+          deep: "var(--ink-deep)",
+          fg: "var(--ink-deep-fg)",
+          accent: "var(--ink-accent-on-dark)",
         },
         success: "var(--success)",
         border: "hsl(var(--border))",
@@ -52,7 +58,7 @@ export default {
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          foreground: "#FFFFFF",
         },
         muted: {
           DEFAULT: "var(--bg-muted)",
@@ -62,12 +68,6 @@ export default {
           DEFAULT: "var(--bg-surface)",
           foreground: "var(--fg-default)",
         },
-      },
-      borderRadius: {
-        sm: "var(--radius-sm)",
-        md: "var(--radius-md)",
-        lg: "var(--radius-lg)",
-        full: "var(--radius-full)",
       },
       boxShadow: {
         flat: "var(--shadow-flat)",
@@ -83,15 +83,15 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        pulseSlow: {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.4" },
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "pulse-slow": "pulseSlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        marquee: "marquee 35s linear infinite",
       },
     },
   },

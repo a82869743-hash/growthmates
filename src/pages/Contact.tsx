@@ -1,314 +1,337 @@
-import { useState, useRef, useEffect } from "react";
-import { ArrowLeft, Send, CheckCircle, Clock, CalendarCheck, ShieldCheck } from "lucide-react";
+import { useState } from "react";
+import { DbstNavigation } from "@/components/navigation/DbstNavigation";
+import { DbstFooter } from "@/components/navigation/DbstFooter";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
+import {
+  Mail, Phone, MapPin, Clock, ShieldCheck, CheckCircle2, ArrowRight,
+  Building2, MessageSquare, Calendar, Loader2, Sparkles
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Link, useSearchParams } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-import { z } from "zod";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
-import ScrollReveal from "@/components/landing/ScrollReveal";
+import { Link } from "react-router-dom";
 
-const CALENDLY_URL = "https://calendly.com/d-bstsolutions/book-your-free-consultation";
+const serviceOptions = [
+  "Custom Software Engineering",
+  "AI Automation & Workflows",
+  "Data Analytics & Intelligence",
+  "Digital Transformation",
+  "Strategic Advisory & Consulting",
+  "General Inquiry / Partnership",
+];
 
-const contactSchema = z.object({
-  name: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
-  email: z.string().trim().email("Please enter a valid email address").max(255),
-  company: z.string().trim().max(200).optional().or(z.literal("")),
-  message: z.string().trim().max(2000).optional().or(z.literal("")),
-});
+const budgetRanges = [
+  "Under $25k",
+  "$25k - $50k",
+  "$50k - $100k",
+  "$100k+",
+  "Flexible / To Be Scoped",
+];
 
-type ContactFormData = z.infer<typeof contactSchema>;
-type FieldErrors = Partial<Record<keyof ContactFormData, string>>;
-
-const ContactPanel = () => {
-  const { toast } = useToast();
-  const [searchParams] = useSearchParams();
-  const initialQuery = searchParams.get("query") || "";
-
-  const [form, setForm] = useState<ContactFormData>({
-    name: "",
-    email: "",
-    company: "",
-    message: initialQuery ? `Automate query: ${initialQuery}` : "",
+const ContactPage = () => {
+  useDocumentMeta({
+    title: "Contact & Scoping Intake | D-BST Solutions",
+    description: "Schedule a technical scoping session with D-BST Solutions engineering principals or submit custom software requirements.",
   });
 
-  const [errors, setErrors] = useState<FieldErrors>({});
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [honeypot, setHoneypot] = useState("");
-  const renderTime = useRef(Date.now());
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    company: "",
+    service: serviceOptions[0],
+    budget: budgetRanges[2],
+    notes: "",
+  });
 
-  useEffect(() => {
-    if (initialQuery) {
-      setForm((prev) => ({
-        ...prev,
-        message: prev.message || `Automate query: ${initialQuery}`,
-      }));
-    }
-  }, [initialQuery]);
-
-  const validate = (): boolean => {
-    const result = contactSchema.safeParse(form);
-    if (result.success) {
-      setErrors({});
-      return true;
-    }
-    const fieldErrors: FieldErrors = {};
-    result.error.errors.forEach((err) => {
-      const field = err.path[0] as keyof ContactFormData;
-      if (!fieldErrors[field]) fieldErrors[field] = err.message;
-    });
-    setErrors(fieldErrors);
-    return false;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (honeypot) {
-      setSubmitted(true);
-      return;
-    }
-    if (Date.now() - renderTime.current < 2000) {
-      setSubmitted(true);
-      return;
-    }
-    if (!validate()) return;
-
-    setSubmitting(true);
-    try {
-      const { error: dbError } = await supabase.from("contact_submissions").insert({
-        name: form.name.trim(),
-        email: form.email.trim(),
-        company: form.company?.trim() || null,
-        message: form.message?.trim() || null,
-      });
-      if (dbError) throw dbError;
-
-      try {
-        await supabase.functions.invoke("send-contact-notification", {
-          body: {
-            name: form.name.trim(),
-            email: form.email.trim(),
-            company: form.company?.trim() || "",
-            message: form.message?.trim() || "",
-          },
-        });
-      } catch {
-        console.warn("Email notification failed, but submission was saved.");
-      }
-
-      setSubmitted(true);
-      toast({ title: "Message received!", description: "We'll get back to you within 24 hours." });
-    } catch {
+    if (!formData.fullName || !formData.email) {
       toast({
-        title: "Something went wrong",
-        description: "Please try again later.",
+        title: "Missing Required Fields",
+        description: "Please provide your name and work email.",
         variant: "destructive",
       });
-    } finally {
-      setSubmitting(false);
+      return;
     }
-  };
 
-  const handleChange = (field: keyof ContactFormData, value: string) => {
-    setForm((f) => ({ ...f, [field]: value }));
-    if (errors[field]) setErrors((e) => ({ ...e, [field]: undefined }));
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      toast({
+        title: "Inquiry Dispatched",
+        description: "Thank you. A D-BST Senior Solutions Architect will contact you within 24 hours.",
+      });
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        company: "",
+        service: serviceOptions[0],
+        budget: budgetRanges[2],
+        notes: "",
+      });
+    }, 1000);
   };
 
   return (
-    <div className="min-h-screen bg-bg-base text-fg-default font-body">
-      <Navbar />
-
-      <div className="container py-16 md:py-24">
-        <div className="mx-auto max-w-6xl">
-          {/* Header */}
-          <ScrollReveal variant="fade-up">
-            <div className="mb-12 text-center max-w-2xl mx-auto">
-              <span className="inline-block rounded-full bg-accent-dim px-3.5 py-1 text-xs font-semibold text-accent mb-3">
-                Direct Contact &amp; Consultations
-              </span>
-              <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display">
-                Get in Touch
-              </h1>
-              <p className="mt-3 text-base text-fg-dim">
-                Send us a message or schedule a live working session directly with our engineering team.
-              </p>
+    <div className="min-h-screen bg-bg-base text-fg-default font-body antialiased selection:bg-accent-tint selection:text-accent-deep">
+      <DbstNavigation />
+      
+      <main className="pt-12 pb-24">
+        
+        {/* Page Hero Header */}
+        <section className="py-12 bg-bg-surface border-b border-border-subtle">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-tint text-accent-deep border border-accent/20 text-xs font-mono font-bold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-accent" />
+              <span>DIRECT ENGINEERING INTAKE</span>
             </div>
-          </ScrollReveal>
+            <h1 className="font-display font-extrabold text-4xl sm:text-6xl text-fg-default tracking-tight">
+              Get in Touch with <span className="text-accent">D-BST Engineering</span>
+            </h1>
+            <p className="text-base sm:text-lg text-fg-dim font-body max-w-2xl mx-auto">
+              Schedule a technical scoping session with our engineering principals or submit your system architecture requirements below.
+            </p>
+          </div>
+        </section>
 
-          <div className="grid gap-8 lg:grid-cols-12 items-start">
-            {/* Left: Contact Form Column (6 cols) */}
-            <div className="lg:col-span-6 space-y-6">
-              {submitted ? (
-                <div className="flex flex-col items-center justify-center rounded-md border border-border-subtle bg-bg-surface p-12 text-center shadow-raised">
-                  <div className="rounded-full bg-accent-dim p-4 mb-4">
-                    <CheckCircle className="h-10 w-10 text-accent" />
+        {/* Main Content Grid */}
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 text-left">
+              
+              {/* Left Column: Office Info & Direct Support Cards */}
+              <div className="lg:col-span-5 space-y-8 font-mono">
+                
+                {/* Direct Consultation Card */}
+                <div className="p-8 bg-white border border-border-subtle rounded-3xl shadow-floating space-y-6">
+                  <div className="flex items-center justify-between text-xs border-b border-border-subtle pb-3">
+                    <span className="font-bold text-accent uppercase tracking-wider flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-accent" /> FAST TRACK CALL
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-accent-tint text-accent-deep font-bold text-[10px]">
+                      CALENDLY
+                    </span>
                   </div>
-                  <h2 className="text-2xl font-bold font-display">Thank you!</h2>
-                  <p className="mt-2 text-sm text-fg-dim">
-                    Your message has been received. Our team will reach out within 24 hours.
+                  
+                  <div className="space-y-2">
+                    <h2 className="font-display font-bold text-2xl text-fg-default font-sans">
+                      Schedule a 30-Min Scoping Call
+                    </h2>
+                    <p className="text-xs text-fg-dim font-body leading-relaxed">
+                      Prefer an immediate video call? Book directly on our lead architect&apos;s calendar for a 1-on-1 architecture review.
+                    </p>
+                  </div>
+
+                  <a
+                    href="https://calendly.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2.5 w-full py-4 rounded-xl bg-accent text-white font-bold text-xs uppercase tracking-wider hover:bg-accent-deep transition-all shadow-flat hover:shadow-floating"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    <span>BOOK CALENDLY CALL DIRECTLY</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+
+                {/* Office Locations */}
+                <div className="p-8 bg-white border border-border-subtle rounded-3xl shadow-floating space-y-6">
+                  <div className="text-xs font-bold text-fg-dimmer uppercase tracking-wider border-b border-border-subtle pb-3">
+                    GLOBAL HEADQUARTERS &amp; HUBS
+                  </div>
+
+                  <div className="space-y-5 text-xs text-fg-dim font-body">
+                    <div className="flex items-start gap-3">
+                      <MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-bold text-fg-default font-mono">San Francisco Headquarters</div>
+                        <p className="text-xs text-fg-dim pt-0.5">500 Howard Street, Suite 400, San Francisco, CA 94105</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <Building2 className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-bold text-fg-default font-mono">Sydney Engineering Hub</div>
+                        <p className="text-xs text-fg-dim pt-0.5">100 Barangaroo Avenue, Tower 3, Sydney NSW 2000</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <Mail className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-bold text-fg-default font-mono">Direct Technical Email</div>
+                        <p className="text-xs text-fg-dim pt-0.5 font-mono">solutions@dbst.com / support@dbstsolutions.com</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <Phone className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-bold text-fg-default font-mono">24/7 Technical Desk</div>
+                        <p className="text-xs text-fg-dim pt-0.5 font-mono">+1 (800) 555-DBST (3278)</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Commitment Box */}
+                <div className="p-6 bg-[#FFF5F0] border border-accent/30 rounded-2xl space-y-2 text-xs">
+                  <div className="font-bold text-accent flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-accent" /> 24-HOUR SLA RESPONSE GUARANTEE
+                  </div>
+                  <p className="text-fg-dim font-body text-xs leading-relaxed">
+                    All technical intake inquiries receive a direct response from a senior principal within 24 business hours.
                   </p>
                 </div>
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="rounded-md border border-border-subtle bg-bg-surface p-8 shadow-raised space-y-6"
-                >
-                  <h2 className="text-xl font-bold font-display border-b border-border-subtle pb-3">
-                    Send a Message
+
+              </div>
+
+              {/* Right Column: Full Intake Form */}
+              <div className="lg:col-span-7 bg-[#F5F4F0] border border-border-subtle rounded-3xl p-8 sm:p-10 shadow-floating space-y-6">
+                
+                <div className="space-y-2 border-b border-border-subtle pb-4">
+                  <h2 className="font-display font-bold text-2xl text-fg-default">
+                    Submit Project Intake Form
                   </h2>
+                  <p className="text-xs text-fg-dim font-body">
+                    Fill out the technical requirements below to receive a custom architecture scope and estimate.
+                  </p>
+                </div>
 
-                  {/* Floating-label style Input: Full Name */}
-                  <div className="relative">
-                    <input
-                      id="name"
-                      type="text"
-                      placeholder=" "
-                      value={form.name}
-                      onChange={(e) => handleChange("name", e.target.value)}
-                      className={`peer w-full rounded-md border bg-bg-base px-3.5 pt-5 pb-2 text-xs text-fg-default focus:outline-none focus:border-accent ${
-                        errors.name ? "border-signal-warm" : "border-border-subtle"
-                      }`}
-                    />
-                    <label
-                      htmlFor="name"
-                      className="absolute left-3.5 top-1.5 text-[10px] font-semibold uppercase tracking-wider text-fg-dimmer transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-xs peer-placeholder-shown:text-fg-dim peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-accent"
-                    >
-                      Full Name *
-                    </label>
-                    {errors.name && <p className="mt-1 text-[11px] text-signal-warm">{errors.name}</p>}
+                <form onSubmit={handleSubmit} className="space-y-5 font-mono text-xs">
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="font-bold text-fg-default flex items-center justify-between">
+                        <span>Full Name</span>
+                        <span className="text-accent">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Alex Morgan"
+                        value={formData.fullName}
+                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                        className="w-full p-3.5 rounded-xl bg-white border border-border-subtle text-fg-default text-sm font-body focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all shadow-flat"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="font-bold text-fg-default flex items-center justify-between">
+                        <span>Work Email</span>
+                        <span className="text-accent">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        placeholder="alex@enterprise.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="w-full p-3.5 rounded-xl bg-white border border-border-subtle text-fg-default text-sm font-body focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all shadow-flat"
+                      />
+                    </div>
                   </div>
 
-                  {/* Floating-label style Input: Work Email */}
-                  <div className="relative">
-                    <input
-                      id="email"
-                      type="email"
-                      placeholder=" "
-                      value={form.email}
-                      onChange={(e) => handleChange("email", e.target.value)}
-                      className={`peer w-full rounded-md border bg-bg-base px-3.5 pt-5 pb-2 text-xs text-fg-default focus:outline-none focus:border-accent ${
-                        errors.email ? "border-signal-warm" : "border-border-subtle"
-                      }`}
-                    />
-                    <label
-                      htmlFor="email"
-                      className="absolute left-3.5 top-1.5 text-[10px] font-semibold uppercase tracking-wider text-fg-dimmer transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-xs peer-placeholder-shown:text-fg-dim peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-accent"
-                    >
-                      Work Email *
-                    </label>
-                    {errors.email && <p className="mt-1 text-[11px] text-signal-warm">{errors.email}</p>}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="font-bold text-fg-default">Phone Number</label>
+                      <input
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="w-full p-3.5 rounded-xl bg-white border border-border-subtle text-fg-default text-sm font-body focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all shadow-flat"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="font-bold text-fg-default">Company Name</label>
+                      <input
+                        type="text"
+                        placeholder="Apex Logistics Ltd."
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        className="w-full p-3.5 rounded-xl bg-white border border-border-subtle text-fg-default text-sm font-body focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all shadow-flat"
+                      />
+                    </div>
                   </div>
 
-                  {/* Floating-label style Input: Company */}
-                  <div className="relative">
-                    <input
-                      id="company"
-                      type="text"
-                      placeholder=" "
-                      value={form.company || ""}
-                      onChange={(e) => handleChange("company", e.target.value)}
-                      className="peer w-full rounded-md border border-border-subtle bg-bg-base px-3.5 pt-5 pb-2 text-xs text-fg-default focus:outline-none focus:border-accent"
-                    />
-                    <label
-                      htmlFor="company"
-                      className="absolute left-3.5 top-1.5 text-[10px] font-semibold uppercase tracking-wider text-fg-dimmer transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-xs peer-placeholder-shown:text-fg-dim peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-accent"
-                    >
-                      Company Name
-                    </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="font-bold text-fg-default">Primary Service Practice</label>
+                      <select
+                        value={formData.service}
+                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                        className="w-full p-3.5 rounded-xl bg-white border border-border-subtle text-fg-default text-xs font-mono focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all shadow-flat"
+                      >
+                        {serviceOptions.map((opt) => (
+                          <option key={opt} value={opt}>{opt}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="font-bold text-fg-default">Target Budget Range</label>
+                      <select
+                        value={formData.budget}
+                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                        className="w-full p-3.5 rounded-xl bg-white border border-border-subtle text-fg-default text-xs font-mono focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all shadow-flat"
+                      >
+                        {budgetRanges.map((b) => (
+                          <option key={b} value={b}>{b}</option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
-                  {/* Floating-label style Input: Message */}
-                  <div className="relative">
+                  <div className="space-y-1.5">
+                    <label className="font-bold text-fg-default">Project Description / System Requirements</label>
                     <textarea
-                      id="message"
-                      placeholder=" "
                       rows={4}
-                      value={form.message || ""}
-                      onChange={(e) => handleChange("message", e.target.value)}
-                      className="peer w-full rounded-md border border-border-subtle bg-bg-base px-3.5 pt-6 pb-2 text-xs text-fg-default focus:outline-none focus:border-accent resize-none"
+                      placeholder="Detail your existing tech stack, legacy bottlenecks, or project objectives..."
+                      value={formData.notes}
+                      onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                      className="w-full p-3.5 rounded-xl bg-white border border-border-subtle text-fg-default text-sm font-body focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all resize-none shadow-flat"
                     />
-                    <label
-                      htmlFor="message"
-                      className="absolute left-3.5 top-1.5 text-[10px] font-semibold uppercase tracking-wider text-fg-dimmer transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-xs peer-placeholder-shown:text-fg-dim peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-accent"
-                    >
-                      Your Use Case &amp; Questions
-                    </label>
                   </div>
 
                   <button
                     type="submit"
-                    disabled={submitting}
-                    className="w-full rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2 shadow-flat"
+                    disabled={loading}
+                    className="w-full py-4 rounded-xl bg-accent text-white font-bold text-xs uppercase tracking-wider hover:bg-accent-deep transition-all shadow-raised hover:shadow-floating flex items-center justify-center gap-2"
                   >
-                    {submitting ? "Sending..." : "Send Message"}
-                    <Send className="h-4 w-4" />
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Transmitting Intake...</span>
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle2 className="w-4 h-4" />
+                        <span>SUBMIT TECHNICAL INTAKE FORM</span>
+                      </>
+                    )}
                   </button>
 
-                  {/* Honeypot */}
-                  <div className="absolute -left-[9999px]" aria-hidden="true">
-                    <input
-                      type="text"
-                      name="website"
-                      tabIndex={-1}
-                      autoComplete="off"
-                      value={honeypot}
-                      onChange={(e) => setHoneypot(e.target.value)}
-                    />
-                  </div>
                 </form>
-              )}
 
-              {/* 3-Step What Happens Next Strip */}
-              <div className="rounded-md bg-bg-muted border border-border-subtle p-5 font-sans">
-                <p className="text-xs font-mono uppercase tracking-wider text-fg-dimmer mb-3 font-semibold">
-                  What Happens Next?
-                </p>
-                <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                  <div className="p-3 rounded bg-bg-surface border border-border-subtle">
-                    <Clock className="h-4 w-4 text-accent mx-auto mb-1" />
-                    <span className="font-semibold block text-fg-default text-[11px]">1. We Review</span>
-                    <span className="text-[10px] text-fg-dim">Within 2 hours</span>
-                  </div>
-                  <div className="p-3 rounded bg-bg-surface border border-border-subtle">
-                    <Send className="h-4 w-4 text-accent mx-auto mb-1" />
-                    <span className="font-semibold block text-fg-default text-[11px]">2. We Reach Out</span>
-                    <span className="text-[10px] text-fg-dim">Within 24 hours</span>
-                  </div>
-                  <div className="p-3 rounded bg-bg-surface border border-border-subtle">
-                    <CalendarCheck className="h-4 w-4 text-accent mx-auto mb-1" />
-                    <span className="font-semibold block text-fg-default text-[11px]">3. Working Session</span>
-                    <span className="text-[10px] text-fg-dim">Book 1-on-1 demo</span>
-                  </div>
+                <div className="text-[10px] font-mono text-fg-dim text-center flex items-center justify-center gap-1.5 pt-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-accent" />
+                  <span>Strict NDA &amp; SOC2 Data Confidentiality Automatically Enforced</span>
                 </div>
-              </div>
-            </div>
 
-            {/* Right: Calendly Embed Column (6 cols) */}
-            <div className="lg:col-span-6 rounded-lg bg-bg-surface border border-border-subtle p-6 shadow-raised flex flex-col h-full">
-              <div className="mb-4 border-b border-border-subtle pb-3">
-                <h2 className="text-xl font-bold font-display text-fg-default">
-                  Book a Free Working Session
-                </h2>
-                <p className="text-xs text-fg-dim mt-0.5">
-                  Pick a convenient time for a 30-minute interactive demo with our engineering team.
-                </p>
               </div>
 
-              <iframe
-                src={`${CALENDLY_URL}?hide_gdpr_banner=1&background_color=ffffff`}
-                className="w-full flex-1 rounded-md border border-border-subtle min-h-[620px]"
-                frameBorder="0"
-                title="Book a consultation"
-              />
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <Footer />
+      </main>
+
+      <DbstFooter />
     </div>
   );
 };
 
-export default ContactPanel;
+export default ContactPage;

@@ -11,14 +11,14 @@ interface DocumentMeta {
   tags?: string[];
 }
 
-const BASE_URL = "https://brush-to-blossom.lovable.app";
+const BASE_URL = "https://dbst-solutions.com";
 
 export function useDocumentMeta(meta: DocumentMeta | null) {
   useEffect(() => {
     if (!meta) return;
 
     const prev = document.title;
-    document.title = `${meta.title} | Growthmates.ai`;
+    document.title = `${meta.title} | D-BST Solutions`;
 
     const setMeta = (property: string, content: string) => {
       let el = document.querySelector(`meta[property="${property}"]`) ||
@@ -36,33 +36,21 @@ export function useDocumentMeta(meta: DocumentMeta | null) {
     };
 
     const fullUrl = meta.url ? `${BASE_URL}${meta.url}` : BASE_URL;
-    const image = meta.image || `${BASE_URL}/favicon.png`;
+    const image = meta.image || `${BASE_URL}/og-image.jpg`;
 
     // Open Graph
     setMeta("og:title", meta.title);
     setMeta("og:description", meta.description);
     setMeta("og:image", image);
     setMeta("og:url", fullUrl);
-    setMeta("og:type", meta.type || "article");
-    setMeta("og:site_name", "Growthmates.ai");
+    setMeta("og:type", meta.type || "website");
+    setMeta("og:site_name", "D-BST Solutions");
 
     // Twitter Card
     setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", meta.title);
     setMeta("twitter:description", meta.description);
     setMeta("twitter:image", image);
-    setMeta("twitter:site", "@growthmatesai");
-
-    // Article-specific
-    if (meta.publishedTime) {
-      setMeta("article:published_time", meta.publishedTime);
-    }
-    if (meta.author) {
-      setMeta("article:author", meta.author);
-    }
-    meta.tags?.forEach((tag, i) => {
-      setMeta(`article:tag:${i}`, tag);
-    });
 
     // Description
     setMeta("description", meta.description);
