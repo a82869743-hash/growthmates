@@ -254,7 +254,7 @@ export const CapabilityMatrixHero = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-12 sm:py-16 lg:py-24 bg-bg-base overflow-hidden selection:bg-accent-tint selection:text-accent-deep border-b border-border-subtle">
+    <section ref={sectionRef} className="relative py-12 sm:py-16 lg:py-24 bg-bg-base overflow-hidden selection:bg-accent-tint selection:text-accent-deep">
       
       {/* 1. Soft Ambient Accent Glow Orbs */}
       <div className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-accent/8 blur-[130px] animate-pulse" />

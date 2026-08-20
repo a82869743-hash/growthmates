@@ -115,7 +115,7 @@ export const DbstWorkflowSection = () => {
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="py-20 lg:py-32 bg-gradient-to-b from-[#FFFDFB] via-[#FAF6F0] to-[#F5EFF6] border-b border-border-subtle overflow-hidden relative selection:bg-accent-tint selection:text-accent-deep"
+      className="py-20 lg:py-32 bg-gradient-to-b from-[#FFFDFB] via-[#FAF6F0] to-[#F5EFF6] overflow-hidden relative selection:bg-accent-tint selection:text-accent-deep"
     >
       
       {/* Background Volumetric Glow Orbs */}

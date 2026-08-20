@@ -70,7 +70,7 @@ export const InsightsSignup = () => {
   };
 
   return (
-    <section ref={containerRef} className="py-16 lg:py-20 bg-bg-muted border-b border-border-subtle">
+    <section ref={containerRef} className="py-16 lg:py-20 bg-bg-muted">
       <div ref={cardRef} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
         
         {/* Centered Mail Icon */}

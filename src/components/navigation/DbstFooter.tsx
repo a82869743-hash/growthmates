@@ -22,7 +22,7 @@ export const DbstFooter = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-ink-accent" />
-                <span>solutions@dbst.com</span>
+                <span>solutions@growthmates.ai</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-ink-accent" />
@@ -83,7 +83,7 @@ export const DbstFooter = () => {
               </li>
               <li>
                 <Link to="/about" className="hover:text-ink-accent transition-colors">
-                  About D-BST
+                  About GrowthMates
                 </Link>
               </li>
               <li>
@@ -102,7 +102,7 @@ export const DbstFooter = () => {
             <div className="p-3 bg-zinc-900/80 border border-zinc-800 rounded-md space-y-2">
               <div className="text-xs font-semibold text-white">GrowthMates.ai</div>
               <p className="text-xs text-zinc-400 leading-snug">
-                D-BST&apos;s productized AI platform for automated workforce agents.
+                GrowthMates&apos; AI platform for automated workforce agents.
               </p>
               <a
                 href="https://growthmates.ai"
@@ -133,7 +133,7 @@ export const DbstFooter = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
           <div>
-            © {new Date().getFullYear()} D-BST Solutions. All rights reserved. Precision engineering consultancy.
+            © {new Date().getFullYear()} GrowthMates AI. All rights reserved. Precision engineering consultancy.
           </div>
           <div className="flex items-center gap-6">
             <span>SOC2 Type II Certified</span>

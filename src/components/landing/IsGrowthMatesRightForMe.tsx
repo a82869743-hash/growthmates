@@ -22,7 +22,7 @@ export const IsGrowthMatesRightForMe = () => {
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-[#FAF9F6] border-b border-[#E7E5DE] text-[#14171F]">
+    <section className="py-20 md:py-28 bg-[#FAF9F6] text-[#14171F]">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           

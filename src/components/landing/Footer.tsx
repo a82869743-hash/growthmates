@@ -19,7 +19,7 @@ const Footer = () => {
             <ul className="space-y-2.5 text-sm text-white/70">
               <li><Link to="/pricing" className="transition-colors hover:text-accent-on-dark">Pricing & Plans</Link></li>
               <li><Link to="/roi-calculator" className="transition-colors hover:text-accent-on-dark">ROI Calculator</Link></li>
-              <li><Link to="/assessment" className="transition-colors hover:text-accent-on-dark">AI Readiness Assessment</Link></li>
+              <li><Link to="/roi-calculator?tab=assessment" className="transition-colors hover:text-accent-on-dark">AI Readiness Assessment</Link></li>
               <li><Link to="/roadmap" className="transition-colors hover:text-accent-on-dark">Product Roadmap</Link></li>
             </ul>
           </div>
@@ -34,8 +34,8 @@ const Footer = () => {
           <div>
             <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/40">Company</h4>
             <ul className="space-y-2.5 text-sm text-white/70">
-              <li><Link to="/contact" className="transition-colors hover:text-accent-on-dark">Contact Us</Link></li>
-              <li><Link to="/blog" className="transition-colors hover:text-accent-on-dark">Blog & Articles</Link></li>
+              <li><Link to="/enterprise" className="transition-colors hover:text-accent-on-dark">Enterprise Solutions &amp; Contact</Link></li>
+              <li><Link to="/enterprise" className="transition-colors hover:text-accent-on-dark">Research &amp; Insights</Link></li>
               <li><span className="cursor-pointer transition-colors hover:text-accent-on-dark">Privacy Policy</span></li>
               <li><span className="cursor-pointer transition-colors hover:text-accent-on-dark">Terms of Service</span></li>
             </ul>

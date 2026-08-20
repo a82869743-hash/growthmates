@@ -80,7 +80,7 @@ export const FounderNote = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="py-20 lg:py-28 bg-bg-surface border-y border-border-subtle">
+    <section ref={containerRef} className="py-20 lg:py-28 bg-bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Founder Letter Card */}

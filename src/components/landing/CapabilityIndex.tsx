@@ -127,7 +127,7 @@ export const CapabilityIndex = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="py-20 lg:py-28 bg-bg-base border-b border-border-subtle">
+    <section ref={containerRef} className="py-20 lg:py-28 bg-bg-base">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         {/* Section Header */}

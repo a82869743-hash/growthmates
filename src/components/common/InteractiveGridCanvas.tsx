@@ -10,15 +10,30 @@ export const InteractiveGridCanvas = () => {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let width = (canvas.width = canvas.parentElement?.offsetWidth || window.innerWidth);
-    let height = (canvas.height = canvas.parentElement?.offsetHeight || 600);
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
 
-    const handleResize = () => {
+    const setupSize = () => {
       if (!canvas) return;
-      width = canvas.width = canvas.parentElement?.offsetWidth || window.innerWidth;
-      height = canvas.height = canvas.parentElement?.offsetHeight || 600;
+      const rect = canvas.parentElement?.getBoundingClientRect() || {
+        width: window.innerWidth,
+        height: 800,
+      };
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = rect.width;
+      height = rect.height;
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+
+      ctx.scale(dpr, dpr);
     };
-    window.addEventListener("resize", handleResize);
+
+    setupSize();
+    window.addEventListener("resize", setupSize);
 
     const gridSize = 40;
     let mouseX = -1000;
@@ -26,22 +41,32 @@ export const InteractiveGridCanvas = () => {
     let targetMouseX = -1000;
     let targetMouseY = -1000;
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handlePointerMove = (clientX: number, clientY: number) => {
+      if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
-      targetMouseX = e.clientX - rect.left;
-      targetMouseY = e.clientY - rect.top;
+      targetMouseX = clientX - rect.left;
+      targetMouseY = clientY - rect.top;
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      handlePointerMove(e.clientX, e.clientY);
     };
 
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches.length > 0) {
-        const rect = canvas.getBoundingClientRect();
-        targetMouseX = e.touches[0].clientX - rect.left;
-        targetMouseY = e.touches[0].clientY - rect.top;
+        handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
       }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("touchmove", handleTouchMove);
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
@@ -53,7 +78,7 @@ export const InteractiveGridCanvas = () => {
       ctx.strokeStyle = "rgba(227, 225, 220, 0.75)";
 
       // Draw Vertical Grid Lines with Touch Ripple Displacement
-      for (let x = 0; x <= width; x += gridSize) {
+      for (let x = 0; x <= width + gridSize; x += gridSize) {
         ctx.beginPath();
         for (let y = 0; y <= height; y += 12) {
           const dx = x - mouseX;
@@ -78,7 +103,7 @@ export const InteractiveGridCanvas = () => {
       }
 
       // Draw Horizontal Grid Lines with Touch Ripple Displacement
-      for (let y = 0; y <= height; y += gridSize) {
+      for (let y = 0; y <= height + gridSize; y += gridSize) {
         ctx.beginPath();
         for (let x = 0; x <= width; x += 12) {
           const dx = x - mouseX;
@@ -108,9 +133,10 @@ export const InteractiveGridCanvas = () => {
     render();
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", setupSize);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchstart", handleTouchStart);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -118,7 +144,9 @@ export const InteractiveGridCanvas = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-auto absolute inset-0 w-full h-full z-0 opacity-75"
+      className="absolute inset-0 w-full h-full pointer-events-none z-0"
+      aria-hidden="true"
     />
   );
 };
+export default InteractiveGridCanvas;

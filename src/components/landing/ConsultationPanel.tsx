@@ -69,7 +69,7 @@ export const ConsultationPanel = () => {
   };
 
   return (
-    <section ref={containerRef} className="py-20 lg:py-28 bg-bg-surface border-b border-border-subtle">
+    <section ref={containerRef} className="py-20 lg:py-28 bg-bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Consultation Panel Card */}
@@ -114,11 +114,11 @@ export const ConsultationPanel = () => {
               <div className="pt-6 border-t border-border-subtle space-y-3 font-mono text-xs text-fg-dim">
                 <div className="flex items-center gap-2.5">
                   <Mail className="w-4 h-4 text-accent shrink-0" />
-                  <span className="font-bold text-fg-default">support@dbstsolutions.com</span>
+                  <span className="font-bold text-fg-default">support@growthmates.ai</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Phone className="w-4 h-4 text-accent shrink-0" />
-                  <span>+1 (800) 555-DBST &bull; Direct Technical Desk</span>
+                  <span>+1 (800) 555-0199 &bull; Direct Technical Desk</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Clock className="w-4 h-4 text-accent shrink-0" />

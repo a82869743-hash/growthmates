@@ -2,21 +2,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "@/components/common/ScrollToTop";
 import Index from "./pages/Index";
-import SolutionsPage from "./pages/Solutions";
-import UseCasesPage from "./pages/UseCases";
-import AboutPage from "./pages/About";
-import ServiceDetailPage from "./pages/ServiceDetail";
-import ContactPage from "./pages/Contact";
-import PrivacyPage from "./pages/Privacy";
-import TermsPage from "./pages/Terms";
 import Pricing from "./pages/Pricing";
 import ROICalculator from "./pages/ROICalculator";
+import Enterprise from "./pages/Enterprise";
 import Roadmap from "./pages/Roadmap";
-import Assessment from "./pages/Assessment";
-import Blog from "./pages/Blog";
 import MegaTrans from "./pages/MegaTrans";
 import BlogPost from "./pages/BlogPost";
 import BlogAdminPage from "./pages/BlogAdmin";
@@ -35,24 +27,19 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/solutions" element={<SolutionsPage />} />
-          <Route path="/use-cases" element={<UseCasesPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/services/:slug" element={<ServiceDetailPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
-          <Route path="/terms" element={<TermsPage />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/roi-calculator" element={<ROICalculator />} />
+          <Route path="/assessment" element={<Navigate to="/roi-calculator?tab=assessment" replace />} />
+          <Route path="/enterprise" element={<Enterprise />} />
+          <Route path="/contact" element={<Navigate to="/enterprise" replace />} />
+          <Route path="/blog" element={<Navigate to="/enterprise" replace />} />
           <Route path="/roadmap" element={<Roadmap />} />
-          <Route path="/assessment" element={<Assessment />} />
           <Route path="/megatrans" element={<MegaTrans />} />
-          <Route path="/blog" element={<Blog />} />
           <Route path="/blog/admin" element={<BlogAdminPage />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
           <Route path="/login" element={<Login />} />
-          {/* CATCH-ALL ROUTE */}
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

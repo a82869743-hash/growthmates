@@ -76,7 +76,7 @@ export const DbstTopologySection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 lg:py-28 bg-bg-base border-b border-border-subtle overflow-hidden relative selection:bg-accent-tint selection:text-accent-deep">
+    <section ref={sectionRef} className="py-20 lg:py-28 bg-bg-base overflow-hidden relative selection:bg-accent-tint selection:text-accent-deep">
       
       {/* Background Subtle Grid Pattern */}
       <div

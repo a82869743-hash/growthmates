@@ -7,21 +7,18 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: {
-        DEFAULT: "1.5rem",
-        md: "2.5rem",
-        lg: "4rem",
-      },
+      padding: "1.5rem",
       screens: {
         "2xl": "1280px",
       },
     },
     extend: {
       fontFamily: {
-        display: ["Manrope", "system-ui", "sans-serif"],
-        body: ["Manrope", "system-ui", "sans-serif"],
-        sans: ["Manrope", "system-ui", "sans-serif"],
-        mono: ["Manrope", "system-ui", "sans-serif"],
+        display: ["'Manrope'", "system-ui", "sans-serif"],
+        body: ["'Manrope'", "system-ui", "sans-serif"],
+        sans: ["'Manrope'", "system-ui", "sans-serif"],
+        serif: ["'Manrope'", "system-ui", "sans-serif"],
+        mono: ["'JetBrains Mono'", "monospace"],
       },
       colors: {
         "bg-base": "var(--bg-base)",
@@ -33,14 +30,13 @@ export default {
         "border-subtle": "var(--border-subtle)",
         accent: {
           DEFAULT: "var(--accent)",
-          tint: "var(--accent-tint)",
+          dim: "var(--accent-dim)",
           deep: "var(--accent-deep)",
-          "on-dark": "var(--ink-accent-on-dark)",
+          "on-dark": "var(--accent-on-dark)",
         },
-        ink: {
-          deep: "var(--ink-deep)",
-          fg: "var(--ink-deep-fg)",
-          accent: "var(--ink-accent-on-dark)",
+        signal: {
+          warm: "var(--signal-warm)",
+          "warm-dim": "var(--signal-warm-dim)",
         },
         success: "var(--success)",
         border: "hsl(var(--border))",
@@ -58,7 +54,7 @@ export default {
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
-          foreground: "#FFFFFF",
+          foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
           DEFAULT: "var(--bg-muted)",
@@ -68,6 +64,12 @@ export default {
           DEFAULT: "var(--bg-surface)",
           foreground: "var(--fg-default)",
         },
+      },
+      borderRadius: {
+        sm: "var(--radius-sm)",
+        md: "var(--radius-md)",
+        lg: "var(--radius-lg)",
+        full: "var(--radius-full)",
       },
       boxShadow: {
         flat: "var(--shadow-flat)",
@@ -83,15 +85,15 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        marquee: {
-          "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-50%)" },
+        pulseSlow: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.4" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        marquee: "marquee 35s linear infinite",
+        "pulse-slow": "pulseSlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },

@@ -7,11 +7,9 @@ import LogoMark from "./LogoMark";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "ROI Calculator", href: "/roi-calculator" },
-  { label: "Assessment", href: "/assessment" },
+  { label: "Enterprise", href: "/enterprise" },
   { label: "MegaTrans 2026", href: "/megatrans" },
-  { label: "Blog", href: "/blog" },
   { label: "Roadmap", href: "/roadmap" },
-  { label: "Contact", href: "/contact" },
 ];
 
 const LOGIN_URL = "https://portal.growthmates.ai/login";

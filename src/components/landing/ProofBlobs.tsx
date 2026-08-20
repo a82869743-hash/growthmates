@@ -82,7 +82,7 @@ const ProofBlobs = () => {
   const prevItem = TESTIMONIALS[(activeIdx - 1 + TESTIMONIALS.length) % TESTIMONIALS.length];
 
   return (
-    <section className="bg-[#FAF9F6] py-20 md:py-28 border-b border-[#E7E5DE] text-[#14171F] relative overflow-hidden">
+    <section className="bg-[#FAF9F6] py-20 md:py-28 text-[#14171F] relative overflow-hidden">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

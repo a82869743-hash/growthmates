@@ -102,7 +102,7 @@ const SystemTrace = () => {
     <section
       ref={containerRef}
       id="architecture"
-      className="bg-bg-surface py-20 md:py-28 border-b border-border-subtle overflow-hidden"
+      className="bg-bg-surface py-20 md:py-28 overflow-hidden"
     >
       <div className="container">
         {/* Header */}

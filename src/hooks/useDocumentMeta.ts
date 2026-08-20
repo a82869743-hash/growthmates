@@ -11,7 +11,7 @@ interface DocumentMeta {
   tags?: string[];
 }
 
-const BASE_URL = "https://dbst-solutions.com";
+const BASE_URL = "https://growthmates.ai";
 
 export function useDocumentMeta(meta: DocumentMeta | null) {
   useEffect(() => {

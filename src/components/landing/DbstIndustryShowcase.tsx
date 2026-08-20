@@ -246,7 +246,7 @@ export const DbstIndustryShowcase = () => {
   };
 
   return (
-    <section ref={containerRef} className="py-20 lg:py-28 bg-bg-base border-b border-border-subtle overflow-hidden relative selection:bg-accent-tint selection:text-accent-deep">
+    <section ref={containerRef} className="py-20 lg:py-28 bg-bg-base overflow-hidden relative selection:bg-accent-tint selection:text-accent-deep">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
